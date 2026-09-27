@@ -9,6 +9,9 @@ on:
       - 'MassTransit.sln'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
+      - '.gitignore'
+      - 'SECURITY.md'
+      - 'docs/decisions/0001-fork-provenance-and-support.md'
       - '**/build.yml'
     branches:
       - '**'
@@ -19,6 +22,9 @@ on:
       - 'MassTransit.sln'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
+      - '.gitignore'
+      - 'SECURITY.md'
+      - 'docs/decisions/0001-fork-provenance-and-support.md'
       - '**/build.yml'
   workflow_dispatch:
 
