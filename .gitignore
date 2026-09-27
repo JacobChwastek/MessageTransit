@@ -39,3 +39,11 @@ dist
 sw.*
 .env
 .output
+
+# Local documentation, graph analysis, and workflow artifacts
+/docs/*
+!/docs/decisions/
+/docs/decisions/*
+!/docs/decisions/0001-fork-provenance-and-support.md
+/graphify-out/
+/.workflow/
