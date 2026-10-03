@@ -1,3 +1,4 @@
+# Modified for MessageTransit.
 name: MassTransit
 env:
   MASSTRANSIT_VERSION: 8.5.10
@@ -11,6 +12,11 @@ on:
       - 'Directory.Packages.props'
       - '.gitignore'
       - 'SECURITY.md'
+      - 'LICENSE'
+      - 'NOTICE'
+      - 'COPYRIGHT'
+      - 'THIRD-PARTY-NOTICES'
+      - 'docs/legal/redistribution-inventory.md'
       - 'docs/decisions/0001-fork-provenance-and-support.md'
       - '**/build.yml'
     branches:
@@ -24,6 +30,11 @@ on:
       - 'Directory.Packages.props'
       - '.gitignore'
       - 'SECURITY.md'
+      - 'LICENSE'
+      - 'NOTICE'
+      - 'COPYRIGHT'
+      - 'THIRD-PARTY-NOTICES'
+      - 'docs/legal/redistribution-inventory.md'
       - 'docs/decisions/0001-fork-provenance-and-support.md'
       - '**/build.yml'
   workflow_dispatch:
