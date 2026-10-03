@@ -1,3 +1,5 @@
+# Modified for MessageTransit.
+
 *.suo
 *.user
 *.dotCover
@@ -45,5 +47,12 @@ sw.*
 !/docs/decisions/
 /docs/decisions/*
 !/docs/decisions/0001-fork-provenance-and-support.md
+!/docs/legal/
+/docs/legal/*
+!/docs/legal/redistribution-inventory.md
+!/docs/architecture/
+/docs/architecture/*
+!/docs/architecture/dependency-inventory.md
+!/docs/architecture/dependency-inventory.json
 /graphify-out/
 /.workflow/
