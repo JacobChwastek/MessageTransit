@@ -1,7 +1,8 @@
-=========================================================================
-==  Example NOTICE file for use with the Apache License, Version 2.0,  ==
-==  in this case for the Apache httpd-2.0 distribution.                ==
-=========================================================================
-
 MassTransit
 Copyright 2007-2024 Chris Patterson
+
+MessageTransit
+Copyright 2026 Jacob Chwastek
+
+MessageTransit is based on MassTransit v8.5.10. This NOTICE was updated for
+this fork.

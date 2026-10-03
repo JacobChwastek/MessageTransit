@@ -1,0 +1,11 @@
+<Project>
+  <Import Project="../../Directory.Build.props" />
+
+  <PropertyGroup>
+    <PackageLicenseExpression>Apache-2.0 AND MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)../../../THIRD-PARTY-NOTICES" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+</Project>

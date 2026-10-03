@@ -1,9 +1,10 @@
 <Project>
+  <!-- Modified for MessageTransit. -->
   <Import Project="..\Directory.Build.props"/>
 
   <PropertyGroup>
     <Product>MassTransit</Product>
-    <Copyright>Copyright 2007-2024 Chris Patterson</Copyright>
+    <Copyright>Copyright 2007-2024 Chris Patterson; Copyright 2026 Jacob Chwastek</Copyright>
     <Authors>Chris Patterson</Authors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -29,8 +30,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\mt-logo-small.png" Pack="true" Visible="false" PackagePath=""/>
-    <None Include="..\..\NuGet.README.md" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="$(MSBuildThisFileDirectory)../mt-logo-small.png" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="$(MSBuildThisFileDirectory)../NuGet.README.md" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="$(MSBuildThisFileDirectory)../LICENSE" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="$(MSBuildThisFileDirectory)../NOTICE" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="$(MSBuildThisFileDirectory)../COPYRIGHT" Pack="true" Visible="false" PackagePath=""/>
   </ItemGroup>
 
 </Project>
