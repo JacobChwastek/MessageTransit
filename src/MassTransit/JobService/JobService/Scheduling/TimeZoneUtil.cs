@@ -52,7 +52,7 @@ public static class TimeZoneUtil
     }
 
     /// <summary>
-    /// TimeZoneInfo.ConvertTime is not supported under mono
+    /// Converts the specified date and time to the given time zone.
     /// </summary>
     /// <param name="dateTimeOffset"></param>
     /// <param name="timeZoneInfo"></param>
@@ -63,7 +63,7 @@ public static class TimeZoneUtil
     }
 
     /// <summary>
-    /// TimeZoneInfo.GetUtcOffset(DateTimeOffset) is not supported under mono
+    /// Returns the UTC offset for the specified date and time in the given time zone.
     /// </summary>
     /// <param name="dateTimeOffset"></param>
     /// <param name="timeZoneInfo"></param>

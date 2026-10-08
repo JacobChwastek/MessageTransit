@@ -129,11 +129,11 @@ public class CronExpressionTest
     public void CanUse_DayOfMonth_And_DayOfWeek_Together(string cronExpression, int[] expectedDays, string scenario = "")
     {
         var expr = new CronExpression(cronExpression);
-        var templateDate = new DateTime(2010, 10, 1, 10, 15, 0).ToUniversalTime();
+        var templateDate = new DateTime(2010, 10, 1, 10, 15, 0);
 
         foreach (var day in expectedDays)
         {
-            var date = new DateTime(templateDate.Year, templateDate.Month, day, templateDate.Hour, templateDate.Minute, templateDate.Second, templateDate.Kind);
+            var date = new DateTime(templateDate.Year, templateDate.Month, day, templateDate.Hour, templateDate.Minute, templateDate.Second).ToUniversalTime();
             Assert.That(expr.IsSatisfiedBy(date), Is.True, $"expected day of {day}, {scenario}");
         }
 
@@ -141,7 +141,7 @@ public class CronExpressionTest
 
         foreach (var day in invalidDays)
         {
-            var date = new DateTime(templateDate.Year, templateDate.Month, day, templateDate.Hour, templateDate.Minute, templateDate.Second, templateDate.Kind);
+            var date = new DateTime(templateDate.Year, templateDate.Month, day, templateDate.Hour, templateDate.Minute, templateDate.Second).ToUniversalTime();
             Assert.That(expr.IsSatisfiedBy(date), Is.False, $"invalid day of {day}, {scenario}");
         }
     }

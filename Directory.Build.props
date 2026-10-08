@@ -2,11 +2,6 @@
   <!-- These properties will be shared for all projects -->
 
   <PropertyGroup>
-    <IsMac>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::get_OSX())))</IsMac>
-    <IsWindows>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::get_Windows())))</IsWindows>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <LangVersion>12</LangVersion>
     <WarningLevel>4</WarningLevel>
     <NoWarn>CS1591,CS1998</NoWarn>

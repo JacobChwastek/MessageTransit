@@ -1,33 +1,29 @@
-namespace MassTransit
+namespace MassTransit;
+
+using System;
+using System.Runtime.Serialization;
+
+
+[Serializable]
+public class ConventionException : MassTransitException
 {
-    using System;
-    using System.Runtime.Serialization;
-
-
-    [Serializable]
-    public class ConventionException :
-        MassTransitException
+    public ConventionException()
     {
-        public ConventionException()
-        {
-        }
+    }
 
-        public ConventionException(string message)
-            : base(message)
-        {
-        }
+    public ConventionException(string message)
+        : base(message)
+    {
+    }
 
-        public ConventionException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+    public ConventionException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
 
-#if NET8_0_OR_GREATER
-        [Obsolete("Formatter-based serialization is obsolete and should not be used.")]
-#endif
-        protected ConventionException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
+    [Obsolete("Formatter-based serialization is obsolete and should not be used.")]
+    protected ConventionException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    {
     }
 }

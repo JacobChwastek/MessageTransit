@@ -1,33 +1,29 @@
-﻿namespace MassTransit
+﻿namespace MassTransit;
+
+using System;
+using System.Runtime.Serialization;
+
+
+[Serializable]
+public class ValueFactoryException : Exception
 {
-    using System;
-    using System.Runtime.Serialization;
-
-
-    [Serializable]
-    public class ValueFactoryException :
-        Exception
+    public ValueFactoryException()
     {
-        public ValueFactoryException()
-        {
-        }
+    }
 
-        public ValueFactoryException(string message)
-            : base(message)
-        {
-        }
+    public ValueFactoryException(string message)
+        : base(message)
+    {
+    }
 
-#if NET8_0_OR_GREATER
-        [Obsolete("Formatter-based serialization is obsolete and should not be used.")]
-#endif
-        protected ValueFactoryException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
+    [Obsolete("Formatter-based serialization is obsolete and should not be used.")]
+    protected ValueFactoryException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    {
+    }
 
-        public ValueFactoryException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+    public ValueFactoryException(string message, Exception innerException)
+        : base(message, innerException)
+    {
     }
 }

@@ -294,6 +294,9 @@ def generate(jobs):
     tracked = tracked_files()
     paths = [path for path in tracked if path.endswith(".csproj")]
     input_paths = [path for path in tracked if path.endswith((".csproj", ".props", ".targets", ".sln", ".slnx")) or path.startswith(".github/workflows/") or path in ("global.json", "NuGet.Config", "nuget.config")]
+    # SDK selection affects evaluation even before a new global.json is staged.
+    if (ROOT / "global.json").is_file() and "global.json" not in input_paths:
+        input_paths = sorted([*input_paths, "global.json"])
     sources = {path: source_declarations(path) for path in input_paths if path.endswith((".csproj", ".props", ".targets"))}
     solutions = {}
     for path in input_paths:

@@ -19,50 +19,52 @@ Build Status
 | master        |    [![master](https://github.com/MassTransit/MassTransit/actions/workflows/build.yml/badge.svg?branch=master&event=push)](https://github.com/MassTransit/MassTransit/actions/workflows/build.yml)    |
 | develop       |   [![develop](https://github.com/MassTransit/MassTransit/actions/workflows/build.yml/badge.svg?branch=develop&event=push)](https://github.com/MassTransit/MassTransit/actions/workflows/build.yml)   |
 
-MassTransit NuGet Packages
+Runtime targets in this fork
 ---------------------------
+
+The retained runtime projects require .NET 10. The analyzer is a compiler tooling asset on .NET Standard 2.0. Package links below identify the inherited upstream packages; the table describes this repository's source targets.
 
 | Package Name                                                    |   .NET   | .NET Standard | .NET Framework |
 |-----------------------------------------------------------------|:--------:|:-------------:|:--------------:|
 | **Main**                                                        |          |               |                |
-| [MassTransit][MassTransit.nuget]                                | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.Abstractions][MassTransitAbstractions.nuget]       | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.Newtonsoft][MassTransitNewtonsoft.nuget]           | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.MessagePack][MassTransitMessagePack.nuget]         | 8.0, 9.0 |      2.0      |     4.7.2      |
+| [MassTransit][MassTransit.nuget]                                | 10.0 | — | — |
+| [MassTransit.Abstractions][MassTransitAbstractions.nuget]       | 10.0 | — | — |
+| [MassTransit.Newtonsoft][MassTransitNewtonsoft.nuget]           | 10.0 | — | — |
+| [MassTransit.MessagePack][MassTransitMessagePack.nuget]         | 10.0 | — | — |
 | **Other**                                                       |          |               |                |
 | [MassTransit.Analyzers][Analyzers.nuget]                        |          |      2.0      |                |
 | [MassTransit.Templates][Templates.nuget]                        |          |               |                |
-| [MassTransit.SignalR][SignalR.nuget]                            | 8.0, 9.0 |               |     4.7.2      |
-| [MassTransit.Interop.NServiceBus][MassTransitNServiceBus.nuget] | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.TestFramework][TestFramework.nuget]                | 8.0, 9.0 |      2.0      |     4.7.2      |
+| [MassTransit.SignalR][SignalR.nuget]                            | 10.0 | — | — |
+| [MassTransit.Interop.NServiceBus][MassTransitNServiceBus.nuget] | 10.0 | — | — |
+| [MassTransit.TestFramework][TestFramework.nuget]                | 10.0 | — | — |
 | **Persistence**                                                 |          |               |                |
-| [MassTransit.AmazonS3][AmazonS3.nuget]                          | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.Azure.Cosmos][Cosmos.nuget]                        | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.Azure.Storage][AzureStorage.nuget]                 | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.Azure.Table][AzureTable.nuget]                     | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.Dapper][Dapper.nuget]                              | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.DynamoDb][DynamoDb.nuget]                          | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.EntityFrameworkCore][EFCore.nuget]                 | 8.0, 9.0 |               |                |
-| [MassTransit.EntityFramework][EF.nuget]                         |          |      2.1      |     4.7.2      |     
-| [MassTransit.Marten][Marten.nuget]                              | 8.0, 9.0 |               |                |
-| [MassTransit.MongoDb][MongoDb.nuget]                            | 8.0, 9.0 |      2.1      |     4.7.2      |
-| [MassTransit.NHibernate][NHibernate.nuget]                      | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.Redis][Redis.nuget]                                | 8.0, 9.0 |      2.0      |     4.7.2      |
+| [MassTransit.AmazonS3][AmazonS3.nuget]                          | 10.0 | — | — |
+| [MassTransit.Azure.Cosmos][Cosmos.nuget]                        | 10.0 | — | — |
+| [MassTransit.Azure.Storage][AzureStorage.nuget]                 | 10.0 | — | — |
+| [MassTransit.Azure.Table][AzureTable.nuget]                     | 10.0 | — | — |
+| [MassTransit.Dapper][Dapper.nuget]                              | 10.0 | — | — |
+| [MassTransit.DynamoDb][DynamoDb.nuget]                          | 10.0 | — | — |
+| [MassTransit.EntityFrameworkCore][EFCore.nuget]                 | 10.0 | — | — |
+| [MassTransit.EntityFramework][EF.nuget]                         | 10.0 | — | — |
+| [MassTransit.Marten][Marten.nuget]                              | 10.0 | — | — |
+| [MassTransit.MongoDb][MongoDb.nuget]                            | 10.0 | — | — |
+| [MassTransit.NHibernate][NHibernate.nuget]                      | 10.0 | — | — |
+| [MassTransit.Redis][Redis.nuget]                                | 10.0 | — | — |
 | **Scheduling**                                                  |          |               |                |
-| [MassTransit.Hangfire][Hangfire.nuget]                          | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.Quartz][Quartz.nuget]                              | 8.0, 9.0 |      2.0      |     4.7.2      |
+| [MassTransit.Hangfire][Hangfire.nuget]                          | 10.0 | — | — |
+| [MassTransit.Quartz][Quartz.nuget]                              | 10.0 | — | — |
 | **Transports**                                                  |          |               |                |
-| [MassTransit.ActiveMQ][ActiveMQ.nuget]                          | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.AmazonSQS][AmazonSQS.nuget]                        | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.Azure.ServiceBus.Core][AzureSbCore.nuget]          | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.RabbitMQ][RabbitMQ.nuget]                          | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.SqlTransport.PostgreSQL][PostgreSQL.nuget]         | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.SqlTransport.SqlServer][SqlServer.nuget]           | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.WebJobs.EventHubs][EventHubs.nuget]                | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.WebJobs.ServiceBus][AzureFunc.nuget]               | 8.0, 9.0 |      2.0      |     4.7.2      |
+| [MassTransit.ActiveMQ][ActiveMQ.nuget]                          | 10.0 | — | — |
+| [MassTransit.AmazonSQS][AmazonSQS.nuget]                        | 10.0 | — | — |
+| [MassTransit.Azure.ServiceBus.Core][AzureSbCore.nuget]          | 10.0 | — | — |
+| [MassTransit.RabbitMQ][RabbitMQ.nuget]                          | 10.0 | — | — |
+| [MassTransit.SqlTransport.PostgreSQL][PostgreSQL.nuget]         | 10.0 | — | — |
+| [MassTransit.SqlTransport.SqlServer][SqlServer.nuget]           | 10.0 | — | — |
+| [MassTransit.WebJobs.EventHubs][EventHubs.nuget]                | 10.0 | — | — |
+| [MassTransit.WebJobs.ServiceBus][AzureFunc.nuget]               | 10.0 | — | — |
 | **Riders**                                                      |          |               |                |
-| [MassTransit.Kafka][Kafka.nuget]                                | 8.0, 9.0 |      2.0      |     4.7.2      |
-| [MassTransit.EventHub][EventHub.nuget]                          | 8.0, 9.0 |      2.0      |     4.7.2      |
+| [MassTransit.Kafka][Kafka.nuget]                                | 10.0 | — | — |
+| [MassTransit.EventHub][EventHub.nuget]                          | 10.0 | — | — |
 
 ## Discord 
 
@@ -81,12 +83,16 @@ Use [GitHub Discussions](https://github.com/MassTransit/MassTransit/discussions)
 This policy is in place to avoid bugs being drowned out in a pile of sensible suggestions for future 
 enhancements and calls for help from people who forget to check back if they get it and so on.
 
+## Async sequence helpers
+
+Use `System.Linq` for .NET 10 async sequence operators such as `Take` and `ToListAsync`. The general test sequence `Take` extension has been removed in favor of the framework implementation; `Take(0)` returns an empty sequence without enumerating its source. Message-list helpers that handle timeouts and cancellation remain available.
+
 ## Building from Source
 
- 1. Install the latest [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
+ 1. Install the latest [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
  2. Clone the source down to your machine<br/>
     ```bash
-    git clone https://github.com/MassTransit/MassTransit.git
+    git clone https://github.com/JacobChwastek/MessageTransit.git
     ```
  3. Run `dotnet build`
 
@@ -100,7 +106,7 @@ enhancements and calls for help from people who forget to check back if they get
  3. Make a pull request
  
 # REQUIREMENTS
-* .NET 9 SDK
+* .NET 10 SDK
 
 # CREDITS
 Logo Design by _The Agile Badger_
