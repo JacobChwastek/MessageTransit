@@ -3,6 +3,7 @@ namespace MassTransit.DbTransport.Tests;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 using Internals;
 using Microsoft.Extensions.DependencyInjection;
@@ -78,8 +79,7 @@ public class Using_partition_keys<T>
     public record PartitionedTestMessage(int Index);
 
 
-    class PartitionedConsumer :
-        IConsumer<PartitionedTestMessage>
+    class PartitionedConsumer : IConsumer<PartitionedTestMessage>
     {
         static int _index = MessageLimit;
         readonly TaskCompletionSource<ConsumeContext<PartitionedTestMessage>> _taskCompletionSource;

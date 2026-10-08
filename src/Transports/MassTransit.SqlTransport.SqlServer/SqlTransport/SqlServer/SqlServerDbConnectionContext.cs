@@ -14,10 +14,7 @@ using Transports;
 using Util;
 
 
-public class SqlServerDbConnectionContext :
-    BasePipeContext,
-    ConnectionContext,
-    IAsyncDisposable
+public class SqlServerDbConnectionContext : BasePipeContext, ConnectionContext, IAsyncDisposable
 {
     readonly TaskExecutor _executor;
     readonly ISqlHostConfiguration _hostConfiguration;
@@ -74,20 +71,12 @@ public class SqlServerDbConnectionContext :
             {
                 await using var connection = await CreateConnection(cancellationToken).ConfigureAwait(false);
 
-            #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
                 await using var transaction = await connection.Connection.BeginTransactionAsync(_hostSettings.IsolationLevel, cancellationToken)
                     .ConfigureAwait(false);
-            #else
-                using var transaction = connection.Connection.BeginTransaction(_hostSettings.IsolationLevel);
-            #endif
 
                 var result = await callback(connection.Connection, transaction).ConfigureAwait(false);
 
-            #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
                 await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
-            #else
-                transaction.Commit();
-            #endif
 
                 return result;
             }, false, cancellationToken);
@@ -142,8 +131,7 @@ public class SqlServerDbConnectionContext :
     }
 
 
-    class MaintenanceAgent :
-        Agent
+    class MaintenanceAgent : Agent
     {
         readonly SqlServerDbConnectionContext _context;
         readonly ISqlHostConfiguration _hostConfiguration;

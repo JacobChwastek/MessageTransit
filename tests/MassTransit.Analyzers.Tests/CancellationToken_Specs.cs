@@ -1,15 +1,14 @@
-namespace MassTransit.Analyzers.Tests
+namespace MassTransit.Analyzers.Tests;
+
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CodeFixes;
+using Microsoft.CodeAnalysis.Diagnostics;
+using NUnit.Framework;
+
+
+public class CancellationToken_Specs : CodeFixVerifier
 {
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.CodeFixes;
-    using Microsoft.CodeAnalysis.Diagnostics;
-    using NUnit.Framework;
-
-
-    public class CancellationToken_Specs :
-        CodeFixVerifier
-    {
-        const string Usings = @"
+    const string Usings = @"
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,7 @@ using System.Threading.Tasks;
 using MassTransit;
 ";
 
-        const string MessageContracts = @"
+    const string MessageContracts = @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -34,10 +33,10 @@ namespace ConsoleApplication1
 }
 ";
 
-        [Test]
-        public void Calling_task_delay()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void Calling_task_delay()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Consumer :
@@ -50,17 +49,17 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA2016",
-                Message = "Cancellation token from 'context.CancellationToken' can be used in cancellation token overload for 'Task.Delay' method",
-                Severity = DiagnosticSeverity.Info,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 30, 20) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA2016",
+            Message = "Cancellation token from 'context.CancellationToken' can be used in cancellation token overload for 'Task.Delay' method",
+            Severity = DiagnosticSeverity.Info,
+            Locations = new[] { new DiagnosticResultLocation("Test0.cs", 30, 20) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fix = Usings + MessageContracts + @"
+        var fix = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Consumer :
@@ -74,13 +73,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpFix(test, fix);
-        }
+        VerifyCSharpFix(test, fix);
+    }
 
-        [Test]
-        public void Calling_task_delay_in_activity()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void Calling_task_delay_in_activity()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
 
@@ -102,7 +101,7 @@ namespace ConsoleApplication1
             return Task.Delay(10);
         }
 
-        async Task IStateMachineActivity<TestInstance, SubmitOrder>.Faulted<TException>(BehaviorExceptionContext<TestInstance, SubmitOrder, TException> ctx,
+        Task IStateMachineActivity<TestInstance, SubmitOrder>.Faulted<TException>(BehaviorExceptionContext<TestInstance, SubmitOrder, TException> ctx,
             IBehavior<TestInstance, SubmitOrder> next)
         {
             return Task.Run(() => next.Faulted(ctx));
@@ -119,25 +118,25 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected1 = new DiagnosticResult
-            {
-                Id = "MCA2016",
-                Message = "Cancellation token from 'context.CancellationToken' can be used in cancellation token overload for 'Task.Delay' method",
-                Severity = DiagnosticSeverity.Info,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 41, 20) }
-            };
+        var expected1 = new DiagnosticResult
+        {
+            Id = "MCA2016",
+            Message = "Cancellation token from 'context.CancellationToken' can be used in cancellation token overload for 'Task.Delay' method",
+            Severity = DiagnosticSeverity.Info,
+            Locations = new[] { new DiagnosticResultLocation("Test0.cs", 41, 20) }
+        };
 
-            var expected2 = new DiagnosticResult
-            {
-                Id = "MCA2016",
-                Message = "Cancellation token from 'ctx.CancellationToken' can be used in cancellation token overload for 'Task.Run' method",
-                Severity = DiagnosticSeverity.Info,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 47, 20) }
-            };
+        var expected2 = new DiagnosticResult
+        {
+            Id = "MCA2016",
+            Message = "Cancellation token from 'ctx.CancellationToken' can be used in cancellation token overload for 'Task.Run' method",
+            Severity = DiagnosticSeverity.Info,
+            Locations = new[] { new DiagnosticResultLocation("Test0.cs", 47, 20) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected1, expected2);
+        VerifyCSharpDiagnostic(test, expected1, expected2);
 
-            var fix = Usings + MessageContracts + @"
+        var fix = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
 
@@ -159,7 +158,7 @@ namespace ConsoleApplication1
             return Task.Delay(10, context.CancellationToken);
         }
 
-        async Task IStateMachineActivity<TestInstance, SubmitOrder>.Faulted<TException>(BehaviorExceptionContext<TestInstance, SubmitOrder, TException> ctx,
+        Task IStateMachineActivity<TestInstance, SubmitOrder>.Faulted<TException>(BehaviorExceptionContext<TestInstance, SubmitOrder, TException> ctx,
             IBehavior<TestInstance, SubmitOrder> next)
         {
             return Task.Run(() => next.Faulted(ctx), ctx.CancellationToken);
@@ -177,13 +176,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpFix(test, fix);
-        }
+        VerifyCSharpFix(test, fix);
+    }
 
-        [Test]
-        public void Calling_task_delay_after_token()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void Calling_task_delay_after_token()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Consumer :
@@ -199,17 +198,17 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA2016",
-                Message = "Cancellation token from 'context.CancellationToken' can be used in cancellation token overload for 'Task.Run' method",
-                Severity = DiagnosticSeverity.Info,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 32, 19) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA2016",
+            Message = "Cancellation token from 'context.CancellationToken' can be used in cancellation token overload for 'Task.Run' method",
+            Severity = DiagnosticSeverity.Info,
+            Locations = new[] { new DiagnosticResultLocation("Test0.cs", 32, 19) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fix = Usings + MessageContracts + @"
+        var fix = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Consumer :
@@ -225,13 +224,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpFix(test, fix);
-        }
+        VerifyCSharpFix(test, fix);
+    }
 
-        [Test]
-        public void Calling_task_delay_with_token()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void Calling_task_delay_with_token()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Consumer :
@@ -246,19 +245,19 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void Calling_context_publish_does_not_suggest()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void Calling_context_publish_does_not_suggest()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Consumer :
         IConsumer<SubmitOrder>
     {
-        public async Task Consume(ConsumeContext<SubmitOrder> context)
+        public Task Consume(ConsumeContext<SubmitOrder> context)
         {
             return context.Publish<OrderSubmitted>(new {});
         }
@@ -266,17 +265,16 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        protected override CodeFixProvider GetCSharpCodeFixProvider()
-        {
-            return new CancellationTokenOverloadMethodFixer();
-        }
+    protected override CodeFixProvider GetCSharpCodeFixProvider()
+    {
+        return new CancellationTokenOverloadMethodFixer();
+    }
 
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
-        {
-            return new CancellationTokenOverloadMethodAnalyzer();
-        }
+    protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+    {
+        return new CancellationTokenOverloadMethodAnalyzer();
     }
 }

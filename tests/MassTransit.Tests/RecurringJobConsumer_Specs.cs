@@ -1,5 +1,6 @@
 namespace MassTransit.Tests;
 
+using System.Linq;
 using System;
 using System.Threading.Tasks;
 using Contracts.JobService;
@@ -242,8 +243,7 @@ public class Configuring_a_recurring_job_consumer
     }
 
 
-    public class RecurringJobConsumer :
-        IJobConsumer<RecurringJobMessage>
+    public class RecurringJobConsumer : IJobConsumer<RecurringJobMessage>
     {
         readonly ILogger<RecurringJobConsumer> _logger;
 
@@ -261,8 +261,7 @@ public class Configuring_a_recurring_job_consumer
     }
 
 
-    public class MaintenanceJobConsumer :
-        IJobConsumer<MaintenanceTask>
+    public class MaintenanceJobConsumer : IJobConsumer<MaintenanceTask>
     {
         readonly ILogger<MaintenanceJobConsumer> _logger;
 

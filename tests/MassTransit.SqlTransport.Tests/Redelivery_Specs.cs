@@ -1,6 +1,7 @@
 namespace MassTransit.DbTransport.Tests;
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MassTransit.Tests.Middleware.Caching;
 using Microsoft.Extensions.DependencyInjection;

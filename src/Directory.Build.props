@@ -1,5 +1,4 @@
 <Project>
-  <!-- Modified for MessageTransit. -->
   <Import Project="..\Directory.Build.props"/>
 
   <PropertyGroup>

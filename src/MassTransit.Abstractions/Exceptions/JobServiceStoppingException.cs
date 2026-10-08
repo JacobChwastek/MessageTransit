@@ -5,8 +5,7 @@ using System.Runtime.Serialization;
 
 
 [Serializable]
-public class JobServiceStoppingException :
-    MassTransitException
+public class JobServiceStoppingException : MassTransitException
 {
     public JobServiceStoppingException()
     {
@@ -17,9 +16,7 @@ public class JobServiceStoppingException :
     {
     }
 
-#if NET8_0_OR_GREATER
     [Obsolete("Formatter-based serialization is obsolete and should not be used.")]
-#endif
     protected JobServiceStoppingException(SerializationInfo info, StreamingContext context)
         : base(info, context)
     {
