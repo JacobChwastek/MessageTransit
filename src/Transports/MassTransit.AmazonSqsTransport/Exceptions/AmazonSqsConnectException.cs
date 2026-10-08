@@ -5,8 +5,7 @@ using System.Runtime.Serialization;
 
 
 [Serializable]
-public class AmazonSqsConnectException :
-    AmazonSqsConnectionException
+public class AmazonSqsConnectException : AmazonSqsConnectionException
 {
     public AmazonSqsConnectException()
     {
@@ -22,9 +21,7 @@ public class AmazonSqsConnectException :
     {
     }
 
-#if NET8_0_OR_GREATER
     [Obsolete("Formatter-based serialization is obsolete and should not be used.")]
-#endif
     protected AmazonSqsConnectException(SerializationInfo info, StreamingContext context)
         : base(info, context)
     {

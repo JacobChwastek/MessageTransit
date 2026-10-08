@@ -7,6 +7,10 @@ MassTransit provides a developer-focused, modern platform for creating distribut
 - Observability via Open Telemetry (OTEL)
 - Fully-supported, widely-adopted, a complete end-to-end solution
 
+## Runtime requirements
+
+The runtime libraries in this fork require .NET 10. The analyzer ships as compiler tooling on .NET Standard 2.0 and does not extend runtime support.
+
 ## Documentation
 
 Get started by [reading through the documentation](https://masstransit-project.com/).

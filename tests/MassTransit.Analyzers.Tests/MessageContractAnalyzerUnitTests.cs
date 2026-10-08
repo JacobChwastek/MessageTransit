@@ -1,19 +1,18 @@
-namespace MassTransit.Analyzers.Tests
+namespace MassTransit.Analyzers.Tests;
+
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CodeFixes;
+using Microsoft.CodeAnalysis.Diagnostics;
+using NUnit.Framework;
+
+
+[TestFixture]
+public class UnitTest : CodeFixVerifier
 {
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.CodeFixes;
-    using Microsoft.CodeAnalysis.Diagnostics;
-    using NUnit.Framework;
-
-
-    [TestFixture]
-    public class UnitTest :
-        CodeFixVerifier
+    [Test]
+    public void WhenActivatingGenericContractAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
     {
-        [Test]
-        public void WhenActivatingGenericContractAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
-        {
-            var test = Usings + @"
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface INotification
@@ -43,19 +42,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'INotification'. The following properties are missing: StreamId.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 30, 35) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'INotification'. The following properties are missing: StreamId.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 30, 35) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + @"
+        var fixtest = Usings + @"
 namespace ConsoleApplication1
 {
     public interface INotification
@@ -87,13 +86,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenActivatingGenericContractAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
-        {
-            var test = Usings + @"
+    [Test]
+    public void WhenActivatingGenericContractAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface INotification
@@ -125,13 +124,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenNotUsingMassTransitSymbols_ShouldNotInterfere()
-        {
-            var test = @"
+    [Test]
+    public void WhenNotUsingMassTransitSymbols_ShouldNotInterfere()
+    {
+        var test = @"
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -149,13 +148,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnosticWithoutMassTransit(test);
-        }
+        VerifyCSharpDiagnosticWithoutMassTransit(test);
+    }
 
-        [Test]
-        public void WhenActivatingGenericContractAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
-        {
-            var test = Usings + @"
+    [Test]
+    public void WhenActivatingGenericContractAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface INotification
@@ -186,23 +185,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'INotification'. The following properties of the anonymous type are incompatible: StreamId.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 30, 35) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenAnonymousTypeUsingInferredMemberNamesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + Dtos + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'INotification'. The following properties of the anonymous type are incompatible: StreamId.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 30, 35) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenAnonymousTypeUsingInferredMemberNamesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + MessageContracts + Dtos + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -248,19 +247,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: CustomerId, OrderItems.Product.Category, OrderItems.Price.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 99, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: CustomerId, OrderItems.Product.Category, OrderItems.Price.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 99, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + MessageContracts + Dtos + @"
+        var fixtest = Usings + MessageContracts + Dtos + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -312,13 +311,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenAnonymousTypeUsingInferredMemberNamesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
-        {
-            var test = Usings + MessageContracts + Dtos + @"
+    [Test]
+    public void WhenAnonymousTypeUsingInferredMemberNamesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + MessageContracts + Dtos + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -368,13 +367,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenAnonymousTypeUsingInferredMemberNamesAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
-        {
-            var test = Usings + MessageContracts + DtosIncompatibe + @"
+    [Test]
+    public void WhenAnonymousTypeUsingInferredMemberNamesAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + DtosIncompatibe + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -424,23 +423,23 @@ namespace ConsoleApplication1
 }
 ";
 
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Product.Category.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 99, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenCreateRequestTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Product.Category.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 99, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenCreateRequestTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -461,23 +460,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'CheckOrderStatus'. The following properties are missing: OrderId.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 59, 55) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenGetResponseTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'CheckOrderStatus'. The following properties are missing: OrderId.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 59, 55) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenGetResponseTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -493,23 +492,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'CheckOrderStatus'. The following properties are missing: OrderId.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 59, 83) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenCreateRequestTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveTheNoDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + GenericMessageContracts + @"
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'CheckOrderStatus'. The following properties are missing: OrderId.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 59, 83) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenCreateRequestTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveTheNoDiagnostic()
+    {
+        var test = Usings + GenericMessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -527,13 +526,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenCreateRequestTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveTheRightDiagnostic()
-        {
-            var test = Usings + GenericMessageContracts + @"
+    [Test]
+    public void WhenCreateRequestTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveTheRightDiagnostic()
+    {
+        var test = Usings + GenericMessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -550,22 +549,22 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message = "Anonymous type is missing properties that are in the message contract 'Link'. The following properties are missing: ClientId.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 38, 74) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenCreateRequestTypesAreStructurallyCompatibleAndNoMissingProperty_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0003",
+            Message = "Anonymous type is missing properties that are in the message contract 'Link'. The following properties are missing: ClientId.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 38, 74) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenCreateRequestTypesAreStructurallyCompatibleAndNoMissingProperty_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -588,13 +587,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenMessageContractHasNamespaceAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
-        {
-            var test = Usings + MessageContractsDifferentNamespace + @"
+    [Test]
+    public void WhenMessageContractHasNamespaceAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + MessageContractsDifferentNamespace + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -623,19 +622,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: CustomerId, OrderItems.Product.Category, OrderItems.Price.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 56) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: CustomerId, OrderItems.Product.Category, OrderItems.Price.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 56) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + MessageContractsDifferentNamespace + @"
+        var fixtest = Usings + MessageContractsDifferentNamespace + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -668,13 +667,13 @@ Price = default(decimal) }
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenMessageContractHasNamespaceAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
-        {
-            var test = Usings + MessageContractsDifferentNamespace + @"
+    [Test]
+    public void WhenMessageContractHasNamespaceAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + MessageContractsDifferentNamespace + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -707,13 +706,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenMessageContractHasNamespaceAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
-        {
-            var test = Usings + MessageContractsDifferentNamespace + @"
+    [Test]
+    public void WhenMessageContractHasNamespaceAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContractsDifferentNamespace + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -745,23 +744,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: Id.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 56) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenMessageContractHasNullableAreStructurallyCompatibleAndMissingNullableProperty_ShouldHaveDiagnosticAndCodeFix()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: Id.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 56) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenMessageContractHasNullableAreStructurallyCompatibleAndMissingNullableProperty_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -786,19 +785,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: Price.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 23, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: Price.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 23, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + @"
+        var fixtest = Usings + @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -825,13 +824,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenMessageContractHasNullableAreStructurallyCompatibleAndMissingCaseNullableProperty_ShouldHaveDiagnosticAndCodeFix()
-        {
-            var test = Usings + @"
+    [Test]
+    public void WhenMessageContractHasNullableAreStructurallyCompatibleAndMissingCaseNullableProperty_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -856,19 +855,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: Price.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 23, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: Price.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 23, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + @"
+        var fixtest = Usings + @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -895,13 +894,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenPublishTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnostic()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenPublishTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -917,23 +916,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: Id, CustomerId, OrderItems.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenSendExtensionMethodUsedInConsumer_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: Id, CustomerId, OrderItems.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenSendExtensionMethodUsedInConsumer_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class SubmitOrderConsumer :
@@ -951,23 +950,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 57) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenSendTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 57) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenSendTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -984,23 +983,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'SubmitOrder'. The following properties are missing: Id, CustomerId, OrderItems.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 59, 50) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenSimpleArrayTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + @"
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'SubmitOrder'. The following properties are missing: Id, CustomerId, OrderItems.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 59, 50) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenSimpleArrayTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -1025,19 +1024,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 23, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 23, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + @"
+        var fixtest = Usings + @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -1064,13 +1063,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenSimpleArrayTypesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
-        {
-            var test = Usings + @"
+    [Test]
+    public void WhenSimpleArrayTypesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -1097,13 +1096,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenMessageDataTypesAreStructurallyCompatible_ShouldHaveNoDiagnostics()
-        {
-            var test = Usings + @"
+    [Test]
+    public void WhenMessageDataTypesAreStructurallyCompatible_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public class DataMessage
@@ -1142,13 +1141,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenSimpleArrayTypesAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
-        {
-            var test = Usings + @"
+    [Test]
+    public void WhenSimpleArrayTypesAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -1174,23 +1173,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 23, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenTypeNotValidStructure_ShouldHaveDiagnostic_ButItLooksGoodToMe()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + Dtos + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 23, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenTypeNotValidStructure_ShouldHaveDiagnostic_ButItLooksGoodToMe()
+    {
+        var test = Usings + Dtos + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1222,13 +1221,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyCompatibleAndMissingMultiplePropertiesAtDifferentNodes_ShouldHaveDiagnosticAndCodeFix()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyCompatibleAndMissingMultiplePropertiesAtDifferentNodes_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1257,19 +1256,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: CustomerId, OrderItems.Product.Category, OrderItems.Price.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: CustomerId, OrderItems.Product.Category, OrderItems.Price.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + MessageContracts + @"
+        var fixtest = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1302,13 +1301,13 @@ Price = default(decimal) }
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyCompatibleAndMissingNestedArrayTypeProperty_ShouldHaveDiagnosticAndCodeFix()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyCompatibleAndMissingNestedArrayTypeProperty_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1326,19 +1325,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + MessageContracts + @"
+        var fixtest = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1370,13 +1369,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyCompatibleAndMissingNestedTypeProperty_ShouldHaveDiagnosticAndCodeFix()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyCompatibleAndMissingNestedTypeProperty_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1403,19 +1402,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.Product.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.Product.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + MessageContracts + @"
+        var fixtest = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1444,13 +1443,13 @@ Category = default(Uri) } }
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1481,19 +1480,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: CustomerId.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: CustomerId.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + MessageContracts + @"
+        var fixtest = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1526,13 +1525,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyCompatibleAndMissingPropertyInNestedArrayType_ShouldHaveDiagnosticAndCodeFix()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyCompatibleAndMissingPropertyInNestedArrayType_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1563,19 +1562,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.Price.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.Price.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + MessageContracts + @"
+        var fixtest = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1607,13 +1606,13 @@ Price = default(decimal) }
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyCompatibleAndMissingPropertyInNestedType_ShouldHaveDiagnosticAndCodeFix()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyCompatibleAndMissingPropertyInNestedType_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1644,19 +1643,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.Product.Category.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'OrderSubmitted'. The following properties are missing: OrderItems.Product.Category.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + MessageContracts + @"
+        var fixtest = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1688,13 +1687,13 @@ Category = default(Uri) },
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1727,13 +1726,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyCompatibleWithAsyncAndNoMissingProperties_ShouldHaveNoDiagnostic()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyCompatibleWithAsyncAndNoMissingProperties_ShouldHaveNoDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1765,13 +1764,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyCompatibleWithDunderProperty_ShouldHaveNoDiagnostics()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyCompatibleWithDunderProperty_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1805,13 +1804,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenTypesAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1843,23 +1842,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: Id.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenTypesAreStructurallyIncompatibleAtDifferentNodesAndNoMissingProperties_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: Id.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenTypesAreStructurallyIncompatibleAtDifferentNodesAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1891,23 +1890,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Product.Category, OrderItems.Price.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenTypesAreStructurallyIncompatibleAtNestedArrayTypePropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Product.Category, OrderItems.Price.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenTypesAreStructurallyIncompatibleAtNestedArrayTypePropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1939,23 +1938,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Price.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenTypesAreStructurallyIncompatibleAtNestedTypePropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Price.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenTypesAreStructurallyIncompatibleAtNestedTypePropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -1987,23 +1986,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Product.Category.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenTypesAreStructurallyIncompatibleWithUnknownPropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Product.Category.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenTypesAreStructurallyIncompatibleWithUnknownPropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -2036,23 +2035,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: Amount.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenTypesAreStructurallyIncompatibleWithUnknownPropertyAtNestedArrayTypePropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: Amount.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenTypesAreStructurallyIncompatibleWithUnknownPropertyAtNestedArrayTypePropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -2085,23 +2084,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Amount.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenTypesAreStructurallyIncompatibleWithUnknownPropertyAtNestedTypePropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Amount.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenTypesAreStructurallyIncompatibleWithUnknownPropertyAtNestedTypePropertyAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -2134,23 +2133,23 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message =
-                    "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Product.Price.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenTypesWithVariablesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + MessageContracts + @"
+            Id = "MCA0001",
+            Message =
+                "Anonymous type does not map to message contract 'OrderSubmitted'. The following properties of the anonymous type are incompatible: OrderItems.Product.Price.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 58, 47) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenTypesWithVariablesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -2184,13 +2183,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenTypesWithVariablesAreEnumerableCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
-        {
-            var test = Usings + MessageContracts + ExtraMessageContracts + @"
+    [Test]
+    public void WhenTypesWithVariablesAreEnumerableCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + MessageContracts + ExtraMessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -2224,13 +2223,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenRecordsWithVariablesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
-        {
-            var test = Usings + RecordContracts + @"
+    [Test]
+    public void WhenRecordsWithVariablesAreStructurallyCompatibleAndNoMissingProperties_ShouldHaveNoDiagnostics()
+    {
+        var test = Usings + RecordContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -2250,13 +2249,13 @@ namespace ConsoleApplication1
 }
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenTypesWithVariablesAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
-        {
-            var test = Usings + MessageContracts + @"
+    [Test]
+    public void WhenTypesWithVariablesAreStructurallyIncompatibleAndNoMissingProperties_ShouldHaveDiagnostic()
+    {
+        var test = Usings + MessageContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -2289,22 +2288,22 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0001",
-                Message = "Anonymous type does not map to message contract 'SubmitOrder'. The following properties of the anonymous type are incompatible: Id.",
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 59, 50) }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        [Test]
-        public void WhenRecursiveTypesAreStructurallyCompatibleAndMissingPropertyInNestedType_ShouldHaveDiagnosticAndCodeFix()
+        var expected = new DiagnosticResult
         {
-            var test = Usings + RecursiveContracts + @"
+            Id = "MCA0001",
+            Message = "Anonymous type does not map to message contract 'SubmitOrder'. The following properties of the anonymous type are incompatible: Id.",
+            Severity = DiagnosticSeverity.Error,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 59, 50) }
+        };
+
+        VerifyCSharpDiagnostic(test, expected);
+    }
+
+    [Test]
+    public void WhenRecursiveTypesAreStructurallyCompatibleAndMissingPropertyInNestedType_ShouldHaveDiagnosticAndCodeFix()
+    {
+        var test = Usings + RecursiveContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -2320,19 +2319,19 @@ namespace ConsoleApplication1
     }
 }
 ";
-            var expected = new DiagnosticResult
-            {
-                Id = "MCA0003",
-                Message =
-                    "Anonymous type is missing properties that are in the message contract 'Foo'. The following properties are missing: Children, Bar.",
-                Severity = DiagnosticSeverity.Info,
-                Locations =
-                    new[] { new DiagnosticResultLocation("Test0.cs", 29, 36) }
-            };
+        var expected = new DiagnosticResult
+        {
+            Id = "MCA0003",
+            Message =
+                "Anonymous type is missing properties that are in the message contract 'Foo'. The following properties are missing: Children, Bar.",
+            Severity = DiagnosticSeverity.Info,
+            Locations =
+                new[] { new DiagnosticResultLocation("Test0.cs", 29, 36) }
+        };
 
-            VerifyCSharpDiagnostic(test, expected);
+        VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = Usings + RecursiveContracts + @"
+        var fixtest = Usings + RecursiveContracts + @"
 namespace ConsoleApplication1
 {
     class Program
@@ -2357,13 +2356,13 @@ namespace ConsoleApplication1
     }
 }
 ";
-            VerifyCSharpFix(test, fixtest);
-        }
+        VerifyCSharpFix(test, fixtest);
+    }
 
-        [Test]
-        public void WhenActivatingGenericContractAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix_1()
-        {
-            var test = Usings + @"
+    [Test]
+    public void WhenActivatingGenericContractAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix_1()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface INotification
@@ -2391,15 +2390,16 @@ namespace ConsoleApplication1
             return bus.Publish<T>(message);
         }
     }
+}
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
-        [Test]
-        public void WhenActivatingGenericContractAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix_2()
-        {
-            var test = Usings + @"
+    [Test]
+    public void WhenActivatingGenericContractAreStructurallyCompatibleAndMissingProperty_ShouldHaveDiagnosticAndCodeFix_2()
+    {
+        var test = Usings + @"
 namespace ConsoleApplication1
 {
     public interface INotification
@@ -2411,7 +2411,7 @@ namespace ConsoleApplication1
 
     public class NotificationConsumer : IConsumer<INotification>
     {
-        public Task Consume(ConsumeContext context)
+        public Task Consume(ConsumeContext<INotification> context)
         {
             var message = new {};
 
@@ -2426,13 +2426,14 @@ namespace ConsoleApplication1
             return context.Publish<TMessage>(message);
         }
     }
+}
 ";
 
-            VerifyCSharpDiagnostic(test);
-        }
+        VerifyCSharpDiagnostic(test);
+    }
 
 
-        readonly string Usings = @"
+    readonly string Usings = @"
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -2440,7 +2441,7 @@ using System.Threading.Tasks;
 using MassTransit;
 ";
 
-        readonly string MessageContracts = @"
+    readonly string MessageContracts = @"
 namespace ConsoleApplication1
 {
     public interface OrderSubmitted
@@ -2484,7 +2485,7 @@ namespace ConsoleApplication1
 }
 ";
 
-        readonly string ExtraMessageContracts = @"
+    readonly string ExtraMessageContracts = @"
 namespace ConsoleApplication1
 {
     public interface SubmitOrderEnumerable
@@ -2496,7 +2497,7 @@ namespace ConsoleApplication1
 }
 ";
 
-        readonly string RecordContracts = @"
+    readonly string RecordContracts = @"
 namespace ConsoleApplication1
 {
     public record OrderSubmissionReceived
@@ -2507,7 +2508,7 @@ namespace ConsoleApplication1
 }
 ";
 
-        readonly string RecursiveContracts = @"namespace ConsoleApplication1
+    readonly string RecursiveContracts = @"namespace ConsoleApplication1
 {
     public interface Foo
     {
@@ -2522,7 +2523,7 @@ namespace ConsoleApplication1
 }
 ";
 
-        readonly string GenericMessageContracts = @"
+    readonly string GenericMessageContracts = @"
 namespace ConsoleApplication1
 {
     public interface Command
@@ -2544,7 +2545,7 @@ namespace ConsoleApplication1
 }
 ";
 
-        readonly string MessageContractsDifferentNamespace = @"
+    readonly string MessageContractsDifferentNamespace = @"
 namespace ConsoleApplication1.Messages
 {
     public interface OrderSubmitted
@@ -2588,7 +2589,7 @@ namespace ConsoleApplication1.Messages
 }
 ";
 
-        readonly string Dtos = @"
+    readonly string Dtos = @"
     public class OrderDto
     {
         public Guid Id { get; set; }
@@ -2611,7 +2612,7 @@ namespace ConsoleApplication1.Messages
     }
 ";
 
-        readonly string DtosIncompatibe = @"
+    readonly string DtosIncompatibe = @"
     public class OrderDto
     {
         public Guid Id { get; set; }
@@ -2634,14 +2635,13 @@ namespace ConsoleApplication1.Messages
     }
 ";
 
-        protected override CodeFixProvider GetCSharpCodeFixProvider()
-        {
-            return new MessageContractCodeFixProvider();
-        }
+    protected override CodeFixProvider GetCSharpCodeFixProvider()
+    {
+        return new MessageContractCodeFixProvider();
+    }
 
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
-        {
-            return new MessageContractAnalyzer();
-        }
+    protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+    {
+        return new MessageContractAnalyzer();
     }
 }

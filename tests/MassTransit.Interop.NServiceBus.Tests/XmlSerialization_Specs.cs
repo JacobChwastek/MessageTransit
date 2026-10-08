@@ -38,15 +38,16 @@ public class When_reading_xml_from_nsb
             OrderNumber = "123"
         }, x => ApplyStaticMessageToContext(x, ValidXml));
 
-        Assert.IsTrue(await harness.Consumed.Any<PlaceOrder>());
+        Assert.That(await harness.Consumed.Any<PlaceOrder>(), Is.True);
 
-        Assert.IsTrue(await harness.Published.Any<OrderPlaced>());
+        Assert.That(await harness.Published.Any<OrderPlaced>(), Is.True);
 
-        Assert.IsTrue(await harness.Consumed.Any<OrderPlaced>());
+        Assert.That(await harness.Consumed.Any<OrderPlaced>(), Is.True);
     }
 
     void ApplyStaticMessageToContext(SendContext<PlaceOrder> context, string body)
     {
+        context.SetNServiceBusHeaders();
         context.Serializer = new CopyBodySerializer(NServiceBusXmlMessageSerializer.XmlContentType, new StringMessageBody(body));
     }
 

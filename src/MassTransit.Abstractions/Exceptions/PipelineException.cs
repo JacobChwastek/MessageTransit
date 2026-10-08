@@ -1,35 +1,31 @@
-namespace MassTransit
+namespace MassTransit;
+
+using System;
+using System.Runtime.Serialization;
+
+
+[Serializable]
+public class PipelineException : MassTransitException
 {
-    using System;
-    using System.Runtime.Serialization;
-
-
-    [Serializable]
-    public class PipelineException :
-        MassTransitException
+    public PipelineException()
     {
-        public PipelineException()
-        {
-        }
+    }
 
-        public PipelineException(string message)
-            : base(message)
-        {
-        }
+    public PipelineException(string message)
+        : base(message)
+    {
+    }
 
-        public PipelineException(string message, Exception innerException)
-            :
-            base(message, innerException)
-        {
-        }
+    public PipelineException(string message, Exception innerException)
+        :
+        base(message, innerException)
+    {
+    }
 
-#if NET8_0_OR_GREATER
-        [Obsolete("Formatter-based serialization is obsolete and should not be used.")]
-#endif
-        protected PipelineException(SerializationInfo info, StreamingContext context)
-            :
-            base(info, context)
-        {
-        }
+    [Obsolete("Formatter-based serialization is obsolete and should not be used.")]
+    protected PipelineException(SerializationInfo info, StreamingContext context)
+        :
+        base(info, context)
+    {
     }
 }

@@ -10,8 +10,7 @@ using System.Text.RegularExpressions;
 using Internals;
 
 
-public sealed class CronExpression :
-    IEquatable<CronExpression>
+public sealed class CronExpression : IEquatable<CronExpression>
 {
     static readonly Regex _regex = new(@"^L(-\d{1,2})?(W(-\d{1,2})?)?$", RegexOptions.Compiled | RegexOptions.ExplicitCapture, TimeSpan.FromSeconds(5));
     static readonly Regex _offsetRegex = new("LW-(?<offset>[0-9]+)", RegexOptions.Compiled | RegexOptions.ExplicitCapture, TimeSpan.FromSeconds(5));
@@ -295,11 +294,7 @@ public sealed class CronExpression :
 
     void StoreExpressionNumeric(int type, ReadOnlySpan<char> span, int index)
     {
-    #if NET6_0_OR_GREATER
         if (int.TryParse(span, out var temp))
-    #else
-        if (int.TryParse(span.ToString(), out var temp))
-    #endif
         {
             AddToSet(temp, -1, -1, type);
             return;
@@ -605,11 +600,7 @@ public sealed class CronExpression :
             if (_nthDayOfWeek is < 1 or > 5)
                 throw new FormatException("nthDayOfWeek is < 1 or > 5");
 
-        #if NET6_0_OR_GREATER
             if (int.TryParse(span.Slice(0, pos), out value))
-        #else
-            if (int.TryParse(span.Slice(0, pos).ToString(), out value))
-        #endif
             {
                 if (value is < 1 or > 7)
                     throw new FormatException("Day-of-Week values must be between 1 and 7");
@@ -1391,10 +1382,6 @@ public sealed class CronExpression :
 
     static int ToInt32(ReadOnlySpan<char> span)
     {
-    #if NET6_0_OR_GREATER
         return int.Parse(span);
-    #else
-        return int.Parse(span.ToString());
-    #endif
     }
 }
