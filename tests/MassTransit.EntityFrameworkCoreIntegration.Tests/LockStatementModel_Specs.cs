@@ -3,6 +3,7 @@ namespace MassTransit.EntityFrameworkCoreIntegration.Tests;
 using System;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using Shared;
 
 
 [TestFixture]
@@ -16,9 +17,9 @@ public class LockStatementModel_Specs
     {
         var options = new DbContextOptionsBuilder<ModelContext>();
         if (postgres)
-            options.UseNpgsql("Host=unused;Database=unused");
+            options.UseOfflineNpgsql();
         else
-            options.UseSqlServer("Server=unused;Database=unused;Integrated Security=True");
+            options.UseOfflineSqlServer();
 
         using var context = new ModelContext(options.Options);
         ILockStatementProvider provider = postgres
