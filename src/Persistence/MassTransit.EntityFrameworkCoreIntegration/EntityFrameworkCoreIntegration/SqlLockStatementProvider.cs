@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -11,9 +12,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 public class SqlLockStatementProvider : ILockStatementProvider
 {
-    protected static readonly ConcurrentDictionary<Type, SchemaTableColumnTrio> TableNames = new ConcurrentDictionary<Type, SchemaTableColumnTrio>();
+    static readonly string[] CorrelationIdProperty = [nameof(ISaga.CorrelationId)];
+    static readonly string[] OutboxProperty = [nameof(OutboxState.Created)];
+
     readonly bool _enableSchemaCaching;
     readonly ILockStatementFormatter _formatter;
+    readonly ConditionalWeakTable<IModel, ConcurrentDictionary<StatementKey, string>> _statements = new();
 
     public SqlLockStatementProvider(string defaultSchema, ILockStatementFormatter formatter, bool enableSchemaCaching = true)
     {
@@ -31,50 +35,61 @@ public class SqlLockStatementProvider : ILockStatementProvider
 
     string DefaultSchema { get; }
 
-    public virtual string GetRowLockStatement<T>(DbContext context)
-        where T : class
+    public virtual string GetRowLockStatement<T>(DbContext context) where T : class
     {
-        return FormatLockStatement<T>(context, nameof(ISaga.CorrelationId));
+        return GetStatement(context, new StatementKey(typeof(T), CorrelationIdProperty, false));
     }
 
-    public virtual string GetRowLockStatement<T>(DbContext context, params string[] propertyNames)
-        where T : class
+    public virtual string GetRowLockStatement<T>(DbContext context, params string[] propertyNames) where T : class
     {
-        return FormatLockStatement<T>(context, propertyNames);
+        return GetStatement(context, new StatementKey(typeof(T), propertyNames, false));
     }
 
     public virtual string GetOutboxStatement(DbContext context)
     {
-        var schemaTableTrio = GetSchemaAndTableNameAndColumnName(context, typeof(OutboxState), nameof(OutboxState.Created));
+        return GetStatement(context, new StatementKey(typeof(OutboxState), OutboxProperty, true));
+    }
+
+    string GetStatement(DbContext context, StatementKey key)
+    {
+        var model = context.Model;
+
+        if (!_enableSchemaCaching)
+            return FormatStatement(model, key);
+
+        ConcurrentDictionary<StatementKey, string> statements = _statements.GetValue(model, _ => new ConcurrentDictionary<StatementKey, string>());
+        if (statements.TryGetValue(key, out var statement))
+            return statement;
+
+        // the caller owns the property array, so the stored key keeps its own copy
+        return statements.GetOrAdd(key.Detach(), static (item, state) => state.Provider.FormatStatement(state.Model, item), (Provider: this, Model: model));
+    }
+
+    string FormatStatement(IModel model, StatementKey key)
+    {
+        var schemaTableTrio = ReadModelMetadata(model, key.EntityType, key.PropertyNames);
+        var schema = schemaTableTrio.Schema ?? DefaultSchema;
 
         var sb = new StringBuilder(128);
-        _formatter.CreateOutboxStatement(sb, schemaTableTrio.Schema, schemaTableTrio.Table, schemaTableTrio.ColumnNames[0]);
+
+        if (key.IsOutbox)
+            _formatter.CreateOutboxStatement(sb, schema, schemaTableTrio.Table, schemaTableTrio.ColumnNames[0]);
+        else
+        {
+            _formatter.Create(sb, schema, schemaTableTrio.Table);
+
+            for (var i = 0; i < key.PropertyNames.Length; i++)
+                _formatter.AppendColumn(sb, i, schemaTableTrio.ColumnNames[i]);
+
+            _formatter.Complete(sb);
+        }
 
         return sb.ToString();
     }
 
-    string FormatLockStatement<T>(DbContext context, params string[] propertyNames)
-        where T : class
+    static SchemaTableColumnTrio ReadModelMetadata(IModel model, Type type, string[] propertyNames)
     {
-        var schemaTableTrio = GetSchemaAndTableNameAndColumnName(context, typeof(T), propertyNames);
-
-        var sb = new StringBuilder(128);
-        _formatter.Create(sb, schemaTableTrio.Schema, schemaTableTrio.Table);
-
-        for (var i = 0; i < propertyNames.Length; i++)
-            _formatter.AppendColumn(sb, i, schemaTableTrio.ColumnNames[i]);
-
-        _formatter.Complete(sb);
-
-        return sb.ToString();
-    }
-
-    SchemaTableColumnTrio GetSchemaAndTableNameAndColumnName(DbContext context, Type type, params string[] propertyNames)
-    {
-        if (TableNames.TryGetValue(type, out var result) && _enableSchemaCaching)
-            return result;
-
-        var entityType = context.Model.FindEntityType(type)
+        var entityType = model.FindEntityType(type)
             ?? throw new InvalidOperationException($"Entity type not found: {TypeCache.GetShortName(type)}");
 
         var schema = entityType.GetSchema();
@@ -95,12 +110,49 @@ public class SqlLockStatementProvider : ILockStatementProvider
         if (string.IsNullOrWhiteSpace(tableName))
             throw new MassTransitException($"Unable to determine saga table name: {TypeCache.GetShortName(type)} (using model metadata).");
 
-        result = new SchemaTableColumnTrio(schema ?? DefaultSchema, tableName, columnNames.ToArray());
+        return new SchemaTableColumnTrio(schema, tableName, columnNames.ToArray());
+    }
 
-        if (_enableSchemaCaching)
-            TableNames.TryAdd(type, result);
 
-        return result;
+    readonly struct StatementKey : IEquatable<StatementKey>
+    {
+        public StatementKey(Type entityType, string[] propertyNames, bool isOutbox)
+        {
+            EntityType = entityType;
+            PropertyNames = propertyNames;
+            IsOutbox = isOutbox;
+        }
+
+        public Type EntityType { get; }
+        public string[] PropertyNames { get; }
+        public bool IsOutbox { get; }
+
+        public StatementKey Detach()
+        {
+            return new StatementKey(EntityType, PropertyNames.ToArray(), IsOutbox);
+        }
+
+        public bool Equals(StatementKey other)
+        {
+            return EntityType == other.EntityType && IsOutbox == other.IsOutbox
+                && PropertyNames.SequenceEqual(other.PropertyNames, StringComparer.OrdinalIgnoreCase);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is StatementKey other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            hash.Add(EntityType);
+            hash.Add(IsOutbox);
+            foreach (var propertyName in PropertyNames)
+                hash.Add(propertyName, StringComparer.OrdinalIgnoreCase);
+
+            return hash.ToHashCode();
+        }
     }
 
 
