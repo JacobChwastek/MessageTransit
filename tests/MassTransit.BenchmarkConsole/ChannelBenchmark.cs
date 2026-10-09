@@ -9,12 +9,11 @@ using BenchmarkDotNet.Jobs;
 using Util;
 
 
-[SimpleJob(RuntimeMoniker.Net80)]
+[SimpleJob(RuntimeMoniker.Net10_0)]
 [MemoryDiagnoser]
 [GcServer(true)]
 [GcForce]
-public class ChannelBenchmark :
-    IAsyncDisposable
+public class ChannelBenchmark : IAsyncDisposable
 {
     readonly ChannelExecutor _singleChannel = new(1, 1);
     readonly TaskExecutor _taskExecutor = new();
@@ -53,12 +52,11 @@ public class ChannelBenchmark :
 }
 
 
-[SimpleJob(RuntimeMoniker.Net80)]
+[SimpleJob(RuntimeMoniker.Net10_0)]
 [MemoryDiagnoser]
 [GcServer(true)]
 [GcForce]
-public class ConcurrentChannelBenchmark :
-    IAsyncDisposable
+public class ConcurrentChannelBenchmark : IAsyncDisposable
 {
     readonly ChannelExecutor _singleChannel = new(1, 10);
     readonly TaskExecutor _taskExecutor = new(10);
@@ -114,8 +112,7 @@ public class ConcurrentChannelBenchmark :
 }
 
 
-public class MessageTypeChannelReader<T> :
-    ChannelReader<ConsumeContext<T>>
+public class MessageTypeChannelReader<T> : ChannelReader<ConsumeContext<T>>
     where T : class
 {
     readonly ChannelReader<ConsumeContext> _source;

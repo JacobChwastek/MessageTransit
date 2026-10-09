@@ -1,55 +1,53 @@
-﻿namespace MassTransit.BenchmarkConsole
+namespace MassTransit.BenchmarkConsole;
+
+using System.Threading.Tasks;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
+using Middleware;
+
+
+[SimpleJob(RuntimeMoniker.Net10_0)]
+[MemoryDiagnoser]
+public class SupervisorBenchmark
 {
-    using System.Threading.Tasks;
-    using BenchmarkDotNet.Attributes;
-    using BenchmarkDotNet.Jobs;
-    using Middleware;
-
-
-    [SimpleJob(RuntimeMoniker.NetCoreApp31)]
-    [SimpleJob(RuntimeMoniker.Net50)]
-    [MemoryDiagnoser]
-    public class SupervisorBenchmark
+    [Benchmark]
+    public async Task AddAgentAndStop()
     {
-        [Benchmark]
-        public async Task AddAgentAndStop()
-        {
-            var supervisor = new Supervisor();
+        var supervisor = new Supervisor();
 
-            var provocateur = new Agent();
+        var provocateur = new Agent();
 
-            provocateur.SetReady();
-            supervisor.SetReady();
+        provocateur.SetReady();
+        supervisor.SetReady();
 
-            supervisor.Add(provocateur);
+        supervisor.Add(provocateur);
 
-            await supervisor.Ready;
+        await supervisor.Ready;
 
-            await supervisor.Stop();
+        await supervisor.Stop();
 
-            await supervisor.Completed;
-        }
+        await supervisor.Completed;
+    }
 
-        [Benchmark]
-        public async Task AddAgentWithManagerAndStop()
-        {
-            var supervisor = new Supervisor();
+    [Benchmark]
+    public async Task AddAgentWithManagerAndStop()
+    {
+        var supervisor = new Supervisor();
 
-            var manager = new Supervisor();
-            supervisor.Add(manager);
+        var manager = new Supervisor();
+        supervisor.Add(manager);
 
-            var provocateur = new Agent();
-            manager.Add(provocateur);
+        var provocateur = new Agent();
+        manager.Add(provocateur);
 
-            manager.SetReady();
-            supervisor.SetReady();
-            provocateur.SetReady();
+        manager.SetReady();
+        supervisor.SetReady();
+        provocateur.SetReady();
 
-            await supervisor.Ready;
+        await supervisor.Ready;
 
-            await supervisor.Stop();
+        await supervisor.Stop();
 
-            await supervisor.Completed;
-        }
+        await supervisor.Completed;
     }
 }
