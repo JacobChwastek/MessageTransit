@@ -11,6 +11,8 @@ MassTransit is Apache 2.0 licensed.
 
 Get started by [reading through the documentation](https://masstransit-project.com/).
 
+For persistence changes in this fork, see [Migrating from Entity Framework 6 to EF Core](ENTITY_FRAMEWORK_MIGRATION.md).
+
 Build Status
 ------------
 
