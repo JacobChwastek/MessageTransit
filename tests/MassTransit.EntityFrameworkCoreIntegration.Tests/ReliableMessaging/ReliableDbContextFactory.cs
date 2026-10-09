@@ -1,41 +1,38 @@
-namespace MassTransit.EntityFrameworkCoreIntegration.Tests.ReliableMessaging
+namespace MassTransit.EntityFrameworkCoreIntegration.Tests.ReliableMessaging;
+
+using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using TestFramework;
+
+
+public class ReliableDbContextFactory : IDesignTimeDbContextFactory<ReliableDbContext>
 {
-    using System.Reflection;
-    using MassTransit.Tests;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Design;
-    using TestFramework;
-
-
-    public class ReliableDbContextFactory :
-        IDesignTimeDbContextFactory<ReliableDbContext>
+    public ReliableDbContext CreateDbContext(string[] args)
     {
-        public ReliableDbContext CreateDbContext(string[] args)
+        var builder = new DbContextOptionsBuilder<ReliableDbContext>();
+
+        Apply(builder);
+
+        return new ReliableDbContext(builder.Options);
+    }
+
+    public static void Apply(DbContextOptionsBuilder builder)
+    {
+        builder.UseSqlServer(TestDatabases.SqlServerConnectionString(), options =>
         {
-            var builder = new DbContextOptionsBuilder<ReliableDbContext>();
+            options.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+            options.MigrationsHistoryTable($"__{nameof(ReliableDbContext)}");
 
-            Apply(builder);
+            options.EnableRetryOnFailure(5);
+            options.MinBatchSize(1);
+        });
 
-            return new ReliableDbContext(builder.Options);
-        }
+        builder.EnableSensitiveDataLogging();
+    }
 
-        public static void Apply(DbContextOptionsBuilder builder)
-        {
-            builder.UseSqlServer(LocalDbConnectionStringProvider.GetLocalDbConnectionString(), options =>
-            {
-                options.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
-                options.MigrationsHistoryTable($"__{nameof(ReliableDbContext)}");
-
-                options.EnableRetryOnFailure(5);
-                options.MinBatchSize(1);
-            });
-
-            builder.EnableSensitiveDataLogging();
-        }
-
-        public ReliableDbContext CreateDbContext(DbContextOptionsBuilder<ReliableDbContext> optionsBuilder)
-        {
-            return new ReliableDbContext(optionsBuilder.Options);
-        }
+    public ReliableDbContext CreateDbContext(DbContextOptionsBuilder<ReliableDbContext> optionsBuilder)
+    {
+        return new ReliableDbContext(optionsBuilder.Options);
     }
 }

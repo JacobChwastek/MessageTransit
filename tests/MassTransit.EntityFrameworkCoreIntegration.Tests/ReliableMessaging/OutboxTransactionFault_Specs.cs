@@ -4,7 +4,6 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using Logging;
-using MassTransit.Tests;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -22,7 +21,7 @@ public class OutboxTransactionFault_Specs
         services
             .AddDbContext<TestDbContext>(builder =>
             {
-                builder.UseSqlServer(LocalDbConnectionStringProvider.GetLocalDbConnectionString(), options =>
+                builder.UseSqlServer(TestDatabases.SqlServerConnectionString(), options =>
                 {
                     options.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
                     options.MigrationsHistoryTable($"__{nameof(TestDbContext)}");

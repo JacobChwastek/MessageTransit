@@ -20,7 +20,7 @@ Each name below identifies the matching project directory under `tests/`. The wo
 | MassTransit.Azure.Table.Tests | Linux | Local Azurite |
 | MassTransit.DapperIntegration.Tests | Linux | Local SQL Server |
 | MassTransit.EntityFrameworkIntegration.Tests | Linux | Local SQL Server; transitional EF6 adapter |
-| MassTransit.EntityFrameworkCoreIntegration.Tests | Linux | Local SQL Server and PostgreSQL |
+| MassTransit.EntityFrameworkCoreIntegration.Tests | Linux | SQL Server and PostgreSQL containers started by the tests through Testcontainers |
 | MassTransit.MartenIntegration.Tests | Linux | Local PostgreSQL |
 | MassTransit.MongoDbIntegration.Tests | Linux | Local MongoDB replica set |
 | MassTransit.NHibernateIntegration.Tests | Linux | In-memory SQLite |

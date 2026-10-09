@@ -416,7 +416,7 @@ namespace MassTransit.EntityFrameworkCoreIntegration.Tests.ReliableMessaging
 
             public static void Apply(DbContextOptionsBuilder builder)
             {
-                builder.UseSqlServer(LocalDbConnectionStringProvider.GetLocalDbConnectionString(), options =>
+                builder.UseSqlServer(TestDatabases.SqlServerConnectionString(), options =>
                 {
                     options.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
                     options.MigrationsHistoryTable($"__{nameof(ResponsibleDbContext)}");
