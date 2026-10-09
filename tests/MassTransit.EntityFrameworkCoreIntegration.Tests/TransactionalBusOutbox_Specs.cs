@@ -1,6 +1,7 @@
 namespace MassTransit.EntityFrameworkCoreIntegration.Tests;
 
 using System;
+using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using System.Transactions;
 using Internals;
@@ -19,10 +20,13 @@ using Transactions;
 [TestFixture]
 public class TransactionalBusOutbox_Specs : InMemoryTestFixture
 {
+    readonly ConcurrentDictionary<Guid, TaskCompletionSource<ConsumeContext<InitiateSimpleSaga>>> _received = new();
+
     [Test]
     public async Task Should_not_publish_properly()
     {
-        var message = new InitiateSimpleSaga();
+        var message = new InitiateSimpleSaga(NewId.NextGuid());
+        var received = Received(message);
         var product = new Product { Name = "Should_not_publish_properly" };
         var transactionOutbox = new TransactionalEnlistmentBus(Bus);
 
@@ -35,7 +39,7 @@ public class TransactionalBusOutbox_Specs : InMemoryTestFixture
             await transactionOutbox.Publish(message);
         }
 
-        Assert.That(async () => await _received.OrTimeout(s: 3), Throws.TypeOf<TimeoutException>());
+        Assert.That(async () => await received.OrTimeout(s: 3), Throws.TypeOf<TimeoutException>());
 
         await using (var dbContext = GetDbContext())
         {
@@ -46,7 +50,8 @@ public class TransactionalBusOutbox_Specs : InMemoryTestFixture
     [Test]
     public async Task Should_publish_after_db_create()
     {
-        var message = new InitiateSimpleSaga();
+        var message = new InitiateSimpleSaga(NewId.NextGuid());
+        var received = Received(message);
         var product = new Product { Name = "Should_publish_after_db_create" };
         var transactionOutbox = new TransactionalEnlistmentBus(Bus);
 
@@ -59,13 +64,13 @@ public class TransactionalBusOutbox_Specs : InMemoryTestFixture
             await transactionOutbox.Publish(message);
 
             // Hasn't published yet
-            Assert.That(async () => await _received.OrTimeout(s: 3), Throws.TypeOf<TimeoutException>());
+            Assert.That(async () => await received.OrTimeout(s: 3), Throws.TypeOf<TimeoutException>());
 
             transaction.Complete();
         }
 
         // Now has published
-        await _received;
+        await received.OrTimeout(TestTimeout);
 
         await using (var dbContext = GetDbContext())
         {
@@ -74,11 +79,11 @@ public class TransactionalBusOutbox_Specs : InMemoryTestFixture
     }
 
     [Test]
-    [Category("Flaky")]
     public async Task Should_publish_after_db_create_outbox_bus()
     {
-        var message = new InitiateSimpleSaga();
-        var product = new Product { Name = "Should_publish_after_db_create" };
+        var message = new InitiateSimpleSaga(NewId.NextGuid());
+        var received = Received(message);
+        var product = new Product { Name = "Should_publish_after_db_create_outbox_bus" };
         var bus = new TransactionalBus(Bus);
 
         await using (var dbContext = GetDbContext())
@@ -89,23 +94,19 @@ public class TransactionalBusOutbox_Specs : InMemoryTestFixture
             await bus.Publish(message);
 
             // Hasn't published yet
-            Assert.That(async () => await _received.OrTimeout(s: 3), Throws.TypeOf<TimeoutException>());
+            Assert.That(async () => await received.OrTimeout(s: 3), Throws.TypeOf<TimeoutException>());
         }
 
         await bus.Release();
 
         // Now has published
-        await _received;
+        await received.OrTimeout(TestTimeout);
 
         await using (var dbContext = GetDbContext())
         {
             Assert.That(await dbContext.Products.AnyAsync(x => x.Id == product.Id), Is.True);
         }
     }
-
-    #pragma warning disable NUnit1032
-    Task<ConsumeContext<InitiateSimpleSaga>> _received;
-    #pragma warning restore NUnit1032
 
     TransactionOutboxTestsDbContext GetDbContext()
     {
@@ -114,9 +115,24 @@ public class TransactionalBusOutbox_Specs : InMemoryTestFixture
         return dbContext;
     }
 
+    Task<ConsumeContext<InitiateSimpleSaga>> Received(InitiateSimpleSaga message)
+    {
+        return GetReceived(message.CorrelationId).Task;
+    }
+
+    TaskCompletionSource<ConsumeContext<InitiateSimpleSaga>> GetReceived(Guid correlationId)
+    {
+        return _received.GetOrAdd(correlationId, _ => new TaskCompletionSource<ConsumeContext<InitiateSimpleSaga>>(TaskCreationOptions.RunContinuationsAsynchronously));
+    }
+
     protected override void ConfigureInMemoryReceiveEndpoint(IInMemoryReceiveEndpointConfigurator configurator)
     {
-        _received = Handled<InitiateSimpleSaga>(configurator);
+        // each test waits for its own message, so a message published by an earlier test cannot satisfy a later one
+        configurator.Handler<InitiateSimpleSaga>(context =>
+        {
+            GetReceived(context.Message.CorrelationId).TrySetResult(context);
+            return Task.CompletedTask;
+        });
     }
 
     public TransactionalBusOutbox_Specs()
