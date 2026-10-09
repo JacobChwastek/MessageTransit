@@ -1,140 +1,134 @@
-namespace MassTransit.BenchmarkConsole
+namespace MassTransit.BenchmarkConsole;
+
+using System.Threading;
+using System.Threading.Tasks;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using Util;
+
+
+public class ExampleCommand : IRequest<Unit>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using BenchmarkDotNet.Attributes;
-    using BenchmarkDotNet.Jobs;
-    using MediatR;
-    using Microsoft.Extensions.DependencyInjection;
-    using Util;
-
-
-    public class ExampleCommand :
-        IRequest<Unit>
+    public ExampleCommand(string arg1, int arg2)
     {
-        public ExampleCommand(string arg1, int arg2)
-        {
-            Arg1 = arg1;
-            Arg2 = arg2;
-        }
-
-        public string Arg1 { get; }
-
-        public int Arg2 { get; }
+        Arg1 = arg1;
+        Arg2 = arg2;
     }
 
+    public string Arg1 { get; }
 
-    [SimpleJob(RuntimeMoniker.Net60)]
-    [MemoryDiagnoser]
-    public class MediatorBenchmark
+    public int Arg2 { get; }
+}
+
+[SimpleJob(RuntimeMoniker.Net10_0)]
+[MemoryDiagnoser]
+public class MediatorBenchmark
+{
+    ExampleCommandHandler _handler;
+    MassTransit.Mediator.IMediator _mediator;
+    IMediator _mediatR;
+    IRequestClient<ExampleRequest> _requestClient;
+
+    [GlobalSetup]
+    public void Setup()
     {
-        ExampleCommandHandler _handler;
-        MassTransit.Mediator.IMediator _mediator;
-        IMediator _mediatR;
-        IRequestClient<ExampleRequest> _requestClient;
+        var services = new ServiceCollection();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<MediatorBenchmark>());
 
-        [GlobalSetup]
-        public void Setup()
+        _mediator = Bus.Factory.CreateMediator(cfg =>
         {
-            var services = new ServiceCollection();
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<MediatorBenchmark>());
+            cfg.Consumer<ExampleCommandHandler>();
+        });
 
-            _mediator = Bus.Factory.CreateMediator(cfg =>
-            {
-                cfg.Consumer<ExampleCommandHandler>();
-            });
+        var provider = services.BuildServiceProvider();
 
-            var provider = services.BuildServiceProvider();
+        _mediatR = provider.GetRequiredService<IMediator>();
 
-            _mediatR = provider.GetRequiredService<IMediator>();
-
-            var busControl = Bus.Factory.CreateUsingInMemory(cfg =>
-            {
-                cfg.ReceiveEndpoint("input-queue", x => x.Consumer<ExampleRequestConsumer>());
-            });
-
-            TaskUtil.Await(() => busControl.StartAsync(CancellationToken.None));
-
-            _requestClient = busControl.CreateRequestClient<ExampleRequest>();
-
-            _handler = new ExampleCommandHandler();
-        }
-
-        [Benchmark(Description = "Direct")]
-        public async Task CallingHandler_Directly()
+        var busControl = Bus.Factory.CreateUsingInMemory(cfg =>
         {
-            var command = new ExampleCommand("Example Arg", 2);
-            await _handler.Handle(command, CancellationToken.None);
-        }
+            cfg.ReceiveEndpoint("input-queue", x => x.Consumer<ExampleRequestConsumer>());
+        });
 
-        [Benchmark(Description = "MediatR")]
-        public async Task CallingHandler_WithMediator()
-        {
-            var command = new ExampleCommand("Example Arg", 2);
-            await _mediatR.Send(command, CancellationToken.None);
-        }
+        TaskUtil.Await(() => busControl.StartAsync(CancellationToken.None));
 
-        [Benchmark(Description = "MassTransit")]
-        public async Task CallingHandler_WithMassTransitMediator()
-        {
-            var command = new ExampleCommand("Example Arg", 2);
-            await _mediator.Send(command, CancellationToken.None);
-        }
+        _requestClient = busControl.CreateRequestClient<ExampleRequest>();
 
-        [Benchmark(Description = "InMemoryBus")]
-        public async Task CallingHandler_WithMassTransitInMemoryBus()
-        {
-            var request = new ExampleRequest
-            {
-                Name = "Frank",
-                Amount = 123.45m
-            };
-            await _requestClient.GetResponse<ExampleResponse>(request);
-        }
+        _handler = new ExampleCommandHandler();
     }
 
-
-    public class ExampleRequestConsumer :
-        IConsumer<ExampleRequest>
+    [Benchmark(Description = "Direct")]
+    public async Task CallingHandler_Directly()
     {
-        public Task Consume(ConsumeContext<ExampleRequest> context)
-        {
-            return context.RespondAsync(new ExampleResponse
-            {
-                Name = context.Message.Name,
-                Amount = context.Message.Amount
-            });
-        }
+        var command = new ExampleCommand("Example Arg", 2);
+        await _handler.Handle(command, CancellationToken.None);
     }
 
-
-    public class ExampleRequest
+    [Benchmark(Description = "MediatR")]
+    public async Task CallingHandler_WithMediator()
     {
-        public string Name { get; set; }
-        public decimal Amount { get; set; }
+        var command = new ExampleCommand("Example Arg", 2);
+        await _mediatR.Send(command, CancellationToken.None);
     }
 
-
-    public class ExampleResponse
+    [Benchmark(Description = "MassTransit")]
+    public async Task CallingHandler_WithMassTransitMediator()
     {
-        public string Name { get; set; }
-        public decimal Amount { get; set; }
+        var command = new ExampleCommand("Example Arg", 2);
+        await _mediator.Send(command, CancellationToken.None);
     }
 
-
-    public class ExampleCommandHandler :
-        IRequestHandler<ExampleCommand, Unit>,
-        IConsumer<ExampleCommand>
+    [Benchmark(Description = "InMemoryBus")]
+    public async Task CallingHandler_WithMassTransitInMemoryBus()
     {
-        public Task Consume(ConsumeContext<ExampleCommand> context)
+        var request = new ExampleRequest
         {
-            return Task.CompletedTask;
-        }
+            Name = "Frank",
+            Amount = 123.45m
+        };
+        await _requestClient.GetResponse<ExampleResponse>(request);
+    }
+}
 
-        /// <inheritdoc />
-        public Task<Unit> Handle(ExampleCommand request, CancellationToken cancellationToken)
+
+public class ExampleRequestConsumer : IConsumer<ExampleRequest>
+{
+    public Task Consume(ConsumeContext<ExampleRequest> context)
+    {
+        return context.RespondAsync(new ExampleResponse
         {
-            return Unit.Task;
-        }
+            Name = context.Message.Name,
+            Amount = context.Message.Amount
+        });
+    }
+}
+
+
+public class ExampleRequest
+{
+    public string Name { get; set; }
+    public decimal Amount { get; set; }
+}
+
+
+public class ExampleResponse
+{
+    public string Name { get; set; }
+    public decimal Amount { get; set; }
+}
+
+
+public class ExampleCommandHandler : IRequestHandler<ExampleCommand, Unit>, IConsumer<ExampleCommand>
+{
+    public Task Consume(ConsumeContext<ExampleCommand> context)
+    {
+        return Task.CompletedTask;
+    }
+
+    /// <inheritdoc />
+    public Task<Unit> Handle(ExampleCommand request, CancellationToken cancellationToken)
+    {
+        return Unit.Task;
     }
 }

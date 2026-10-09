@@ -47,8 +47,8 @@
     "errors": []
   },
   "input_sha256": {
-    ".github/workflows/build.yml": "24a28951c7884398e561540893ede8eac55d97c9169aa45d679c84efd9c340b9",
-    ".github/workflows/nightly-transports.yml": "ff67f7ea927c75195bb4d9acfacbd99888e0dfda105b818848dd9de8635a5bb6",
+    ".github/workflows/build.yml": "ed25b9073e2beb20c8e8d5722591cd313cbf8ccedb837bccbd7a09661aa5a7f1",
+    ".github/workflows/nightly-transports.yml": "b50c92689db50ea60a3023f576eb8aea36aca3ca1eaafd2e58760ac20cfb1d85",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
     "Directory.Packages.props": "c4ac925429a09e0f7a2f03ab245d9892bcdc01ce23aeb7c5a1bec4558892a598",
     "MassTransit.sln": "4bf1c6d7f225b5e40081d8e31875778ab2cadca7095b65e267275c177210c436",
