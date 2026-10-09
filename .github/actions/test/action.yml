@@ -1,0 +1,40 @@
+name: Test on .NET 10
+description: Run a test project and retain its results and exclusions.
+inputs:
+  project:
+    description: Test project directory under tests.
+    required: true
+  filter:
+    description: VSTest filter. Flaky tests remain excluded from unattended runs.
+    default: Category!=Flaky
+runs:
+  using: composite
+  steps:
+    - name: Run tests
+      shell: bash
+      env:
+        TEST_PROJECT: ${{ inputs.project }}
+        TEST_FILTER: ${{ inputs.filter }}
+      run: >-
+        dotnet test "tests/$TEST_PROJECT/$TEST_PROJECT.csproj"
+        --configuration Release --framework net10.0
+        --logger GitHubActions --logger "trx;LogFileName=results.trx"
+        --results-directory "$RUNNER_TEMP/test-results/$TEST_PROJECT"
+        --filter "$TEST_FILTER"
+
+    - name: Summarize test results
+      if: always()
+      shell: bash
+      env:
+        TEST_PROJECT: ${{ inputs.project }}
+        TEST_FILTER: ${{ inputs.filter }}
+      run: python scripts/ci_test_report.py "$RUNNER_TEMP/test-results/$TEST_PROJECT/results.trx" --project "$TEST_PROJECT" --filter "$TEST_FILTER"
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: tests-${{ github.job }}-${{ runner.os }}-${{ inputs.project }}
+        path: ${{ runner.temp }}/test-results/${{ inputs.project }}/
+        if-no-files-found: warn
+        retention-days: 14

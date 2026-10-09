@@ -1,40 +1,37 @@
-﻿namespace MassTransit.BenchmarkConsole
+namespace MassTransit.BenchmarkConsole;
+
+using System;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
+
+
+[SimpleJob(RuntimeMoniker.Net10_0)]
+[MemoryDiagnoser]
+[GcServer(true)]
+[GcForce]
+public class Benchmarker
 {
-    using System;
-    using BenchmarkDotNet.Attributes;
-    using BenchmarkDotNet.Jobs;
-
-
-    [SimpleJob(RuntimeMoniker.NetCoreApp31)]
-    [SimpleJob(RuntimeMoniker.Net60)]
-    [SimpleJob(RuntimeMoniker.Net80)]
-    [MemoryDiagnoser]
-    [GcServer(true)]
-    [GcForce]
-    public class Benchmarker
+    [Benchmark(Baseline = true, Description = "Next")]
+    public NewId GetNext()
     {
-        [Benchmark(Baseline = true, Description = "Next")]
-        public NewId GetNext()
-        {
-            return NewId.Next();
-        }
+        return NewId.Next();
+    }
 
-        [Benchmark(Description = "Next(batch)", OperationsPerInvoke = 100)]
-        public NewId[] GetNextBatch()
-        {
-            return NewId.Next(100);
-        }
+    [Benchmark(Description = "Next(batch)", OperationsPerInvoke = 100)]
+    public NewId[] GetNextBatch()
+    {
+        return NewId.Next(100);
+    }
 
-        [Benchmark(Description = "NextGuid")]
-        public Guid GetNextGuid()
-        {
-            return NewId.NextGuid();
-        }
+    [Benchmark(Description = "NextGuid")]
+    public Guid GetNextGuid()
+    {
+        return NewId.NextGuid();
+    }
 
-        [Benchmark(Description = "NextSequentialGuid")]
-        public Guid GetNextSequentialGuid()
-        {
-            return NewId.NextSequentialGuid();
-        }
+    [Benchmark(Description = "NextSequentialGuid")]
+    public Guid GetNextSequentialGuid()
+    {
+        return NewId.NextSequentialGuid();
     }
 }
