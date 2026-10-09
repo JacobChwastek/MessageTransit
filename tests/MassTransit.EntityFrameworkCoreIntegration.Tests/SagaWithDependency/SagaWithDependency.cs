@@ -1,40 +1,46 @@
-﻿namespace MassTransit.EntityFrameworkCoreIntegration.Tests.SagaWithDependency
+namespace MassTransit.EntityFrameworkCoreIntegration.Tests.SagaWithDependency;
+
+using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using DataAccess;
+using MassTransit.Tests.Saga.Messages;
+using Messages;
+
+
+public class SagaWithDependency : InitiatedBy<InitiateSimpleSaga>, Orchestrates<UpdateSagaDependency>, Observes<RenameSagaDependencies, SagaWithDependency>,
+    ISaga
 {
-    using System;
-    using System.Threading.Tasks;
-    using DataAccess;
-    using MassTransit.Tests.Saga.Messages;
-    using Messages;
+    public bool Completed { get; private set; }
+    public bool Initiated { get; private set; }
+    public string Name { get; private set; }
 
+    public SagaDependency Dependency { get; set; }
 
-    public class SagaWithDependency :
-        InitiatedBy<InitiateSimpleSaga>,
-        Orchestrates<UpdateSagaDependency>,
-        ISaga
+    public Task Consume(ConsumeContext<InitiateSimpleSaga> context)
     {
-        public bool Completed { get; private set; }
-        public bool Initiated { get; private set; }
-        public string Name { get; private set; }
+        CorrelationId = context.Message.CorrelationId;
+        Initiated = true;
+        Name = context.Message.Name;
+        Dependency = new SagaDependency {SagaInnerDependency = new SagaInnerDependency()};
 
-        public SagaDependency Dependency { get; set; }
+        return Task.CompletedTask;
+    }
 
-        public Task Consume(ConsumeContext<InitiateSimpleSaga> context)
-        {
-            CorrelationId = context.Message.CorrelationId;
-            Initiated = true;
-            Name = context.Message.Name;
-            Dependency = new SagaDependency {SagaInnerDependency = new SagaInnerDependency()};
+    public Guid CorrelationId { get; set; }
 
-            return Task.CompletedTask;
-        }
+    public Expression<Func<SagaWithDependency, RenameSagaDependencies, bool>> CorrelationExpression => (saga, message) => saga.Name == message.SagaName;
 
-        public Guid CorrelationId { get; set; }
+    public Task Consume(ConsumeContext<RenameSagaDependencies> context)
+    {
+        Dependency.SagaInnerDependency.Name = context.Message.Name;
+        return Task.CompletedTask;
+    }
 
-        public Task Consume(ConsumeContext<UpdateSagaDependency> context)
-        {
-            Dependency.SagaInnerDependency.Name = context.Message.Name;
-            Completed = true;
-            return Task.CompletedTask;
-        }
+    public Task Consume(ConsumeContext<UpdateSagaDependency> context)
+    {
+        Dependency.SagaInnerDependency.Name = context.Message.Name;
+        Completed = true;
+        return Task.CompletedTask;
     }
 }
