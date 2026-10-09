@@ -47,10 +47,10 @@
     "errors": []
   },
   "input_sha256": {
-    ".github/workflows/build.yml": "ed25b9073e2beb20c8e8d5722591cd313cbf8ccedb837bccbd7a09661aa5a7f1",
+    ".github/workflows/build.yml": "5310b03c5dae2904b3d2a56d91b21cc9d6b17df6474bbb9188f3e45147ce62db",
     ".github/workflows/nightly-transports.yml": "b50c92689db50ea60a3023f576eb8aea36aca3ca1eaafd2e58760ac20cfb1d85",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
-    "Directory.Packages.props": "c4ac925429a09e0f7a2f03ab245d9892bcdc01ce23aeb7c5a1bec4558892a598",
+    "Directory.Packages.props": "b5595d257c89155c641ee83b23f135c200fa205e789e224dc9fc0d4e47935045",
     "MassTransit.sln": "4bf1c6d7f225b5e40081d8e31875778ab2cadca7095b65e267275c177210c436",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
     "signing.props": "4e31404f98199753192cc9ea0dc53c90642f73e8a29b5d202cfd7f141a82b3b4",
@@ -102,7 +102,7 @@
     "tests/MassTransit.BenchmarkConsole/MassTransit.BenchmarkConsole.csproj": "e335000bc8b51293998456dde3fd75b665659cb35164817d99452839b9aa9414",
     "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj": "95d7bd20954fe1a8acbaedcecc670dbef4bcf7a67577c55c1a881241f5e0ebe2",
     "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj": "5da0ec2d6a7c51f52530905dadc17a49a084bd9a98d0c8f458eda19103598ead",
-    "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj": "129cd945ec663f5a25b2a0f3b99d95726b29715b2a521d1740a9d6105954bedc",
+    "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj": "4c2dc230dd6b31b91028de602fe07b41d9796817399de547ba228028f4090d60",
     "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj": "94b64cf06427deeaa34ee6430ac5b592eb1d8246598756d946bd6558a437742e",
     "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj": "583466fdff31fd878f277288eec38ca054b4706c4a89a9ad02996d4b26abd2b4",
     "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj": "2e573d2e52bf21d0575ba2594cee4a51f1922db2a63ebb6bf6f8767948cdb45e",
@@ -676,6 +676,20 @@
           "attributes": {
             "Include": "System.Data.SQLite",
             "Version": "1.0.119"
+          }
+        },
+        {
+          "element": "PackageVersion",
+          "attributes": {
+            "Include": "Testcontainers.MsSql",
+            "Version": "4.15.0"
+          }
+        },
+        {
+          "element": "PackageVersion",
+          "attributes": {
+            "Include": "Testcontainers.PostgreSql",
+            "Version": "4.15.0"
           }
         },
         {
@@ -2686,6 +2700,18 @@
           "element": "PackageReference",
           "attributes": {
             "Include": "Npgsql.EntityFrameworkCore.PostgreSQL"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Testcontainers.MsSql"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Testcontainers.PostgreSql"
           }
         },
         {
@@ -13872,6 +13898,38 @@
                   "id": "OpenTelemetry.Exporter.Jaeger",
                   "metadata": {
                     "Version": "1.5.1"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Testcontainers.MsSql",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "kind": "direct",
+              "version": "4.15.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Testcontainers.MsSql",
+                  "metadata": {
+                    "Version": "4.15.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Testcontainers.PostgreSql",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "kind": "direct",
+              "version": "4.15.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Testcontainers.PostgreSql",
+                  "metadata": {
+                    "Version": "4.15.0"
                   },
                   "origin": "Directory.Packages.props"
                 }

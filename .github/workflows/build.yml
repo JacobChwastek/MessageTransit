@@ -313,9 +313,10 @@ jobs:
           project: MassTransit.DapperIntegration.Tests
   test-entity-framework:
     name: "Storage: EntityFramework"
-    timeout-minutes: 10
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     services:
+      # EF6 only; the EF Core tests start their own SQL Server and PostgreSQL containers
       mssql:
         image: mcr.microsoft.com/azure-sql-edge
         env:
@@ -323,13 +324,6 @@ jobs:
           SA_PASSWORD: "Password12!"
         ports:
           - 1433:1433
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: "Password12!"
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       # otherwise the client barks
       DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: false
