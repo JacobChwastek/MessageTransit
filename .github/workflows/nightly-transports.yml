@@ -21,13 +21,6 @@ jobs:
     name: "Transports: ActiveMQ"
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    services:
-      activemq:
-        image: masstransit/activemq:latest
-        ports:
-          - "61616:61616"
-          - "8161:8161"
-          - "5672:5672"
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -40,19 +33,12 @@ jobs:
       - name: Test ActiveMQ
         uses: ./.github/actions/test
         with:
-          project: MassTransit.ActiveMqTransport.Tests
+          project: MassTransit.ActiveMqTransport.IntegrationTests
 
   test-rabbitmq:
     name: "Transports: RabbitMQ"
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    services:
-      rabbitmq:
-        image: masstransit/rabbitmq:latest
-        ports:
-          - "5672:5672"
-          - "15672:15672"
-        options: --health-cmd "rabbitmqctl node_health_check" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -65,19 +51,12 @@ jobs:
       - name: Test RabbitMQ
         uses: ./.github/actions/test
         with:
-          project: MassTransit.RabbitMqTransport.Tests
+          project: MassTransit.RabbitMqTransport.IntegrationTests
 
   test-sqs:
     name: "Transports: SQS (+S3)"
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    services:
-      localstack:
-        image: localstack/localstack:3.0.2
-        ports:
-          - "4566:4566"
-          - "4571:4571"
-        options: --health-cmd "curl --fail http://localhost:4566/_localstack/health || exit 1" --health-interval 10s --health-timeout 5s --health-retries 5 --health-start-period 15s
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -90,4 +69,4 @@ jobs:
       - name: Test SQS
         uses: ./.github/actions/test
         with:
-          project: MassTransit.AmazonSqsTransport.Tests
+          project: MassTransit.AmazonSqsTransport.IntegrationTests

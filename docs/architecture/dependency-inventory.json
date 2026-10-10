@@ -39,7 +39,7 @@
       "SDK evaluation includes implicit references but excludes restored obj props/targets; package build assets and transitive dependencies are not resolved.",
       "Evaluated central version metadata is preserved separately; targets may later change metadata during restore/build/pack.",
       "Release is evaluated. Current Debug/Release conditions only change compiler flags; Debug, custom configurations, and GITHUB_ACTIONS=true are not evaluated. Source conditions remain in source_files.",
-      "Benchmark kind is classified by path/name; tests/Directory.Build.props also sets IsTestProject=true on both benchmarks.",
+      "Project kind is classified by path/name: names ending in .Tests or .IntegrationTests are tests, names containing Benchmark are benchmarks, and other projects under tests are test support. tests/Directory.Build.props also sets IsTestProject=true on both benchmarks.",
       "Packability and package license expressions describe current declarations/evaluation; build, publication, legal clearance, and test execution are unverified.",
       "Test reachability uses the union of evaluated reference graphs, not assertions, runtime coverage, or compatible-framework validation.",
       "Consumer status describes repository references only; application deployments and persisted data are not assessed."
@@ -47,11 +47,11 @@
     "errors": []
   },
   "input_sha256": {
-    ".github/workflows/build.yml": "bf08209b2ec74e7e2a461398a398212362fd8cf993529f9c0a0f997c074a0cd5",
-    ".github/workflows/nightly-transports.yml": "b50c92689db50ea60a3023f576eb8aea36aca3ca1eaafd2e58760ac20cfb1d85",
+    ".github/workflows/build.yml": "b96a40704c60b6cd1c8f302f7196d4afa136ff271e112b412fd269d658e30d98",
+    ".github/workflows/nightly-transports.yml": "7aedd359b8c31da3d94567ac4e8bd3da9e01f36e8c2c99675f3aa42bbf28ec66",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
-    "Directory.Packages.props": "b3b50fe95e0f8321a22d93291323aa29bd6964ca17e8ed7baf146633b9f62ce5",
-    "MassTransit.slnx": "77b2a7a71e4853bc999262cd78fd39a35888fd16086ed08b9adebb12dda36ccc",
+    "Directory.Packages.props": "064b9a6e6341d5a13c9fa3ad7a360d5b6f16eb911a4cf84853e1a9978eabdaff",
+    "MassTransit.slnx": "f9882e13df6d4c108e12ca7c4b21328db840a9f386808344d0dca9848e631c4d",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
     "signing.props": "4e31404f98199753192cc9ea0dc53c90642f73e8a29b5d202cfd7f141a82b3b4",
     "src/Directory.Build.props": "4ee982a76219a385f3953fa607719135553f11512b2c63dc9e8e52b75069f3d9",
@@ -91,39 +91,41 @@
     "src/Transports/MassTransit.WebJobs.ServiceBusIntegration/MassTransit.WebJobs.ServiceBusIntegration.csproj": "93300adc1a3ab0ab9ee629389729825a5b0377faea97eaa03877a341afe1e08e",
     "tests/Directory.Build.props": "274c3b32da1267db2fb90868123a4093430a8a1b82aa92a70f5186c5710ce1f2",
     "tests/MassTransit.Abstractions.Tests/MassTransit.Abstractions.Tests.csproj": "db7987f8c5d323e3116b9f1c88c5830566830069eb0590faf33d5a3570a10238",
-    "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj": "230ab559e36b6fc5528217870f69f8636ba681a02364ed53f6a7a2f546b327b2",
-    "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj": "660ca1ca8f830ddfb2872a7cec79cedc0081b85aca26215b44762529f4ec1f74",
+    "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj": "edcb30c954b6e8ffbdfc0d17abae115664546c17ef81a91d415092efd27f0d2e",
+    "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj": "b95ca6377c67c2cb11dce6161385b67b87ba19de64772c365381a50afa8f6b05",
     "tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj": "2ec6e2f00aebf587ce29b1cf16f866a0027efa58628f8f22f84f36fe92d30f84",
-    "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj": "24c14c654b8911093d69b1f3ab091cdb2017042a5ff13f5e493f7463b3bf253d",
+    "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj": "61b590d6c36fe78bbbc4ac1fcca121d83b3845aa4f73beab485ebc264bebd953",
     "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj": "f7abe2bc71a8805e74c1e80b60068278e4155a9c2cab67a58250536509c1f4f3",
-    "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj": "160da2ebe1ec27b0b154b36a3a540bdfcd2d25645f5e1f30d2b2e5eff23e49fb",
+    "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj": "2e3586539087ba7419e6293044557093504ded03cdee08d0fc68bf10411e1296",
     "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj": "1637208f1b8df153f32cd1585099ddd74025c4ac914d7fb2e4af35dfaa5c7154",
     "tests/MassTransit.BenchmarkConsole/MassTransit.BenchmarkConsole.csproj": "e335000bc8b51293998456dde3fd75b665659cb35164817d99452839b9aa9414",
     "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj": "95d7bd20954fe1a8acbaedcecc670dbef4bcf7a67577c55c1a881241f5e0ebe2",
     "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj": "5da0ec2d6a7c51f52530905dadc17a49a084bd9a98d0c8f458eda19103598ead",
-    "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj": "4c2dc230dd6b31b91028de602fe07b41d9796817399de547ba228028f4090d60",
-    "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj": "583466fdff31fd878f277288eec38ca054b4706c4a89a9ad02996d4b26abd2b4",
+    "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj": "e1f45a77ba315582ce33d666782abfa3b01189f33eeaf73590847ac69f9a49d6",
+    "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj": "0633db10c55f64230b025c2317e47c1aabe5270842ed6f0b35ee585431e75af5",
     "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj": "2e573d2e52bf21d0575ba2594cee4a51f1922db2a63ebb6bf6f8767948cdb45e",
     "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj": "5425dbbb5aee04800524c00ca4276a3c8cb0cdb2c633c69a99e05ce143591eaf",
-    "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj": "fdc8276cb23ddbbc6f6fe0ab79a7a2061d4d7d25fc904a5d7dc9d62e60fea727",
+    "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj": "27d4e4682fa832ae9c4fb99cba5728c387d5365392510eed666426a00a8d82a7",
     "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj": "98e71c365cfe3c4d6f75cbdcb958dc19cb4d1be8e4fcaf161f901fa6dafeacb5",
-    "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj": "45c147958f545fb478a7622f4b82a2eed9b6bc3624bcafc1d0698a3cd4960bdb",
+    "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj": "d8e33897903b1129d3ea23846aaa72be054dca8f94f4ac66d483075fcdb4a958",
     "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj": "4b17cd5a6dd29e860d4d3ad0158117d02c607c66a98b781242c773b4e2086a72",
     "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj": "c17f24d2eabf45b2ffe3f04c9d09631b11c709db19617cc036b474c66fb39167",
-    "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj": "c597db7c8d2e19acc62b75ec4918b77838ffb150429320c970f6ef5ca6b92867",
-    "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj": "83b4d2563d517dcf27873ef680e839f7eff3160d5851fd353d87133490229a9c",
+    "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj": "8915b0453252a4654e53a729de0c6abad6396481f0c0f88ea196aeedd1774f86",
+    "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj": "bc23dec1cc7e17fb75bbd60309bedc12da237820040aa8d9520e72d558fc4d59",
     "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj": "0375bde0f34deaa3a35fe5e5d749d5d03009b73f1f0ee7e28523e9294e777ee6",
-    "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj": "a00d581eb3d0ae0ee0aca9e97fb02de5356d36b1ae5c2f5f3bf629e98d9db079",
+    "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj": "ef56e8ef067ae276d5dd987bb155260d4085e3718abdcaab9445350f62080f04",
+    "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj": "d6041ca68324db85d8e57f64728ad8689d61cd123327962421970059607dcd57",
     "tests/MassTransit.Tests/MassTransit.Tests.csproj": "7fce38a1481e54d69044cbf2e1dd9d546e9644051cda14cd467e272323edab60"
   },
   "summary": {
-    "tracked_projects": 57,
+    "tracked_projects": 58,
     "source": 32,
     "test": 23,
     "benchmark": 2,
+    "test_support": 1,
     "test_and_benchmark": 25,
     "solution_project_counts": {
-      "MassTransit.slnx": 54
+      "MassTransit.slnx": 55
     },
     "outside_solution": [
       "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj",
@@ -672,6 +674,27 @@
         {
           "element": "PackageVersion",
           "attributes": {
+            "Include": "Testcontainers.Azurite",
+            "Version": "4.15.0"
+          }
+        },
+        {
+          "element": "PackageVersion",
+          "attributes": {
+            "Include": "Testcontainers.LocalStack",
+            "Version": "4.15.0"
+          }
+        },
+        {
+          "element": "PackageVersion",
+          "attributes": {
+            "Include": "Testcontainers.MongoDb",
+            "Version": "4.15.0"
+          }
+        },
+        {
+          "element": "PackageVersion",
+          "attributes": {
             "Include": "Testcontainers.MsSql",
             "Version": "4.15.0"
           }
@@ -680,6 +703,20 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Testcontainers.PostgreSql",
+            "Version": "4.15.0"
+          }
+        },
+        {
+          "element": "PackageVersion",
+          "attributes": {
+            "Include": "Testcontainers.RabbitMq",
+            "Version": "4.15.0"
+          }
+        },
+        {
+          "element": "PackageVersion",
+          "attributes": {
+            "Include": "Testcontainers.Redis",
             "Version": "4.15.0"
           }
         },
@@ -1920,7 +1957,7 @@
       ],
       "conditions": []
     },
-    "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj": {
+    "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -2013,11 +2050,17 @@
           "attributes": {
             "Include": "..\\..\\src\\Scheduling\\MassTransit.QuartzIntegration\\MassTransit.QuartzIntegration.csproj"
           }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
+          }
         }
       ],
       "conditions": []
     },
-    "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj": {
+    "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -2110,6 +2153,12 @@
           "attributes": {
             "Include": "..\\..\\src\\Scheduling\\MassTransit.QuartzIntegration\\MassTransit.QuartzIntegration.csproj"
           }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
+          }
         }
       ],
       "conditions": []
@@ -2175,7 +2224,7 @@
       ],
       "conditions": []
     },
-    "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj": {
+    "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -2243,6 +2292,12 @@
           "element": "ProjectReference",
           "attributes": {
             "Include": "..\\..\\src\\MassTransit\\MassTransit.csproj"
+          }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
           }
         }
       ],
@@ -2327,7 +2382,7 @@
       ],
       "conditions": []
     },
-    "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj": {
+    "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -2383,6 +2438,12 @@
           "element": "ProjectReference",
           "attributes": {
             "Include": "..\\..\\src\\Persistence\\MassTransit.Azure.Table\\MassTransit.Azure.Table.csproj"
+          }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
           }
         }
       ],
@@ -2644,7 +2705,7 @@
       ],
       "conditions": []
     },
-    "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj": {
+    "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -2660,18 +2721,6 @@
           "element": "PackageReference",
           "attributes": {
             "Include": "Npgsql.EntityFrameworkCore.PostgreSQL"
-          }
-        },
-        {
-          "element": "PackageReference",
-          "attributes": {
-            "Include": "Testcontainers.MsSql"
-          }
-        },
-        {
-          "element": "PackageReference",
-          "attributes": {
-            "Include": "Testcontainers.PostgreSql"
           }
         },
         {
@@ -2757,13 +2806,19 @@
         {
           "element": "ProjectReference",
           "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
+          }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
             "Include": "..\\..\\src\\Persistence\\MassTransit.EntityFrameworkCoreIntegration\\MassTransit.EntityFrameworkCoreIntegration.csproj"
           }
         }
       ],
       "conditions": []
     },
-    "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj": {
+    "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -2813,6 +2868,12 @@
           "element": "ProjectReference",
           "attributes": {
             "Include": "..\\..\\src\\MassTransit.TestFramework\\MassTransit.TestFramework.csproj"
+          }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
           }
         }
       ],
@@ -2962,7 +3023,7 @@
       ],
       "conditions": []
     },
-    "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj": {
+    "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -3018,6 +3079,12 @@
           "element": "ProjectReference",
           "attributes": {
             "Include": "..\\..\\src\\MassTransit.TestFramework\\MassTransit.TestFramework.csproj"
+          }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
           }
         }
       ],
@@ -3096,7 +3163,7 @@
       ],
       "conditions": []
     },
-    "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj": {
+    "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -3158,6 +3225,12 @@
           "element": "ProjectReference",
           "attributes": {
             "Include": "..\\..\\src\\Persistence\\MassTransit.MongoDbIntegration\\MassTransit.MongoDbIntegration.csproj"
+          }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
           }
         }
       ],
@@ -3327,7 +3400,7 @@
       ],
       "conditions": []
     },
-    "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj": {
+    "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -3402,11 +3475,17 @@
           "attributes": {
             "Include": "..\\..\\src\\Transports\\MassTransit.RabbitMqTransport\\MassTransit.RabbitMqTransport.csproj"
           }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
+          }
         }
       ],
       "conditions": []
     },
-    "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj": {
+    "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -3462,6 +3541,12 @@
           "element": "ProjectReference",
           "attributes": {
             "Include": "..\\..\\src\\Persistence\\MassTransit.RedisIntegration\\MassTransit.RedisIntegration.csproj"
+          }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
           }
         }
       ],
@@ -3534,7 +3619,7 @@
       ],
       "conditions": []
     },
-    "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj": {
+    "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj": {
       "declarations": [
         {
           "element": "TargetFramework",
@@ -3642,6 +3727,89 @@
           "element": "ProjectReference",
           "attributes": {
             "Include": "..\\MassTransit.Tests\\MassTransit.Tests.csproj"
+          }
+        },
+        {
+          "element": "ProjectReference",
+          "attributes": {
+            "Include": "..\\MassTransit.Testing.Containers\\MassTransit.Testing.Containers.csproj"
+          }
+        }
+      ],
+      "conditions": []
+    },
+    "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj": {
+      "declarations": [
+        {
+          "element": "TargetFramework",
+          "value": "net10.0"
+        },
+        {
+          "element": "IsTestProject",
+          "value": "false"
+        },
+        {
+          "element": "IsPackable",
+          "value": "false"
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Microsoft.Data.SqlClient"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Npgsql"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "NUnit"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Testcontainers.Azurite"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Testcontainers.LocalStack"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Testcontainers.MongoDb"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Testcontainers.MsSql"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Testcontainers.PostgreSql"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Testcontainers.RabbitMq"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Testcontainers.Redis"
           }
         }
       ],
@@ -3810,26 +3978,27 @@
       "src/Transports/MassTransit.WebJobs.EventHubsIntegration/MassTransit.WebJobs.EventHubsIntegration.csproj",
       "src/Transports/MassTransit.WebJobs.ServiceBusIntegration/MassTransit.WebJobs.ServiceBusIntegration.csproj",
       "tests/MassTransit.Abstractions.Tests/MassTransit.Abstractions.Tests.csproj",
-      "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-      "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+      "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+      "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
       "tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj",
-      "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+      "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
       "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-      "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+      "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
       "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
       "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
-      "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-      "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+      "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+      "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
       "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
-      "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+      "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
       "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
-      "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+      "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
       "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
       "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-      "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-      "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+      "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+      "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
       "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj",
-      "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+      "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
+      "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
       "tests/MassTransit.Tests/MassTransit.Tests.csproj"
     ]
   },
@@ -3991,27 +4160,27 @@
         ],
         "tests_reaching_project_including_transitive": [
           "tests/MassTransit.Abstractions.Tests/MassTransit.Abstractions.Tests.csproj",
-          "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
           "tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj",
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-          "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+          "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj",
-          "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+          "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
           "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
-          "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-          "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
           "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "direct_benchmarks": [],
@@ -4373,14 +4542,14 @@
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "direct_benchmarks": [],
@@ -4575,13 +4744,13 @@
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "direct_benchmarks": [
@@ -4780,35 +4949,35 @@
       "referenced_by": [
         "src/MassTransit.Interop.NServiceBus/MassTransit.Interop.NServiceBus.csproj",
         "src/Scheduling/MassTransit.HangfireIntegration/MassTransit.HangfireIntegration.csproj",
-        "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+        "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
         "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
         "tests/MassTransit.BenchmarkConsole/MassTransit.BenchmarkConsole.csproj",
         "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
         "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-        "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+        "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
         "tests/MassTransit.Tests/MassTransit.Tests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "direct_benchmarks": [
@@ -5185,13 +5354,13 @@
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "direct_benchmarks": [],
@@ -5408,68 +5577,68 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-        "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
-        "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+        "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+        "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
+        "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
         "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-        "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+        "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
         "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
-        "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-        "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+        "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+        "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
         "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
-        "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+        "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
         "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
-        "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+        "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
         "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
         "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-        "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-        "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+        "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+        "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
         "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj",
-        "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+        "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
         "tests/MassTransit.Tests/MassTransit.Tests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-          "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+          "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
-          "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+          "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
           "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
-          "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-          "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
           "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-          "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+          "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
-          "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+          "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
           "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
-          "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-          "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
           "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "direct_benchmarks": [],
@@ -5741,70 +5910,70 @@
         "src/Transports/MassTransit.SqlTransport.SqlServer/MassTransit.SqlTransport.SqlServer.csproj",
         "src/Transports/MassTransit.WebJobs.EventHubsIntegration/MassTransit.WebJobs.EventHubsIntegration.csproj",
         "src/Transports/MassTransit.WebJobs.ServiceBusIntegration/MassTransit.WebJobs.ServiceBusIntegration.csproj",
-        "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-        "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+        "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+        "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
         "tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj",
-        "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+        "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
         "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-        "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+        "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
         "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj",
         "tests/MassTransit.BenchmarkConsole/MassTransit.BenchmarkConsole.csproj",
         "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
-        "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+        "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
         "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
         "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
-        "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+        "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
         "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
         "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-        "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-        "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+        "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+        "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
         "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj",
-        "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+        "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
         "tests/MassTransit.Tests/MassTransit.Tests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
           "tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj",
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-          "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+          "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
-          "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-          "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
           "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
           "tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj",
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-          "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+          "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj",
-          "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+          "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
           "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
-          "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-          "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
           "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
           "tests/MassTransit.Tests/MassTransit.Tests.csproj"
         ],
         "direct_benchmarks": [
@@ -5986,14 +6155,14 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj"
+        "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj"
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj"
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
@@ -6203,14 +6372,14 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj"
+        "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj"
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj"
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
@@ -6589,14 +6758,14 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj"
+        "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj"
+          "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj"
+          "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
@@ -7193,17 +7362,17 @@
       },
       "referenced_by": [
         "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj",
-        "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-        "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+        "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+        "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [
           "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj"
@@ -7568,14 +7737,14 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj"
+        "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj"
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj"
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
@@ -7954,14 +8123,14 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj"
+        "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj"
+          "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj"
+          "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
@@ -8348,28 +8517,28 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-        "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+        "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+        "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
         "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-        "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-        "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+        "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+        "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
         "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj"
         ],
         "direct_benchmarks": [],
@@ -8564,15 +8733,15 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+        "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
         "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj"
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj"
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [
           "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj"
@@ -8768,15 +8937,15 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+        "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
         "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj"
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj"
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [
           "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj"
@@ -9178,14 +9347,14 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj"
+        "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj"
+          "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj"
+          "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
@@ -9364,14 +9533,14 @@
       },
       "referenced_by": [
         "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj",
-        "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj"
+        "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj"
+          "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj"
+          "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [
           "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj"
@@ -9552,14 +9721,14 @@
       },
       "referenced_by": [
         "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj",
-        "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj"
+        "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj"
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj"
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [
           "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj"
@@ -9756,14 +9925,14 @@
       },
       "referenced_by": [
         "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj",
-        "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+        "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [
           "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj"
@@ -9959,14 +10128,14 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+        "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
@@ -10622,13 +10791,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
-      "name": "MassTransit.ActiveMqTransport.Tests",
+      "path": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+      "name": "MassTransit.ActiveMqTransport.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+      "declarations": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -10644,7 +10813,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.ActiveMqTransport.Tests",
+            "PackageId": "MassTransit.ActiveMqTransport.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -10674,7 +10843,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.ActiveMqTransport.Tests",
+            "PackageId": "MassTransit.ActiveMqTransport.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -10690,7 +10859,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -10698,7 +10867,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "path": "src/MassTransit/MassTransit.csproj"
             },
             {
@@ -10706,7 +10875,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "path": "src/Scheduling/MassTransit.QuartzIntegration/MassTransit.QuartzIntegration.csproj"
             },
             {
@@ -10714,8 +10883,16 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "path": "src/Transports/MassTransit.ActiveMqTransport/MassTransit.ActiveMqTransport.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             }
           ],
           "package_references": [
@@ -10741,7 +10918,7 @@
             },
             {
               "id": "Ionic.Zlib.Core",
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.0.0",
               "version_source": "evaluated PackageVersion",
@@ -10757,7 +10934,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -10793,7 +10970,7 @@
             },
             {
               "id": "Newtonsoft.Json",
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "13.0.4",
               "version_source": "evaluated PackageVersion",
@@ -10809,7 +10986,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -10829,7 +11006,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -10847,7 +11024,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -10863,7 +11040,7 @@
             },
             {
               "id": "OpenTelemetry.Exporter.Jaeger",
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.5.1",
               "version_source": "evaluated PackageVersion",
@@ -10879,7 +11056,7 @@
             },
             {
               "id": "OpenTelemetry.Extensions.Hosting",
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.12.0",
               "version_source": "evaluated PackageVersion",
@@ -10895,7 +11072,7 @@
             },
             {
               "id": "SharpZipLib",
-              "origin": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.4.2",
               "version_source": "evaluated PackageVersion",
@@ -10959,13 +11136,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
-      "name": "MassTransit.AmazonSqsTransport.Tests",
+      "path": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
+      "name": "MassTransit.AmazonSqsTransport.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+      "declarations": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -10981,7 +11158,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.AmazonSqsTransport.Tests",
+            "PackageId": "MassTransit.AmazonSqsTransport.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -11011,7 +11188,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.AmazonSqsTransport.Tests",
+            "PackageId": "MassTransit.AmazonSqsTransport.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -11027,7 +11204,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "path": "src/MassTransit.Newtonsoft/MassTransit.Newtonsoft.csproj"
             },
             {
@@ -11035,7 +11212,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -11043,7 +11220,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "path": "src/MassTransit/MassTransit.csproj"
             },
             {
@@ -11051,7 +11228,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "path": "src/Persistence/MassTransit.AmazonS3/MassTransit.AmazonS3.csproj"
             },
             {
@@ -11059,7 +11236,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "path": "src/Scheduling/MassTransit.QuartzIntegration/MassTransit.QuartzIntegration.csproj"
             },
             {
@@ -11067,8 +11244,16 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "path": "src/Transports/MassTransit.AmazonSqsTransport/MassTransit.AmazonSqsTransport.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             }
           ],
           "package_references": [
@@ -11094,7 +11279,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -11130,7 +11315,7 @@
             },
             {
               "id": "Newtonsoft.Json",
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "13.0.4",
               "version_source": "evaluated PackageVersion",
@@ -11146,7 +11331,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -11166,7 +11351,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -11184,7 +11369,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -11200,7 +11385,7 @@
             },
             {
               "id": "OpenTelemetry.Exporter.Jaeger",
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.5.1",
               "version_source": "evaluated PackageVersion",
@@ -11216,7 +11401,7 @@
             },
             {
               "id": "OpenTelemetry.Extensions.Hosting",
-              "origin": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
+              "origin": "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.12.0",
               "version_source": "evaluated PackageVersion",
@@ -11537,13 +11722,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
-      "name": "MassTransit.Azure.Cosmos.Tests",
+      "path": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
+      "name": "MassTransit.Azure.Cosmos.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+      "declarations": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -11559,7 +11744,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.Azure.Cosmos.Tests",
+            "PackageId": "MassTransit.Azure.Cosmos.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -11589,7 +11774,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.Azure.Cosmos.Tests",
+            "PackageId": "MassTransit.Azure.Cosmos.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -11605,7 +11790,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -11613,7 +11798,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
               "path": "src/MassTransit/MassTransit.csproj"
             },
             {
@@ -11621,15 +11806,23 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
               "path": "src/Persistence/MassTransit.Azure.Cosmos/MassTransit.Azure.Cosmos.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             },
             {
               "id": "../MassTransit.Tests/MassTransit.Tests.csproj",
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
               "path": "tests/MassTransit.Tests/MassTransit.Tests.csproj"
             }
           ],
@@ -11656,7 +11849,7 @@
             },
             {
               "id": "Microsoft.Extensions.DependencyInjection",
-              "origin": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
               "kind": "direct",
               "version": "10.0.11",
               "version_source": "evaluated PackageVersion",
@@ -11672,7 +11865,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -11708,7 +11901,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -11728,7 +11921,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -11746,7 +11939,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -12083,13 +12276,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
-      "name": "MassTransit.Azure.Table.Tests",
+      "path": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
+      "name": "MassTransit.Azure.Table.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+      "declarations": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -12105,7 +12298,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.Azure.Table.Tests",
+            "PackageId": "MassTransit.Azure.Table.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -12135,7 +12328,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.Azure.Table.Tests",
+            "PackageId": "MassTransit.Azure.Table.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -12151,7 +12344,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -12159,7 +12352,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
               "path": "src/MassTransit/MassTransit.csproj"
             },
             {
@@ -12167,8 +12360,16 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
               "path": "src/Persistence/MassTransit.Azure.Table/MassTransit.Azure.Table.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             }
           ],
           "package_references": [
@@ -12194,7 +12395,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -12230,7 +12431,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -12250,7 +12451,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -12268,7 +12469,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
+              "origin": "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -13312,13 +13513,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-      "name": "MassTransit.EntityFrameworkCoreIntegration.Tests",
+      "path": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+      "name": "MassTransit.EntityFrameworkCoreIntegration.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+      "declarations": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -13334,7 +13535,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.EntityFrameworkCoreIntegration.Tests",
+            "PackageId": "MassTransit.EntityFrameworkCoreIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -13364,7 +13565,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.EntityFrameworkCoreIntegration.Tests",
+            "PackageId": "MassTransit.EntityFrameworkCoreIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -13380,7 +13581,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -13388,7 +13589,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "path": "src/MassTransit/MassTransit.csproj"
             },
             {
@@ -13396,7 +13597,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "path": "src/Persistence/MassTransit.EntityFrameworkCoreIntegration/MassTransit.EntityFrameworkCoreIntegration.csproj"
             },
             {
@@ -13404,15 +13605,23 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "path": "src/Scheduling/MassTransit.QuartzIntegration/MassTransit.QuartzIntegration.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             },
             {
               "id": "../MassTransit.Tests/MassTransit.Tests.csproj",
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "path": "tests/MassTransit.Tests/MassTransit.Tests.csproj"
             }
           ],
@@ -13443,7 +13652,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "10.0.11",
               "version_source": "evaluated PackageVersion",
@@ -13461,7 +13670,7 @@
             },
             {
               "id": "Microsoft.EntityFrameworkCore.SqlServer",
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "10.0.11",
               "version_source": "evaluated PackageVersion",
@@ -13477,7 +13686,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -13513,7 +13722,7 @@
             },
             {
               "id": "Npgsql.EntityFrameworkCore.PostgreSQL",
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "10.0.3",
               "version_source": "evaluated PackageVersion",
@@ -13529,7 +13738,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -13549,7 +13758,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -13567,7 +13776,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -13583,7 +13792,7 @@
             },
             {
               "id": "OpenTelemetry.Exporter.Jaeger",
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.5.1",
               "version_source": "evaluated PackageVersion",
@@ -13592,38 +13801,6 @@
                   "id": "OpenTelemetry.Exporter.Jaeger",
                   "metadata": {
                     "Version": "1.5.1"
-                  },
-                  "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Testcontainers.MsSql",
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-              "kind": "direct",
-              "version": "4.15.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Testcontainers.MsSql",
-                  "metadata": {
-                    "Version": "4.15.0"
-                  },
-                  "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Testcontainers.PostgreSql",
-              "origin": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-              "kind": "direct",
-              "version": "4.15.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Testcontainers.PostgreSql",
-                  "metadata": {
-                    "Version": "4.15.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -13679,13 +13856,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
-      "name": "MassTransit.EventHubIntegration.Tests",
+      "path": "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
+      "name": "MassTransit.EventHubIntegration.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+      "declarations": "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -13701,7 +13878,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.EventHubIntegration.Tests",
+            "PackageId": "MassTransit.EventHubIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -13731,7 +13908,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.EventHubIntegration.Tests",
+            "PackageId": "MassTransit.EventHubIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -13747,7 +13924,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -13755,8 +13932,16 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
               "path": "src/Transports/MassTransit.EventHubIntegration/MassTransit.EventHubIntegration.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             }
           ],
           "package_references": [
@@ -13782,7 +13967,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -13818,7 +14003,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -13838,7 +14023,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -13856,7 +14041,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -14476,13 +14661,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
-      "name": "MassTransit.KafkaIntegration.Tests",
+      "path": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
+      "name": "MassTransit.KafkaIntegration.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+      "declarations": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -14498,7 +14683,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.KafkaIntegration.Tests",
+            "PackageId": "MassTransit.KafkaIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -14528,7 +14713,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.KafkaIntegration.Tests",
+            "PackageId": "MassTransit.KafkaIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -14544,7 +14729,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -14552,14 +14737,22 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
               "path": "src/Transports/MassTransit.KafkaIntegration/MassTransit.KafkaIntegration.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             }
           ],
           "package_references": [
             {
               "id": "Confluent.SchemaRegistry.Serdes.Avro",
-              "origin": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "2.14.2",
               "version_source": "evaluated PackageVersion",
@@ -14595,7 +14788,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -14631,7 +14824,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -14651,7 +14844,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -14669,7 +14862,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -15014,13 +15207,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
-      "name": "MassTransit.MongoDbIntegration.Tests",
+      "path": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
+      "name": "MassTransit.MongoDbIntegration.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+      "declarations": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -15036,7 +15229,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.MongoDbIntegration.Tests",
+            "PackageId": "MassTransit.MongoDbIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -15066,7 +15259,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.MongoDbIntegration.Tests",
+            "PackageId": "MassTransit.MongoDbIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -15082,7 +15275,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -15090,7 +15283,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
               "path": "src/MassTransit/MassTransit.csproj"
             },
             {
@@ -15098,7 +15291,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
               "path": "src/Persistence/MassTransit.MongoDbIntegration/MassTransit.MongoDbIntegration.csproj"
             },
             {
@@ -15106,8 +15299,16 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
               "path": "src/Scheduling/MassTransit.QuartzIntegration/MassTransit.QuartzIntegration.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             }
           ],
           "package_references": [
@@ -15133,7 +15334,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -15169,7 +15370,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -15189,7 +15390,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -15207,7 +15408,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -15857,13 +16058,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
-      "name": "MassTransit.RabbitMqTransport.Tests",
+      "path": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+      "name": "MassTransit.RabbitMqTransport.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+      "declarations": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -15879,7 +16080,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.RabbitMqTransport.Tests",
+            "PackageId": "MassTransit.RabbitMqTransport.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -15909,7 +16110,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.RabbitMqTransport.Tests",
+            "PackageId": "MassTransit.RabbitMqTransport.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -15925,7 +16126,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "path": "src/MassTransit.Newtonsoft/MassTransit.Newtonsoft.csproj"
             },
             {
@@ -15933,7 +16134,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -15941,7 +16142,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "path": "src/MassTransit/MassTransit.csproj"
             },
             {
@@ -15949,8 +16150,16 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "path": "src/Transports/MassTransit.RabbitMqTransport/MassTransit.RabbitMqTransport.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             }
           ],
           "package_references": [
@@ -15976,7 +16185,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -16012,7 +16221,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -16032,7 +16241,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -16050,7 +16259,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -16066,7 +16275,7 @@
             },
             {
               "id": "OpenTelemetry.Exporter.Jaeger",
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.5.1",
               "version_source": "evaluated PackageVersion",
@@ -16082,7 +16291,7 @@
             },
             {
               "id": "OpenTelemetry.Extensions.Hosting",
-              "origin": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
+              "origin": "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.12.0",
               "version_source": "evaluated PackageVersion",
@@ -16146,13 +16355,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
-      "name": "MassTransit.RedisIntegration.Tests",
+      "path": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
+      "name": "MassTransit.RedisIntegration.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+      "declarations": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -16168,7 +16377,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.RedisIntegration.Tests",
+            "PackageId": "MassTransit.RedisIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -16198,7 +16407,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.RedisIntegration.Tests",
+            "PackageId": "MassTransit.RedisIntegration.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -16214,7 +16423,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -16222,7 +16431,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
               "path": "src/MassTransit/MassTransit.csproj"
             },
             {
@@ -16230,8 +16439,16 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
               "path": "src/Persistence/MassTransit.RedisIntegration/MassTransit.RedisIntegration.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             }
           ],
           "package_references": [
@@ -16257,7 +16474,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -16293,7 +16510,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -16313,7 +16530,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -16331,7 +16548,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
+              "origin": "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -16660,13 +16877,13 @@
       }
     },
     {
-      "path": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
-      "name": "MassTransit.SqlTransport.Tests",
+      "path": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
+      "name": "MassTransit.SqlTransport.IntegrationTests",
       "kind": "test",
       "solutions": [
         "MassTransit.slnx"
       ],
-      "declarations": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+      "declarations": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
       "framework_and_package_variants": [
         {
           "contexts": [
@@ -16682,7 +16899,7 @@
           "properties": {
             "TargetFramework": "net10.0",
             "TargetFrameworks": "",
-            "PackageId": "MassTransit.SqlTransport.Tests",
+            "PackageId": "MassTransit.SqlTransport.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -16712,7 +16929,7 @@
           "target_framework": "net10.0",
           "properties": {
             "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.SqlTransport.Tests",
+            "PackageId": "MassTransit.SqlTransport.IntegrationTests",
             "IsPackable": "false",
             "PackageLicenseExpression": "",
             "IsTestProject": "true",
@@ -16728,7 +16945,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
             },
             {
@@ -16736,7 +16953,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "path": "src/MassTransit/MassTransit.csproj"
             },
             {
@@ -16744,7 +16961,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "path": "src/Persistence/MassTransit.EntityFrameworkCoreIntegration/MassTransit.EntityFrameworkCoreIntegration.csproj"
             },
             {
@@ -16752,7 +16969,7 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "path": "src/Transports/MassTransit.SqlTransport.PostgreSql/MassTransit.SqlTransport.PostgreSql.csproj"
             },
             {
@@ -16760,15 +16977,23 @@
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "path": "src/Transports/MassTransit.SqlTransport.SqlServer/MassTransit.SqlTransport.SqlServer.csproj"
+            },
+            {
+              "id": "../MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "metadata": {
+                "ReferenceSourceTarget": "ProjectReference"
+              },
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
+              "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj"
             },
             {
               "id": "../MassTransit.Tests/MassTransit.Tests.csproj",
               "metadata": {
                 "ReferenceSourceTarget": "ProjectReference"
               },
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "path": "tests/MassTransit.Tests/MassTransit.Tests.csproj"
             }
           ],
@@ -16799,7 +17024,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "10.0.11",
               "version_source": "evaluated PackageVersion",
@@ -16817,7 +17042,7 @@
             },
             {
               "id": "Microsoft.EntityFrameworkCore.SqlServer",
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "10.0.11",
               "version_source": "evaluated PackageVersion",
@@ -16833,7 +17058,7 @@
             },
             {
               "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "18.5.1",
               "version_source": "evaluated PackageVersion",
@@ -16869,7 +17094,7 @@
             },
             {
               "id": "Npgsql.EntityFrameworkCore.PostgreSQL",
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "10.0.3",
               "version_source": "evaluated PackageVersion",
@@ -16885,7 +17110,7 @@
             },
             {
               "id": "NUnit",
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.4.0",
               "version_source": "evaluated PackageVersion",
@@ -16905,7 +17130,7 @@
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                 "PrivateAssets": "all"
               },
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "4.11.2",
               "version_source": "evaluated PackageVersion",
@@ -16923,7 +17148,7 @@
             },
             {
               "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "6.1.0",
               "version_source": "evaluated PackageVersion",
@@ -16939,7 +17164,7 @@
             },
             {
               "id": "OpenTelemetry.Exporter.Jaeger",
-              "origin": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
+              "origin": "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
               "version": "1.5.1",
               "version_source": "evaluated PackageVersion",
@@ -16998,6 +17223,356 @@
       "test_references": {
         "direct_tests": [],
         "tests_reaching_project_including_transitive": [],
+        "direct_benchmarks": [],
+        "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
+      }
+    },
+    {
+      "path": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+      "name": "MassTransit.Testing.Containers",
+      "kind": "test_support",
+      "solutions": [
+        "MassTransit.slnx"
+      ],
+      "declarations": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+      "framework_and_package_variants": [
+        {
+          "contexts": [
+            {
+              "platform": "non_windows",
+              "configuration": "Release"
+            },
+            {
+              "platform": "windows",
+              "configuration": "Release"
+            }
+          ],
+          "properties": {
+            "TargetFramework": "net10.0",
+            "TargetFrameworks": "",
+            "PackageId": "MassTransit.Testing.Containers",
+            "IsPackable": "false",
+            "PackageLicenseExpression": "",
+            "IsTestProject": "false",
+            "OutputType": "Library",
+            "TargetFrameworkIdentifier": ".NETCoreApp",
+            "TargetFrameworkVersion": "v10.0",
+            "ManagePackageVersionsCentrally": "true",
+            "LangVersion": "12"
+          },
+          "target_frameworks": [
+            "net10.0"
+          ]
+        }
+      ],
+      "target_variants": [
+        {
+          "contexts": [
+            {
+              "platform": "non_windows",
+              "configuration": "Release"
+            },
+            {
+              "platform": "windows",
+              "configuration": "Release"
+            }
+          ],
+          "target_framework": "net10.0",
+          "properties": {
+            "TargetFramework": "net10.0",
+            "PackageId": "MassTransit.Testing.Containers",
+            "IsPackable": "false",
+            "PackageLicenseExpression": "",
+            "IsTestProject": "false",
+            "OutputType": "Library",
+            "TargetFrameworkIdentifier": ".NETCoreApp",
+            "TargetFrameworkVersion": "v10.0",
+            "ManagePackageVersionsCentrally": "true",
+            "LangVersion": "12"
+          },
+          "project_references": [],
+          "package_references": [
+            {
+              "id": "GitHubActionsTestLogger",
+              "metadata": {
+                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
+                "PrivateAssets": "All"
+              },
+              "origin": "sdk:NuGet.targets",
+              "kind": "global",
+              "version": "2.4.1",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "GitHubActionsTestLogger",
+                  "metadata": {
+                    "Version": "2.4.1"
+                  },
+                  "origin": "sdk:NuGet.targets"
+                }
+              ]
+            },
+            {
+              "id": "Microsoft.Data.SqlClient",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "6.1.6",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Microsoft.Data.SqlClient",
+                  "metadata": {
+                    "Version": "6.1.6"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Microsoft.SourceLink.GitHub",
+              "metadata": {
+                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
+                "PrivateAssets": "All"
+              },
+              "origin": "sdk:NuGet.targets",
+              "kind": "global",
+              "version": "8.0.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Microsoft.SourceLink.GitHub",
+                  "metadata": {
+                    "Version": "8.0.0"
+                  },
+                  "origin": "sdk:NuGet.targets"
+                }
+              ]
+            },
+            {
+              "id": "Npgsql",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "10.0.3",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Npgsql",
+                  "metadata": {
+                    "Version": "10.0.3"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "NUnit",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "4.4.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "NUnit",
+                  "metadata": {
+                    "Version": "4.4.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Testcontainers.Azurite",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "4.15.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Testcontainers.Azurite",
+                  "metadata": {
+                    "Version": "4.15.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Testcontainers.LocalStack",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "4.15.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Testcontainers.LocalStack",
+                  "metadata": {
+                    "Version": "4.15.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Testcontainers.MongoDb",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "4.15.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Testcontainers.MongoDb",
+                  "metadata": {
+                    "Version": "4.15.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Testcontainers.MsSql",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "4.15.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Testcontainers.MsSql",
+                  "metadata": {
+                    "Version": "4.15.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Testcontainers.PostgreSql",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "4.15.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Testcontainers.PostgreSql",
+                  "metadata": {
+                    "Version": "4.15.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Testcontainers.RabbitMq",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "4.15.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Testcontainers.RabbitMq",
+                  "metadata": {
+                    "Version": "4.15.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "Testcontainers.Redis",
+              "origin": "tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "4.15.0",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Testcontainers.Redis",
+                  "metadata": {
+                    "Version": "4.15.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            }
+          ],
+          "framework_references": [
+            {
+              "id": "Microsoft.NETCore.App",
+              "metadata": {
+                "IsImplicitlyDefined": "true",
+                "Pack": "false",
+                "PrivateAssets": "All"
+              },
+              "origin": "sdk:Microsoft.NET.Sdk.DefaultItems.props"
+            }
+          ],
+          "assembly_references": [],
+          "global_package_references": [
+            {
+              "id": "GitHubActionsTestLogger",
+              "metadata": {
+                "Version": "2.4.1"
+              },
+              "origin": "Directory.Packages.props"
+            },
+            {
+              "id": "Microsoft.SourceLink.GitHub",
+              "metadata": {
+                "Version": "8.0.0"
+              },
+              "origin": "Directory.Packages.props"
+            }
+          ]
+        }
+      ],
+      "status": {
+        "build": "evaluated only; not built",
+        "package": "identity and packability evaluated only; not packed or published",
+        "dependencies": "direct and SDK evaluation only; not restored; no transitive resolution",
+        "test": "references inventoried only; not executed",
+        "consumer": {
+          "repository": "see referenced_by and test_references",
+          "external_applications": "not assessed"
+        }
+      },
+      "referenced_by": [
+        "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+        "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
+        "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
+        "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
+        "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+        "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
+        "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
+        "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
+        "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+        "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
+        "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
+      ],
+      "test_references": {
+        "direct_tests": [
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
+          "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
+        ],
+        "tests_reaching_project_including_transitive": [
+          "tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
+          "tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj",
+          "tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj",
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
+        ],
         "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
       }
@@ -17396,32 +17971,32 @@
         }
       },
       "referenced_by": [
-        "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+        "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
         "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
-        "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+        "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
         "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
         "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
         "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-        "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+        "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
       ],
       "test_references": {
         "direct_tests": [
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
         ],
         "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
+          "tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
+          "tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
-          "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj"
+          "tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj"
         ],
         "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
