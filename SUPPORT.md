@@ -6,11 +6,11 @@ MessageTransit is independently maintained. Support availability and compatibili
 
 As checked on **2026-10-10**, GitHub Issues and Discussions are disabled for [JacobChwastek/MessageTransit](https://github.com/JacobChwastek/MessageTransit). No active support intake, commercial support service, or community chat is advertised for this fork. This page will identify a reporting route if one becomes available.
 
-The repository README, [package identity map](PACKAGE_IDENTITY.md), [namespace and wire migration guide](NAMESPACE_AND_WIRE_MIGRATION.md), and [EF Core migration guide](ENTITY_FRAMEWORK_MIGRATION.md) explain the current source and migration requirements. For a suspected vulnerability, follow [SECURITY.md](SECURITY.md); private vulnerability reporting is currently disabled as well.
+The repository README, [package identity map](PACKAGE_IDENTITY.md), [MassTransit migration guide](NAMESPACE_AND_WIRE_MIGRATION.md), and [EF Core migration guide](ENTITY_FRAMEWORK_MIGRATION.md) explain the current source and migration requirements. For a suspected vulnerability, follow [SECURITY.md](SECURITY.md); private vulnerability reporting is currently disabled as well.
 
 ## Prepare a reproducible report
 
-Keep a minimal reproduction ready for a future reporting channel or contribution. Include:
+Keep a minimal reproduction ready for a future reporting channel or a [contribution](CONTRIBUTING.md). Include:
 
 - The exact MessageTransit package versions, or the source commit and branch for a local build.
 - The .NET SDK and runtime versions, operating system, and affected transport or persistence provider.

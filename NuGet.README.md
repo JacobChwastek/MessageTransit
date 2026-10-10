@@ -46,7 +46,13 @@ dotnet add Consumer.csproj package MessageTransit --version 0.1.0-local.1 --no-r
 dotnet restore Consumer.csproj --source "/absolute/path/to/MessageTransit/artifacts" --source https://api.nuget.org/v3/index.json
 ```
 
-The second source supplies third-party dependencies. Add transport or persistence packages at the same version, or reference the corresponding renamed projects under `src/`. Use `MessageTransit` namespaces and the `AddMessageTransit` registration API. Read the migration guide before reusing existing message queues or persisted state.
+The second source supplies third-party dependencies. Add transport or persistence packages at the same version, or reference the corresponding renamed projects under `src/`. Use `MessageTransit` namespaces and the `AddMessageTransit` registration API.
+
+## Migration and verified integrations
+
+Applications moving from MassTransit 8.x must replace packages, rename namespaces and APIs, and plan a cutover for queued messages and stored framework data. The [migration guide](https://github.com/JacobChwastek/MessageTransit/blob/develop/NAMESPACE_AND_WIRE_MIGRATION.md) lists the renamed APIs and wire identifiers.
+
+The repository README lists the [transports and providers exercised in CI](https://github.com/JacobChwastek/MessageTransit/blob/develop/README.md#verified-integrations). Azure Service Bus, Azure Cosmos DB, Azure Storage message data, and the Azure WebJobs packages are built but not exercised.
 
 ## Support and security
 

@@ -50,20 +50,82 @@ dotnet restore Consumer.csproj --source "/absolute/path/to/MessageTransit/artifa
 
 Add the transport and persistence packages your application uses at the same local version. For source references, reference the appropriate renamed project under `src/`.
 
-## Using the fork
+## Getting started
 
-Use `MessageTransit` namespaces and registration APIs such as `AddMessageTransit`; update state-machine types to `MessageTransitStateMachine<T>`. Follow the [namespace and wire migration guide](NAMESPACE_AND_WIRE_MIGRATION.md) before connecting migrated applications to existing queues, stored saga state, or other processes.
+Choose one transport package, plus any persistence or scheduling packages the application needs, and reference them at the same version as `MessageTransit`. This worker service uses RabbitMQ; it references `MessageTransit.RabbitMQ` and `Microsoft.Extensions.Hosting`:
+
+```csharp
+using Acme.Contracts;
+using MessageTransit;
+
+var builder = Host.CreateApplicationBuilder(args);
+
+builder.Services.AddMessageTransit(x =>
+{
+    x.AddConsumer<SubmitOrderConsumer>();
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+        cfg.ConfigureEndpoints(context);
+    });
+});
+
+builder.Build().Run();
+```
+
+Message contracts must be declared in a namespace. A consumer implements `IConsumer<T>`:
+
+```csharp
+namespace Acme.Contracts;
+
+using MessageTransit;
+
+public record SubmitOrder(Guid OrderId);
+
+public class SubmitOrderConsumer : IConsumer<SubmitOrder>
+{
+    public Task Consume(ConsumeContext<SubmitOrder> context) => Task.CompletedTask;
+}
+```
+
+`ConfigureEndpoints` creates a receive endpoint for each registered consumer, named from the consumer type. Use `UsingInMemory` in place of a broker for local experiments, and `AddMessageTransitTestHarness` from the core package in tests.
 
 For .NET 10 async sequence operators such as `Take` and `ToListAsync`, use `System.Linq`. Message-list helpers that handle timeouts and cancellation remain available.
+
+## Migrating from MassTransit
+
+Applications built on MassTransit 8.x must replace packages, rename namespaces and APIs such as `AddMassTransit` and `MassTransitStateMachine<T>`, and plan a cutover for queued messages and stored framework data. Follow the [migration guide](NAMESPACE_AND_WIRE_MIGRATION.md), which lists the renamed APIs and wire identifiers. Applications using the EF6 saga repository should first follow the [EF Core migration guide](ENTITY_FRAMEWORK_MIGRATION.md).
+
+## Verified integrations
+
+Continuous integration builds every project on Linux and Windows and runs these suites on Linux. The core, abstractions, analyzer, and NServiceBus suites also run on Windows. Container-based suites start their own services through Testcontainers.
+
+| Area | Exercised in CI |
+| --- | --- |
+| Core, serialization, analyzers, test harness | In-memory transport and mediator; System.Text.Json, Newtonsoft, and MessagePack serializers; analyzers; state machine visualizer |
+| Transports | RabbitMQ, ActiveMQ, Amazon SQS and SNS (LocalStack), SQL Server and PostgreSQL SQL transport |
+| Riders | Kafka, Azure Event Hubs (emulator) |
+| Persistence | EF Core (SQL Server and PostgreSQL), MongoDB, Redis and Valkey, Dapper (SQL Server), Marten (PostgreSQL), NHibernate (SQLite), DynamoDB (LocalStack), Azure Table (Azurite), Amazon S3 message data (LocalStack) |
+| Scheduling and integrations | Quartz, Hangfire, SignalR, NServiceBus interoperability |
+
+These packages are built but not exercised: Azure Service Bus, Azure Cosmos DB, Azure Storage message data, and both Azure WebJobs packages. Emulator results do not establish compatibility with the live Azure services. Tests marked `Flaky` are excluded from unattended runs. [CI coverage and local commands](CI.md) has the per-project matrix and exclusions.
 
 ## Support and contributing
 
 Read [MessageTransit support guidance](SUPPORT.md) for current contact availability, reproduction details, and logging instructions. Issues and Discussions are currently disabled for this repository. Read the [security policy](SECURITY.md) before sharing a suspected vulnerability; private vulnerability reporting is also currently unavailable.
 
-For contributions, describe the behavior being changed, include a minimal reproduction when applicable, and report the checks actually performed. Preserve copyright notices, license text, and third-party attribution.
+To propose a change, read the [contribution guide](CONTRIBUTING.md) for build, test, and pull request expectations.
 
-## License and attribution
+## Provenance, license, and attribution
 
-MessageTransit retains the upstream Apache-2.0 license and contributor attribution. Some bundled components also carry MIT terms. See [LICENSE](LICENSE), [NOTICE](NOTICE), [COPYRIGHT](COPYRIGHT), and [THIRD-PARTY-NOTICES](THIRD-PARTY-NOTICES).
+MessageTransit is an independently maintained derivative of MassTransit, based on the `v8.5.10` tag. It is not an official MassTransit distribution. The upstream Git history is retained in this repository; the [provenance and support decision](docs/decisions/0001-fork-provenance-and-support.md) records the exact source commit.
+
+MessageTransit retains the upstream Apache-2.0 license and contributor attribution. Some bundled components also carry MIT terms. See [LICENSE](LICENSE), [NOTICE](NOTICE), [COPYRIGHT](COPYRIGHT), [THIRD-PARTY-NOTICES](THIRD-PARTY-NOTICES), and the [redistribution notes](docs/legal/redistribution-inventory.md).
 
 The inherited upstream logo artwork is credited to The Agile Badger.
