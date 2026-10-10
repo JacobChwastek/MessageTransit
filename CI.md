@@ -19,7 +19,6 @@ Each name below identifies the matching project directory under `tests/`. The wo
 | MassTransit.DynamoDbIntegration.Tests | Linux | LocalStack DynamoDB with dummy credentials |
 | MassTransit.Azure.Table.Tests | Linux | Local Azurite |
 | MassTransit.DapperIntegration.Tests | Linux | Local SQL Server |
-| MassTransit.EntityFrameworkIntegration.Tests | Linux | Local SQL Server; transitional EF6 adapter |
 | MassTransit.EntityFrameworkCoreIntegration.Tests | Linux | SQL Server and PostgreSQL containers started by the tests through Testcontainers |
 | MassTransit.MartenIntegration.Tests | Linux | Local PostgreSQL |
 | MassTransit.MongoDbIntegration.Tests | Linux | Local MongoDB replica set |
@@ -33,9 +32,9 @@ Each name below identifies the matching project directory under `tests/`. The wo
 | MassTransit.Azure.ServiceBus.Core.Tests | **Not executed** | Requires a real Azure Service Bus namespace and Azure Storage credentials; dedicated cloud test resources are not configured |
 | MassTransit.Azure.Cosmos.Tests | **Not executed** | No Cosmos emulator or dedicated cloud test account is provisioned; the RBAC future fixture additionally requires Azure credentials and a remotely configured instance |
 
-The two unavailable cloud suites are still compiled on both operating systems. They are excluded from test execution and are not counted as executed coverage. Azure Table and Event Hubs use development emulators; those results do not establish live Azure compatibility. The EF6 and EF Core lanes do not establish migration or data parity between the adapters.
+The two unavailable cloud suites are still compiled on both operating systems. They are excluded from test execution and are not counted as executed coverage. Azure Table and Event Hubs use development emulators; those results do not establish live Azure compatibility. The EF Core lane does not establish migration or data compatibility with existing EF6 databases.
 
-Tests marked `Integration` are included when their local service is provisioned, including DynamoDB, Dapper, EF6, EF Core transaction configuration, and Azure Table saga fixtures.
+Tests marked `Integration` are included when their local service is provisioned, including DynamoDB, Dapper, EF Core transaction configuration, and Azure Table saga fixtures.
 
 ## Results and exclusions
 

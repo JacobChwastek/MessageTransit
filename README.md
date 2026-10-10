@@ -47,7 +47,6 @@ The retained runtime projects require .NET 10. The analyzer is a compiler toolin
 | [MassTransit.Dapper][Dapper.nuget]                              | 10.0 | — | — |
 | [MassTransit.DynamoDb][DynamoDb.nuget]                          | 10.0 | — | — |
 | [MassTransit.EntityFrameworkCore][EFCore.nuget]                 | 10.0 | — | — |
-| [MassTransit.EntityFramework][EF.nuget]                         | 10.0 | — | — |
 | [MassTransit.Marten][Marten.nuget]                              | 10.0 | — | — |
 | [MassTransit.MongoDb][MongoDb.nuget]                            | 10.0 | — | — |
 | [MassTransit.NHibernate][NHibernate.nuget]                      | 10.0 | — | — |
@@ -131,7 +130,6 @@ Logo Design by _The Agile Badger_
 [Dapper.nuget]: https://www.nuget.org/packages/MassTransit.DapperIntegration
 [DynamoDb.nuget]: https://www.nuget.org/packages/MassTransit.DynamoDb
 [EFCore.nuget]: https://www.nuget.org/packages/MassTransit.EntityFrameworkCore
-[EF.nuget]: https://www.nuget.org/packages/MassTransit.EntityFramework
 [Marten.nuget]: https://www.nuget.org/packages/MassTransit.Marten
 [MongoDb.nuget]: https://www.nuget.org/packages/MassTransit.MongoDb
 [NHibernate.nuget]: https://www.nuget.org/packages/MassTransit.NHibernate
