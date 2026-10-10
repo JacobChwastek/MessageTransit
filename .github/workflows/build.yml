@@ -6,7 +6,7 @@ on:
     paths:
       - 'src/**'
       - 'tests/**'
-      - 'MassTransit.sln'
+      - 'MassTransit.slnx'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
       - 'global.json'
@@ -27,7 +27,7 @@ on:
     paths:
       - 'src/**'
       - 'tests/**'
-      - 'MassTransit.sln'
+      - 'MassTransit.slnx'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
       - 'global.json'
