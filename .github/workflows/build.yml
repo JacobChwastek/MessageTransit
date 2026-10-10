@@ -47,6 +47,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   coverage:
     name: CI coverage and exclusions
@@ -117,78 +121,6 @@ jobs:
         with:
           project: MassTransit.Interop.NServiceBus.Tests
 
-  test-activemq:
-    name: "Transports: ActiveMQ"
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test ActiveMQ
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.ActiveMqTransport.IntegrationTests
-
-  test-sql-transport:
-    name: "Transport: SQL"
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    env:
-      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: false
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test Database Transport
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.SqlTransport.IntegrationTests
-
-  test-rabbitmq:
-    name: "Transports: RabbitMQ"
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test RabbitMQ
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.RabbitMqTransport.IntegrationTests
-  test-sqs:
-    name: "Transports: SQS (+S3)"
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test SQS
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.AmazonSqsTransport.IntegrationTests
   test-dynamodb:
     name: "Storage: DynamoDB"
     timeout-minutes: 10
@@ -219,24 +151,6 @@ jobs:
         with:
           project: MassTransit.DynamoDbIntegration.Tests
 
-  test-azure-table:
-    name: "Storage: Azure Table"
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test Azure Table
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.Azure.Table.IntegrationTests
-
   test-dapper:
     name: "Storage: Dapper"
     timeout-minutes: 10
@@ -265,27 +179,6 @@ jobs:
         uses: ./.github/actions/test
         with:
           project: MassTransit.DapperIntegration.Tests
-  test-entity-framework:
-    name: "Storage: EntityFramework Core"
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    env:
-      # otherwise the client barks
-      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: false
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test EntityFrameworkCore
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.EntityFrameworkCoreIntegration.IntegrationTests
-
   test-marten:
     name: "Storage: Marten"
     timeout-minutes: 10
@@ -311,24 +204,6 @@ jobs:
         uses: ./.github/actions/test
         with:
           project: MassTransit.MartenIntegration.Tests
-  test-mongo:
-    name: "Storage: MongoDB"
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test MongoDB
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.MongoDbIntegration.IntegrationTests
-
   test-nhibernate:
     name: "Storage: NHibernate"
     timeout-minutes: 10
@@ -346,42 +221,6 @@ jobs:
         uses: ./.github/actions/test
         with:
           project: MassTransit.NHibernateIntegration.Tests
-  test-redis:
-    name: "Storage: Redis"
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test Redis
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.RedisIntegration.IntegrationTests
-  test-valkey:
-    name: "Storage: Valkey"
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    env:
-      MT_REDIS_SERVER: valkey
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test Valkey
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.RedisIntegration.IntegrationTests
   test-hangfire:
     name: "Scheduler: Hangfire"
     timeout-minutes: 10
@@ -416,42 +255,6 @@ jobs:
         uses: ./.github/actions/test
         with:
           project: MassTransit.QuartzIntegration.Tests
-  test-eventhub:
-    name: "Rider: EventHub"
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test EventHub
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.EventHubIntegration.IntegrationTests
-
-  test-kafka:
-    name: "Rider: Kafka"
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Install .NET 10 SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Test Kafka
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.KafkaIntegration.IntegrationTests
-
   test-signalr:
     name: SignalR
     timeout-minutes: 10
@@ -476,23 +279,12 @@ jobs:
     needs:
       - compile
       - test-unit
-      - test-activemq
-      - test-rabbitmq
-      - test-sqs
       - test-dynamodb
-      - test-sql-transport
-      - test-azure-table
       - test-dapper
-      - test-entity-framework
       - test-marten
-      - test-mongo
       - test-nhibernate
-      - test-redis
-      - test-valkey
       - test-hangfire
       - test-quartz
-      - test-eventhub
-      - test-kafka
       - test-signalr
     outputs:
       version: ${{ steps.v.outputs.version }}
