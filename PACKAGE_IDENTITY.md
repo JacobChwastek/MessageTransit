@@ -1,6 +1,6 @@
 # MessageTransit package identity
 
-MessageTransit is an independently maintained fork of [MassTransit v8.5.10](https://github.com/MassTransit/MassTransit/tree/v8.5.10). The package names below are the planned names for the fork. The source projects and currently evaluated packages still use `MassTransit` names; this page does not announce published MessageTransit packages.
+MessageTransit is an independently maintained fork of [MassTransit v8.5.10](https://github.com/MassTransit/MassTransit/tree/v8.5.10). The package names below are the fork's package IDs, and the source projects now evaluate with them; this page does not announce published MessageTransit packages.
 
 ## Package ID map
 
@@ -68,9 +68,9 @@ The metadata decisions for the coordinated rename are:
 - Use the package IDs above, `Product=MessageTransit`, fork-specific titles, descriptions and tags, and the [MessageTransit repository](https://github.com/JacobChwastek/MessageTransit) as the project URL until a separate site exists. Verify that the packed repository URL still points to the fork.
 - Add Jacob Chwastek to package author metadata while retaining existing contributor credits where applicable. Package authors are descriptive metadata; NuGet publishing rights depend on the account's actual package ownership.
 - Replace the packed root `NuGet.README.md` and the public repository README with accurate fork installation, support, and package information. Review the separate `src/NuGet.README.md` copy so the repository does not retain two contradictory package descriptions. Remove inherited upstream CI badges and support links from fork-facing claims.
-- Omit the NuGet icon until an original MessageTransit asset is ready. The current package build explicitly packs the inherited `mt-logo-small.png`. The repository credits its artwork to The Agile Badger, but no separate permission for presenting it as MessageTransit branding has been established here.
+- Omit the NuGet icon until an original MessageTransit asset is ready. The package build no longer packs the inherited `mt-logo-small.png`. The repository credits its artwork to The Agile Badger, but no separate permission for presenting it as MessageTransit branding has been established here.
 - Keep `LICENSE`, `NOTICE`, `COPYRIGHT`, `THIRD-PARTY-NOTICES`, and applicable source attribution. [Apache-2.0 section 6](https://www.apache.org/licenses/LICENSE-2.0.html) does not grant general rights to use upstream trade names or marks as a new product identity.
 
 The exact `MessageTransit` name has not received a formal trademark clearance. A broad web search and NuGet search are insufficient to establish that; [WIPO](https://www.wipo.int/en/web/global-brand-database) and [EUIPO](https://www.euipo.europa.eu/en/trade-marks/before-applying/availability) describe the relevant registry searches. This remains a publication decision for the maintainer.
 
-The package ID map is a naming plan. API namespaces, assembly names, message identities, and the build/release pipeline require coordinated implementation and verification before the first package is published.
+The source uses these package IDs together with MessageTransit namespaces, assembly names, and message identities. The release pipeline still needs the MessageTransit version series, and every packed `.nupkg` must be inspected before the first package is published.

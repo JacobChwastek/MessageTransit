@@ -2,9 +2,9 @@
   <Import Project="..\Directory.Build.props"/>
 
   <PropertyGroup>
-    <Product>MassTransit</Product>
+    <Product>MessageTransit</Product>
     <Copyright>Copyright 2007-2024 Chris Patterson; Copyright 2026 Jacob Chwastek</Copyright>
-    <Authors>Chris Patterson</Authors>
+    <Authors>Chris Patterson, Jacob Chwastek</Authors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DebugSymbols>True</DebugSymbols>
@@ -17,11 +17,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageIcon>mt-logo-small.png</PackageIcon>
     <PackageReadmeFile>NuGet.README.md</PackageReadmeFile>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://masstransit.io</PackageProjectUrl>
-    <Description>MassTransit provides a developer-focused, modern platform for creating distributed applications without complexity.</Description>
+    <PackageProjectUrl>https://github.com/JacobChwastek/MessageTransit</PackageProjectUrl>
+    <Description>MessageTransit provides a developer-focused, modern platform for creating distributed applications without complexity.</Description>
     <IsPackable>True</IsPackable>
 
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -29,7 +28,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)../mt-logo-small.png" Pack="true" Visible="false" PackagePath=""/>
     <None Include="$(MSBuildThisFileDirectory)../NuGet.README.md" Pack="true" Visible="false" PackagePath=""/>
     <None Include="$(MSBuildThisFileDirectory)../LICENSE" Pack="true" Visible="false" PackagePath=""/>
     <None Include="$(MSBuildThisFileDirectory)../NOTICE" Pack="true" Visible="false" PackagePath=""/>

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="NewConfigurationModel.cs" />
+    <Compile Remove="Saga\SagaTestContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
+    <PackageReference Include="Google.Protobuf" />
+    <PackageReference Include="MathNet.Numerics" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics"/>
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.Testing"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console"/>
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting"/>
+    <ProjectReference Include="..\..\src\MessageTransit.Interop.NServiceBus\MessageTransit.Interop.NServiceBus.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit.MessagePack\MessageTransit.MessagePack.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit.Newtonsoft\MessageTransit.Newtonsoft.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit.StateMachineVisualizer\MessageTransit.StateMachineVisualizer.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit.TestFramework\MessageTransit.TestFramework.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit\MessageTransit.csproj" />
+  </ItemGroup>
+
+</Project>

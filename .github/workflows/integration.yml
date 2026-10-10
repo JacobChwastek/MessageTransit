@@ -36,11 +36,11 @@ jobs:
           from pathlib import Path
 
           # The Cosmos DB emulator needs a trusted certificate and is not executed in CI.
-          skipped = {"MassTransit.Azure.Cosmos.IntegrationTests"}
+          skipped = {"MessageTransit.Azure.Cosmos.IntegrationTests"}
           suites = [{"project": path.name, "name": path.name}
                     for path in sorted(Path("tests").glob("*.IntegrationTests")) if path.name not in skipped]
-          suites.append({"project": "MassTransit.RedisIntegration.IntegrationTests",
-                         "name": "MassTransit.RedisIntegration.IntegrationTests (Valkey)", "redis": "valkey"})
+          suites.append({"project": "MessageTransit.RedisIntegration.IntegrationTests",
+                         "name": "MessageTransit.RedisIntegration.IntegrationTests (Valkey)", "redis": "valkey"})
           with open(os.environ["GITHUB_OUTPUT"], "a") as output:
               output.write(f"suites={json.dumps(suites)}\n")
 

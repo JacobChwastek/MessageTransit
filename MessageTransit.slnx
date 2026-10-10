@@ -1,0 +1,81 @@
+<Solution>
+  <Folder Name="/.solution/">
+    <File Path=".github/workflows/build.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="NuGet.README.md" />
+    <File Path="README.md" />
+    <File Path="signing.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/MessageTransit.Abstractions/MessageTransit.Abstractions.csproj" />
+    <Project Path="src/MessageTransit.Analyzers/MessageTransit.Analyzers.csproj" />
+    <Project Path="src/MessageTransit.Interop.NServiceBus/MessageTransit.Interop.NServiceBus.csproj" />
+    <Project Path="src/MessageTransit.MessagePack/MessageTransit.MessagePack.csproj" />
+    <Project Path="src/MessageTransit.Newtonsoft/MessageTransit.Newtonsoft.csproj" />
+    <Project Path="src/MessageTransit.SignalR/MessageTransit.SignalR.csproj" />
+    <Project Path="src/MessageTransit.StateMachineVisualizer/MessageTransit.StateMachineVisualizer.csproj" />
+    <Project Path="src/MessageTransit.TestFramework/MessageTransit.TestFramework.csproj" />
+    <Project Path="src/MessageTransit/MessageTransit.csproj" />
+  </Folder>
+  <Folder Name="/src/Persistence/">
+    <Project Path="src/Persistence/MessageTransit.AmazonS3/MessageTransit.AmazonS3.csproj" />
+    <Project Path="src/Persistence/MessageTransit.Azure.Cosmos/MessageTransit.Azure.Cosmos.csproj" />
+    <Project Path="src/Persistence/MessageTransit.Azure.Storage/MessageTransit.Azure.Storage.csproj" />
+    <Project Path="src/Persistence/MessageTransit.Azure.Table/MessageTransit.Azure.Table.csproj" />
+    <Project Path="src/Persistence/MessageTransit.DapperIntegration/MessageTransit.DapperIntegration.csproj" />
+    <Project Path="src/Persistence/MessageTransit.DynamoDbIntegration/MessageTransit.DynamoDbIntegration.csproj" />
+    <Project Path="src/Persistence/MessageTransit.EntityFrameworkCoreIntegration/MessageTransit.EntityFrameworkCoreIntegration.csproj" />
+    <Project Path="src/Persistence/MessageTransit.MartenIntegration/MessageTransit.MartenIntegration.csproj" />
+    <Project Path="src/Persistence/MessageTransit.MongoDbIntegration/MessageTransit.MongoDbIntegration.csproj" />
+    <Project Path="src/Persistence/MessageTransit.NHibernateIntegration/MessageTransit.NHibernateIntegration.csproj" />
+    <Project Path="src/Persistence/MessageTransit.RedisIntegration/MessageTransit.RedisIntegration.csproj" />
+  </Folder>
+  <Folder Name="/src/Scheduling/">
+    <Project Path="src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj" />
+    <Project Path="src/Scheduling/MessageTransit.QuartzIntegration/MessageTransit.QuartzIntegration.csproj" />
+  </Folder>
+  <Folder Name="/src/Transports/">
+    <Project Path="src/Transports/MessageTransit.ActiveMqTransport/MessageTransit.ActiveMqTransport.csproj" />
+    <Project Path="src/Transports/MessageTransit.AmazonSqsTransport/MessageTransit.AmazonSqsTransport.csproj" />
+    <Project Path="src/Transports/MessageTransit.Azure.ServiceBus.Core/MessageTransit.Azure.ServiceBus.Core.csproj" />
+    <Project Path="src/Transports/MessageTransit.EventHubIntegration/MessageTransit.EventHubIntegration.csproj" />
+    <Project Path="src/Transports/MessageTransit.KafkaIntegration/MessageTransit.KafkaIntegration.csproj" />
+    <Project Path="src/Transports/MessageTransit.RabbitMqTransport/MessageTransit.RabbitMqTransport.csproj" />
+    <Project Path="src/Transports/MessageTransit.SqlTransport.PostgreSql/MessageTransit.SqlTransport.PostgreSql.csproj" />
+    <Project Path="src/Transports/MessageTransit.SqlTransport.SqlServer/MessageTransit.SqlTransport.SqlServer.csproj" />
+    <Project Path="src/Transports/MessageTransit.WebJobs.EventHubsIntegration/MessageTransit.WebJobs.EventHubsIntegration.csproj" />
+    <Project Path="src/Transports/MessageTransit.WebJobs.ServiceBusIntegration/MessageTransit.WebJobs.ServiceBusIntegration.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MessageTransit.Abstractions.Tests/MessageTransit.Abstractions.Tests.csproj" />
+    <Project Path="tests/MessageTransit.Analyzers.Tests/MessageTransit.Analyzers.Tests.csproj" />
+    <Project Path="tests/MessageTransit.SignalR.Tests/MessageTransit.SignalR.Tests.csproj" />
+    <Project Path="tests/MessageTransit.Tests/MessageTransit.Tests.csproj" />
+    <Project Path="tests/MessageTransit.Testing.Containers/MessageTransit.Testing.Containers.csproj" />
+  </Folder>
+  <Folder Name="/tests/Persistence/">
+    <Project Path="tests/MessageTransit.Azure.Cosmos.IntegrationTests/MessageTransit.Azure.Cosmos.IntegrationTests.csproj" />
+    <Project Path="tests/MessageTransit.Azure.Table.IntegrationTests/MessageTransit.Azure.Table.IntegrationTests.csproj" />
+    <Project Path="tests/MessageTransit.DapperIntegration.Tests/MessageTransit.DapperIntegration.Tests.csproj" />
+    <Project Path="tests/MessageTransit.DynamoDbIntegration.Tests/MessageTransit.DynamoDbIntegration.Tests.csproj" />
+    <Project Path="tests/MessageTransit.EntityFrameworkCoreIntegration.IntegrationTests/MessageTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj" />
+    <Project Path="tests/MessageTransit.MartenIntegration.Tests/MessageTransit.MartenIntegration.Tests.csproj" />
+    <Project Path="tests/MessageTransit.MongoDbIntegration.IntegrationTests/MessageTransit.MongoDbIntegration.IntegrationTests.csproj" />
+    <Project Path="tests/MessageTransit.NHibernateIntegration.Tests/MessageTransit.NHibernateIntegration.Tests.csproj" />
+    <Project Path="tests/MessageTransit.RedisIntegration.IntegrationTests/MessageTransit.RedisIntegration.IntegrationTests.csproj" />
+  </Folder>
+  <Folder Name="/tests/Scheduling/">
+    <Project Path="tests/MessageTransit.HangfireIntegration.Tests/MessageTransit.HangfireIntegration.Tests.csproj" />
+    <Project Path="tests/MessageTransit.QuartzIntegration.Tests/MessageTransit.QuartzIntegration.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/Transports/">
+    <Project Path="tests/MessageTransit.ActiveMqTransport.IntegrationTests/MessageTransit.ActiveMqTransport.IntegrationTests.csproj" />
+    <Project Path="tests/MessageTransit.AmazonSqsTransport.IntegrationTests/MessageTransit.AmazonSqsTransport.IntegrationTests.csproj" />
+    <Project Path="tests/MessageTransit.Azure.ServiceBus.Core.Tests/MessageTransit.Azure.ServiceBus.Core.Tests.csproj" />
+    <Project Path="tests/MessageTransit.EventHubIntegration.IntegrationTests/MessageTransit.EventHubIntegration.IntegrationTests.csproj" />
+    <Project Path="tests/MessageTransit.KafkaIntegration.IntegrationTests/MessageTransit.KafkaIntegration.IntegrationTests.csproj" />
+    <Project Path="tests/MessageTransit.RabbitMqTransport.IntegrationTests/MessageTransit.RabbitMqTransport.IntegrationTests.csproj" />
+    <Project Path="tests/MessageTransit.SqlTransport.IntegrationTests/MessageTransit.SqlTransport.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
