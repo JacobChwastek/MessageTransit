@@ -4,7 +4,7 @@ MessageTransit is an independently maintained fork of [MassTransit v8.5.10](http
 
 ## Package ID map
 
-All 33 retained source projects currently evaluate as packable. Each planned ID replaces the leading `MassTransit` in the **effective NuGet package ID**, preserving the rest of that ID. This keeps a direct migration path for packages whose ID differs from the project filename. The planned IDs are distinct without changing any upstream package.
+All 32 retained source projects currently evaluate as packable. Each planned ID replaces the leading `MassTransit` in the **effective NuGet package ID**, preserving the rest of that ID. This keeps a direct migration path for packages whose ID differs from the project filename. The planned IDs are distinct without changing any upstream package.
 
 | Current package ID | Planned package ID |
 | --- | --- |
@@ -24,7 +24,6 @@ All 33 retained source projects currently evaluate as packable. Each planned ID 
 | `MassTransit.DapperIntegration` | `MessageTransit.DapperIntegration` |
 | `MassTransit.DynamoDb` | `MessageTransit.DynamoDb` |
 | `MassTransit.EntityFrameworkCore` | `MessageTransit.EntityFrameworkCore` |
-| `MassTransit.EntityFramework` | `MessageTransit.EntityFramework` |
 | `MassTransit.Marten` | `MessageTransit.Marten` |
 | `MassTransit.MongoDb` | `MessageTransit.MongoDb` |
 | `MassTransit.NHibernate` | `MessageTransit.NHibernate` |
@@ -42,7 +41,7 @@ All 33 retained source projects currently evaluate as packable. Each planned ID 
 | `MassTransit.WebJobs.EventHubs` | `MessageTransit.WebJobs.EventHubs` |
 | `MassTransit.WebJobs.ServiceBus` | `MessageTransit.WebJobs.ServiceBus` |
 
-The candidate prerelease family contains these 33 IDs. Retaining a source project does not require publishing it before its build, dependencies, license materials, and support scope are validated. In particular, the EF6 package remains a candidate only until the EF Core transition determines whether it should ship.
+The candidate prerelease family contains these 32 IDs. Retaining a source project does not require publishing it before its build, dependencies, license materials, and support scope are validated. The EF6 integration has been removed, and no `MessageTransit.EntityFramework` package is planned. Use the retained EF Core integration and follow the [migration guide](ENTITY_FRAMEWORK_MIGRATION.md).
 
 ## NuGet name check and ownership
 

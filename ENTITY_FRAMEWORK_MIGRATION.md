@@ -1,6 +1,8 @@
 # Migrating from Entity Framework 6 to EF Core
 
-The Entity Framework integrations in this repository target .NET 10. Both the EF6 and EF Core integrations are available. EF Core provides the saga and audit operations described below, with different context, mapping, and provider APIs. The examples use the namespaces currently present in the source tree.
+The EF6 adapter and its test project have been removed from this fork. EF Core is the retained Entity Framework integration and targets .NET 10. No `MessageTransit.EntityFramework` package is planned; the retained source currently builds as `MassTransit.EntityFrameworkCore`, with `MessageTransit.EntityFrameworkCore` as its [planned package identity](PACKAGE_IDENTITY.md#package-id-map).
+
+This is a breaking removal for applications referencing the EF6 adapter. Replace that reference with the EF Core integration and port the application context, mappings, registration, and custom persistence code described below. EF Core provides saga and audit operations with different APIs. The examples use the namespaces currently present in the source tree.
 
 Behavioral equivalence does not establish compatibility with an existing database. Review the generated model and migration SQL against a copy of the application database before switching adapters. Keep table names, schemas, correlation IDs, concurrency tokens, and serialized audit content explicit during that review.
 
@@ -22,7 +24,7 @@ Behavioral equivalence does not establish compatibility with an existing databas
 | Audit storage | Send/consume audit observers write generated integer IDs, message metadata, addresses, headers, custom values, and JSON message bodies. EF Core additionally accepts an explicit audit schema and preserves `InputAddress`, which EF6's record factory omitted. | [observer audit counts](tests/MassTransit.EntityFrameworkCoreIntegration.Tests/AuditStore/AuditStore_Specs.cs); [AuditRecordParity_Specs](tests/MassTransit.EntityFrameworkCoreIntegration.Tests/AuditStore/AuditRecordParity_Specs.cs). |
 | Model-specific SQL and audit tables | Lock statements are cached per provider instance, EF model, entity type, and ordered property list. Provider fallback schemas remain separate. Each audit table/schema combination gets its own EF model, and the audit store rejects a model cached for another table or schema. | [LockStatementCache_Specs](tests/MassTransit.EntityFrameworkCoreIntegration.Tests/LockStatementCache_Specs.cs); [AuditMapping_Specs](tests/MassTransit.EntityFrameworkCoreIntegration.Tests/AuditStore/AuditMapping_Specs.cs). |
 
-The implementations are in the [EF6 integration](src/Persistence/MassTransit.EntityFrameworkIntegration) and [EF Core integration](src/Persistence/MassTransit.EntityFrameworkCoreIntegration). The regression links identify specific coverage; they do not imply that every provider, custom mapping, or concurrency interleaving has been tested.
+The retained implementation is in the [EF Core integration](src/Persistence/MassTransit.EntityFrameworkCoreIntegration). The [historical EF6 integration](https://github.com/JacobChwastek/MessageTransit/tree/17c9d4a7ca7d30606731fc64fa49c42464c10b2f/src/Persistence/MassTransit.EntityFrameworkIntegration) is available at the last commit before its removal. The regression links identify specific coverage; they do not imply that every provider, custom mapping, or concurrency interleaving has been tested.
 
 ## Context construction and lifetime
 
@@ -100,11 +102,10 @@ EF6's built-in pessimistic provider is SQL Server. The EF Core regression suite 
 
 EF Core's inbox/outbox, job saga, and future persistence facilities are additional capabilities. They do not have counterparts in the EF6 integration and require their own configuration and data review.
 
-The EF6 suite runs against a disposable local SQL Server instance; several fixtures recreate databases. The EF Core suite starts its own SQL Server and PostgreSQL containers through Testcontainers and requires a running Docker engine:
+The retained EF Core suite starts its own SQL Server and PostgreSQL containers through Testcontainers and requires a running Docker engine:
 
 ```sh
-dotnet test tests/MassTransit.EntityFrameworkIntegration.Tests -c Release --filter 'Category!=Flaky'
 dotnet test tests/MassTransit.EntityFrameworkCoreIntegration.Tests -c Release --filter 'Category!=Flaky'
 ```
 
-The EF6 suite also contains explicitly selected tests and tests marked `Flaky`, which are not part of those normal runs. Provider-specific integration tests and source-level equivalence are evidence for the behavior listed here; existing application data still needs an independent schema and rollback check.
+Tests marked `Flaky` are excluded from this command, and NUnit explicit tests require deliberate selection. Provider-specific integration tests are evidence for the behavior listed here; existing application data still needs an independent schema and rollback check.
