@@ -51,7 +51,7 @@
     ".github/workflows/nightly-transports.yml": "b50c92689db50ea60a3023f576eb8aea36aca3ca1eaafd2e58760ac20cfb1d85",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
     "Directory.Packages.props": "b3b50fe95e0f8321a22d93291323aa29bd6964ca17e8ed7baf146633b9f62ce5",
-    "MassTransit.slnx": "9f28cca81c91d29d72c0b8244d42c6d968d220a581b11443914310374dacc72b",
+    "MassTransit.slnx": "77b2a7a71e4853bc999262cd78fd39a35888fd16086ed08b9adebb12dda36ccc",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
     "signing.props": "4e31404f98199753192cc9ea0dc53c90642f73e8a29b5d202cfd7f141a82b3b4",
     "src/Directory.Build.props": "4ee982a76219a385f3953fa607719135553f11512b2c63dc9e8e52b75069f3d9",
