@@ -54,7 +54,7 @@ For every source project, build status is **evaluated, not built in this invento
 
 ## CI jobs
 
-The [main workflow](../../.github/workflows/build.yml) defines the build, test, and package jobs. See the maintained [CI matrix](../../CI.md) for execution platforms, service requirements, excluded tests, and unavailable cloud suites. Both build lanes include projects outside the solution. The `test-entity-framework` job runs the retained EF Core suite, which provisions SQL Server and PostgreSQL through Testcontainers.
+The [main workflow](../../.github/workflows/build.yml) defines the build, the `*.Tests` jobs, and the package jobs. The [integration workflow](../../.github/workflows/integration.yml) runs the `*.IntegrationTests` suites, which provision their own containers through Testcontainers, on pull requests into `master` and nightly. See the maintained [CI matrix](../../CI.md) for execution platforms, service requirements, excluded tests, and unavailable cloud suites. Both build lanes include projects outside the solution.
 
 The separate [transport validation workflow](../../.github/workflows/nightly-transports.yml) is manually dispatched and covers RabbitMQ, ActiveMQ, and SQS/S3. It does not publish packages.
 

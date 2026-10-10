@@ -2,9 +2,20 @@
 
 The main workflow builds every tracked C# project on Linux and Windows using the .NET 10 SDK. This includes projects outside `MassTransit.slnx`. Runtime libraries, test processes, and benchmark executables target `net10.0`. The analyzer assembly remains `netstandard2.0` for compiler-host compatibility; its tests run on .NET 10.
 
+## When tests run
+
+Two workflows split the suites by what they need:
+
+| Workflow | Runs | Triggers |
+| --- | --- | --- |
+| [build.yml](.github/workflows/build.yml) | Build on Linux and Windows, `*.Tests` projects, and the suites that still use workflow service containers (Dapper, Marten, DynamoDB) | Every push and every pull request touching build inputs |
+| [integration.yml](.github/workflows/integration.yml) | Every `tests/*.IntegrationTests` project except Cosmos DB, plus the Redis suite against Valkey, one matrix leg each | Pull requests into `master`, and nightly on the default branch |
+
+`integration.yml` discovers its suites from the `*.IntegrationTests` directories, so a new container-based suite needs no workflow change. Its `Integration` job passes only when every leg passes and is the check to require on `master`. Both workflows cancel an in-progress run when a newer one starts for the same branch or pull request.
+
 ## Test matrix
 
-Each name below identifies the matching project directory under `tests/`. The workflow runs Release builds with an explicit `net10.0` test framework. All unattended test runs exclude `Category=Flaky`.
+Each name below identifies the matching project directory under `tests/`. The workflows run Release builds with an explicit `net10.0` test framework. All unattended test runs exclude `Category=Flaky`.
 
 | Project | Execution | Services or providers |
 | --- | --- | --- |
