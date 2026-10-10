@@ -234,7 +234,15 @@ def inventory_project(path, solutions):
             properties.pop("MSBuildVersion")
             properties.pop("TargetFrameworks")
             inner.append((context, {"target_framework": target, "properties": properties, **effective_dependencies(raw)}))
-    kind = "source" if path.startswith("src/") else ("test" if Path(path).stem.endswith(".Tests") else "benchmark")
+    stem = Path(path).stem
+    if path.startswith("src/"):
+        kind = "source"
+    elif stem.endswith((".Tests", ".IntegrationTests")):
+        kind = "test"
+    elif "Benchmark" in stem:
+        kind = "benchmark"
+    else:
+        kind = "test_support"
     return {
         "path": path,
         "name": Path(path).stem,
@@ -321,7 +329,7 @@ def generate(jobs):
                 print(f"Evaluated {index}/{len(paths)} projects", file=sys.stderr)
     reverse_references(projects)
     outside = [project["path"] for project in projects if not project["solutions"]]
-    counts = {kind: sum(project["kind"] == kind for project in projects) for kind in ("source", "test", "benchmark")}
+    counts = {kind: sum(project["kind"] == kind for project in projects) for kind in ("source", "test", "benchmark", "test_support")}
     return {
         "schema_version": 1,
         "generator": "scripts/dependency_inventory.py",
@@ -341,7 +349,7 @@ def generate(jobs):
                 "SDK evaluation includes implicit references but excludes restored obj props/targets; package build assets and transitive dependencies are not resolved.",
                 "Evaluated central version metadata is preserved separately; targets may later change metadata during restore/build/pack.",
                 "Release is evaluated. Current Debug/Release conditions only change compiler flags; Debug, custom configurations, and GITHUB_ACTIONS=true are not evaluated. Source conditions remain in source_files.",
-                "Benchmark kind is classified by path/name; tests/Directory.Build.props also sets IsTestProject=true on both benchmarks.",
+                "Project kind is classified by path/name: names ending in .Tests or .IntegrationTests are tests, names containing Benchmark are benchmarks, and other projects under tests are test support. tests/Directory.Build.props also sets IsTestProject=true on both benchmarks.",
                 "Packability and package license expressions describe current declarations/evaluation; build, publication, legal clearance, and test execution are unverified.",
                 "Test reachability uses the union of evaluated reference graphs, not assertions, runtime coverage, or compatible-framework validation.",
                 "Consumer status describes repository references only; application deployments and persisted data are not assessed.",

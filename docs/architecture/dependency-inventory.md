@@ -6,10 +6,10 @@ The [structured inventory](dependency-inventory.json) contains every tracked pro
 
 ## Scope and consumers
 
-- The retained set contains **57** tracked projects: **32 source projects**, **23 test projects** and **2 benchmarks**. The solution contains **54** projects.
+- The retained set contains **58** tracked projects: **32 source projects**, **23 test projects**, **2 benchmarks** and **1 test-support library** (`MassTransit.Testing.Containers`, the shared Testcontainers setup). The solution contains **55** projects.
 - The projects outside the solution are `MassTransit.Benchmark`, `MassTransit.BenchmarkConsole`, and `MassTransit.Interop.NServiceBus.Tests`, all under `tests/`. They require separate build/test commands; solution commands do not include them automatically.
 - Repository consumers are identified through project, test and benchmark references. Application deployments and persisted data are outside the scope of this inventory.
-- A project reference from a test project records reachability, not behavioral coverage. Benchmarks inherit `IsTestProject=true` from `tests/Directory.Build.props`; they remain classified as benchmarks here.
+- A project reference from a test project records reachability, not behavioral coverage. Benchmarks inherit `IsTestProject=true` from `tests/Directory.Build.props`; they remain classified as benchmarks here. Test projects end in `.Tests` or, when they start their own containers, `.IntegrationTests`.
 
 ## Source projects
 
@@ -66,7 +66,7 @@ The EF6 adapter and its test project have been removed. No `MessageTransit.Entit
 
 The [migration guide](../../ENTITY_FRAMEWORK_MIGRATION.md) maps EF6 behavior to retained EF Core regression coverage and explains context, mapping, locking, and audit differences. Existing application databases require their own schema, data, and rollback validation; fresh test databases do not establish an in-place migration contract.
 
-EF Core also provides transactional inbox/outbox storage, as shown by the [reliable-messaging context](../../tests/MassTransit.EntityFrameworkCoreIntegration.Tests/ReliableMessaging/ReliableDbContext.cs). Those tables are separate from saga/audit storage and had no counterpart in the removed EF6 adapter.
+EF Core also provides transactional inbox/outbox storage, as shown by the [reliable-messaging context](../../tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/ReliableMessaging/ReliableDbContext.cs). Those tables are separate from saga/audit storage and had no counterpart in the removed EF6 adapter.
 
 ## Refresh and verification
 
