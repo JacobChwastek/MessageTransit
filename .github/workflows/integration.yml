@@ -1,0 +1,84 @@
+name: Integration tests
+on:
+  pull_request:
+    branches:
+      - master
+  schedule:
+    # Nightly on the default branch, so container-backed regressions surface before a release pull request.
+    - cron: '0 2 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: integration-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: false
+
+jobs:
+  discover:
+    name: Discover integration suites
+    runs-on: ubuntu-latest
+    outputs:
+      suites: ${{ steps.list.outputs.suites }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: List suites
+        id: list
+        shell: python
+        run: |
+          import json, os
+          from pathlib import Path
+
+          # The Cosmos DB emulator needs a trusted certificate and is not executed in CI.
+          skipped = {"MassTransit.Azure.Cosmos.IntegrationTests"}
+          suites = [{"project": path.name, "name": path.name}
+                    for path in sorted(Path("tests").glob("*.IntegrationTests")) if path.name not in skipped]
+          suites.append({"project": "MassTransit.RedisIntegration.IntegrationTests",
+                         "name": "MassTransit.RedisIntegration.IntegrationTests (Valkey)", "redis": "valkey"})
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"suites={json.dumps(suites)}\n")
+
+  test:
+    name: ${{ matrix.suite.name }}
+    needs: discover
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: ${{ fromJSON(needs.discover.outputs.suites) }}
+    env:
+      MT_REDIS_SERVER: ${{ matrix.suite.redis }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Install .NET 10 SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Test ${{ matrix.suite.name }}
+        uses: ./.github/actions/test
+        with:
+          project: ${{ matrix.suite.project }}
+          artifact-name: tests-integration-${{ matrix.suite.redis || 'default' }}-${{ matrix.suite.project }}
+
+  integration:
+    name: Integration
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every suite to pass
+        env:
+          RESULT: ${{ needs.test.result }}
+        run: |
+          echo "Integration suites: $RESULT"
+          test "$RESULT" = success

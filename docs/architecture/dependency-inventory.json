@@ -47,7 +47,8 @@
     "errors": []
   },
   "input_sha256": {
-    ".github/workflows/build.yml": "b96a40704c60b6cd1c8f302f7196d4afa136ff271e112b412fd269d658e30d98",
+    ".github/workflows/build.yml": "a3c4ef196e561b0bd327ada5c4e3ad6011e7acce0ec9c4e7365f88ce8cf3c3d4",
+    ".github/workflows/integration.yml": "88ab8536820ed90e30d9a34b632c4c7f9ff8df3b60ad2c692bd433b4acc87be8",
     ".github/workflows/nightly-transports.yml": "7aedd359b8c31da3d94567ac4e8bd3da9e01f36e8c2c99675f3aa42bbf28ec66",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
     "Directory.Packages.props": "064b9a6e6341d5a13c9fa3ad7a360d5b6f16eb911a4cf84853e1a9978eabdaff",
