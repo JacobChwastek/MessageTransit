@@ -52,29 +52,30 @@
     <Project Path="tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj" />
     <Project Path="tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj" />
     <Project Path="tests/MassTransit.Tests/MassTransit.Tests.csproj" />
+    <Project Path="tests/MassTransit.Testing.Containers/MassTransit.Testing.Containers.csproj" />
   </Folder>
   <Folder Name="/tests/Persistence/">
-    <Project Path="tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj" />
-    <Project Path="tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj" />
+    <Project Path="tests/MassTransit.Azure.Cosmos.IntegrationTests/MassTransit.Azure.Cosmos.IntegrationTests.csproj" />
+    <Project Path="tests/MassTransit.Azure.Table.IntegrationTests/MassTransit.Azure.Table.IntegrationTests.csproj" />
     <Project Path="tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj" />
     <Project Path="tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj" />
-    <Project Path="tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests/MassTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj" />
     <Project Path="tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj" />
-    <Project Path="tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.MongoDbIntegration.IntegrationTests/MassTransit.MongoDbIntegration.IntegrationTests.csproj" />
     <Project Path="tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj" />
-    <Project Path="tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.RedisIntegration.IntegrationTests/MassTransit.RedisIntegration.IntegrationTests.csproj" />
   </Folder>
   <Folder Name="/tests/Scheduling/">
     <Project Path="tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj" />
     <Project Path="tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj" />
   </Folder>
   <Folder Name="/tests/Transports/">
-    <Project Path="tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj" />
-    <Project Path="tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj" />
+    <Project Path="tests/MassTransit.ActiveMqTransport.IntegrationTests/MassTransit.ActiveMqTransport.IntegrationTests.csproj" />
+    <Project Path="tests/MassTransit.AmazonSqsTransport.IntegrationTests/MassTransit.AmazonSqsTransport.IntegrationTests.csproj" />
     <Project Path="tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj" />
-    <Project Path="tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj" />
-    <Project Path="tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj" />
-    <Project Path="tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj" />
-    <Project Path="tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj" />
+    <Project Path="tests/MassTransit.EventHubIntegration.IntegrationTests/MassTransit.EventHubIntegration.IntegrationTests.csproj" />
+    <Project Path="tests/MassTransit.KafkaIntegration.IntegrationTests/MassTransit.KafkaIntegration.IntegrationTests.csproj" />
+    <Project Path="tests/MassTransit.RabbitMqTransport.IntegrationTests/MassTransit.RabbitMqTransport.IntegrationTests.csproj" />
+    <Project Path="tests/MassTransit.SqlTransport.IntegrationTests/MassTransit.SqlTransport.IntegrationTests.csproj" />
   </Folder>
 </Solution>

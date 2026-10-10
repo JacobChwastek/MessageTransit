@@ -12,25 +12,25 @@ Each name below identifies the matching project directory under `tests/`. The wo
 | MassTransit.Abstractions.Tests | Linux and Windows | No external service |
 | MassTransit.Analyzers.Tests | Linux and Windows | Roslyn in the .NET 10 test process |
 | MassTransit.Interop.NServiceBus.Tests | Linux and Windows | In-memory XML interoperability; project is outside the solution |
-| MassTransit.ActiveMqTransport.Tests | Linux | Local ActiveMQ |
-| MassTransit.RabbitMqTransport.Tests | Linux | Local RabbitMQ |
-| MassTransit.AmazonSqsTransport.Tests | Linux | LocalStack SQS, SNS, and S3 |
-| MassTransit.SqlTransport.Tests | Linux | Local SQL Server and PostgreSQL |
+| MassTransit.ActiveMqTransport.IntegrationTests | Linux | ActiveMQ container started by the tests through Testcontainers; fixed host ports (Artemis starts only for the excluded Artemis cases) |
+| MassTransit.RabbitMqTransport.IntegrationTests | Linux | RabbitMQ container started by the tests through Testcontainers; fixed host ports |
+| MassTransit.AmazonSqsTransport.IntegrationTests | Linux | LocalStack (SQS, SNS, and S3) container started by the tests through Testcontainers; fixed host ports |
+| MassTransit.SqlTransport.IntegrationTests | Linux | SQL Server and PostgreSQL containers started by the tests through Testcontainers |
 | MassTransit.DynamoDbIntegration.Tests | Linux | LocalStack DynamoDB with dummy credentials |
-| MassTransit.Azure.Table.Tests | Linux | Local Azurite |
+| MassTransit.Azure.Table.IntegrationTests | Linux | Azurite container started by the tests through Testcontainers |
 | MassTransit.DapperIntegration.Tests | Linux | Local SQL Server |
-| MassTransit.EntityFrameworkCoreIntegration.Tests | Linux | SQL Server and PostgreSQL containers started by the tests through Testcontainers |
+| MassTransit.EntityFrameworkCoreIntegration.IntegrationTests | Linux | SQL Server and PostgreSQL containers started by the tests through Testcontainers |
 | MassTransit.MartenIntegration.Tests | Linux | Local PostgreSQL |
-| MassTransit.MongoDbIntegration.Tests | Linux | Local MongoDB replica set |
+| MassTransit.MongoDbIntegration.IntegrationTests | Linux | Single-node MongoDB replica set container started by the tests through Testcontainers |
 | MassTransit.NHibernateIntegration.Tests | Linux | In-memory SQLite |
-| MassTransit.RedisIntegration.Tests | Two Linux jobs | Local Redis and local Valkey |
+| MassTransit.RedisIntegration.IntegrationTests | Two Linux jobs | Redis and Valkey containers started by the tests through Testcontainers; the Valkey job sets `MT_REDIS_SERVER=valkey` |
 | MassTransit.HangfireIntegration.Tests | Linux | In-memory storage |
 | MassTransit.QuartzIntegration.Tests | Linux | In-memory scheduler |
-| MassTransit.EventHubIntegration.Tests | Linux | Local Event Hubs emulator and Azurite |
-| MassTransit.KafkaIntegration.Tests | Linux | Local Kafka, ZooKeeper, and Schema Registry |
+| MassTransit.EventHubIntegration.IntegrationTests | Linux | Event Hubs emulator and Azurite containers started by the tests through Testcontainers; fixed host ports for the emulator |
+| MassTransit.KafkaIntegration.IntegrationTests | Linux | Kafka, ZooKeeper, and Schema Registry containers started by the tests through Testcontainers; fixed host ports |
 | MassTransit.SignalR.Tests | Linux | In-process test fixtures |
 | MassTransit.Azure.ServiceBus.Core.Tests | **Not executed** | Requires a real Azure Service Bus namespace and Azure Storage credentials; dedicated cloud test resources are not configured |
-| MassTransit.Azure.Cosmos.Tests | **Not executed** | No Cosmos emulator or dedicated cloud test account is provisioned; the RBAC future fixture additionally requires Azure credentials and a remotely configured instance |
+| MassTransit.Azure.Cosmos.IntegrationTests | **Not executed** | The tests start the Cosmos DB emulator through Testcontainers on fixed host ports unless `MT_COSMOS_ENDPOINT` names an account; local runs must first trust the emulator certificate served at `https://localhost:8081/_explorer/emulator.pem`; the emulator is not run in CI, and the RBAC future fixture additionally requires Azure credentials and a remotely configured instance |
 
 The two unavailable cloud suites are still compiled on both operating systems. They are excluded from test execution and are not counted as executed coverage. Azure Table and Event Hubs use development emulators; those results do not establish live Azure compatibility. The EF Core lane does not establish migration or data compatibility with existing EF6 databases.
 
@@ -64,4 +64,4 @@ dotnet test tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj
 dotnet test tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj -c Release -f net10.0 --filter 'Category!=Flaky'
 ```
 
-Service-dependent suites require the corresponding local service before execution. The workflow files contain their service configuration. CI configuration describes intended coverage; only a completed run and its retained results establish which checks actually passed.
+Suites named `*.IntegrationTests` start their own containers through Testcontainers and need a running Docker engine; the shared containers and pinned images are in `tests/MassTransit.Testing.Containers`. Suites with fixed host ports conflict with a local broker already listening on those ports. The remaining service-dependent suites require the corresponding local service before execution, and the workflow files contain their service configuration. CI configuration describes intended coverage; only a completed run and its retained results establish which checks actually passed.
