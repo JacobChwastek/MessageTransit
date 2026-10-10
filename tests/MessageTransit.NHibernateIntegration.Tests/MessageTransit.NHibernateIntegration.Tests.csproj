@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Iesi.Collections" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="System.Data.SqlClient"/>
+    <PackageReference Include="System.Data.SQLite.Core" />
+    <ProjectReference Include="..\..\src\MessageTransit.TestFramework\MessageTransit.TestFramework.csproj" />
+    <ProjectReference Include="..\..\src\Persistence\MessageTransit.NHibernateIntegration\MessageTransit.NHibernateIntegration.csproj" />
+    <ProjectReference Include="..\MessageTransit.Tests\MessageTransit.Tests.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit\MessageTransit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+  </ItemGroup>
+</Project>

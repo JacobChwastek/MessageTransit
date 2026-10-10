@@ -1,0 +1,6 @@
+namespace MessageTransitBenchmark.BusOutbox;
+
+using System;
+
+
+public record BusOutboxMessage(Guid CorrelationId, string Payload);

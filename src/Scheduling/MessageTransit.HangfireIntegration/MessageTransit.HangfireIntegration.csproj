@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--  <Import Project="../signing.props" />-->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RootNamespace>MessageTransit</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>MessageTransit.Hangfire</PackageId>
+    <Title>MessageTransit.Hangfire</Title>
+    <PackageTags>MessageTransit;Hangfire;Scheduler;Scheduling</PackageTags>
+    <Description>MessageTransit Hangfire scheduler support; $(Description)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MessageTransit.Newtonsoft\MessageTransit.Newtonsoft.csproj" />
+    <ProjectReference Include="..\..\MessageTransit\MessageTransit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.Core" />
+  </ItemGroup>
+
+</Project>

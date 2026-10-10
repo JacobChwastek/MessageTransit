@@ -1,0 +1,15 @@
+namespace MessageTransit.SqlTransport.Configuration
+{
+    using MessageTransit.Configuration;
+
+
+    public interface ISqlTopologyConfiguration :
+        ITopologyConfiguration
+    {
+        new ISqlPublishTopologyConfigurator Publish { get; }
+
+        new ISqlSendTopologyConfigurator Send { get; }
+
+        new ISqlConsumeTopologyConfigurator Consume { get; }
+    }
+}

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../../signing.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RootNamespace>MessageTransit</RootNamespace>
+    <AzureFunctionsVersion>v3</AzureFunctionsVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>MessageTransit.WebJobs.EventHubs</PackageId>
+    <Title>MessageTransit.WebJobs.EventHubs</Title>
+    <PackageTags>MessageTransit;Azure;EventHubs;AzureFunctions</PackageTags>
+    <Description>MessageTransit Azure WebJobs Event Hubs support; $(Description)</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventHubs" />
+    <ProjectReference Include="..\MessageTransit.Azure.ServiceBus.Core\MessageTransit.Azure.ServiceBus.Core.csproj" />
+    <ProjectReference Include="..\MessageTransit.WebJobs.ServiceBusIntegration\MessageTransit.WebJobs.ServiceBusIntegration.csproj" />
+    <ProjectReference Include="..\..\MessageTransit\MessageTransit.csproj" />
+  </ItemGroup>
+</Project>

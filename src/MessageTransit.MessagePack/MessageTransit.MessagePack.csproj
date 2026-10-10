@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../signing.props"/>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>MessageTransit</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>MessageTransit.MessagePack</PackageId>
+    <Title>MessageTransit.MessagePack</Title>
+    <PackageTags>MessageTransit;MessagePack;MsgPack</PackageTags>
+    <Description>MessageTransit MessagePack support; $(Description)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MessagePack"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MessageTransit.Abstractions\MessageTransit.Abstractions.csproj"/>
+    <ProjectReference Include="..\MessageTransit\MessageTransit.csproj"/>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>MessageTransit.EventHubIntegration.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NUnit3TestAdapter" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Transports\MessageTransit.EventHubIntegration\MessageTransit.EventHubIntegration.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit.TestFramework\MessageTransit.TestFramework.csproj" />
+    <ProjectReference Include="..\MessageTransit.Testing.Containers\MessageTransit.Testing.Containers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="MessageTransit.Testing.Containers" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

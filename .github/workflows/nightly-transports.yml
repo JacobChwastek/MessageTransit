@@ -33,7 +33,7 @@ jobs:
       - name: Test ActiveMQ
         uses: ./.github/actions/test
         with:
-          project: MassTransit.ActiveMqTransport.IntegrationTests
+          project: MessageTransit.ActiveMqTransport.IntegrationTests
 
   test-rabbitmq:
     name: "Transports: RabbitMQ"
@@ -51,7 +51,7 @@ jobs:
       - name: Test RabbitMQ
         uses: ./.github/actions/test
         with:
-          project: MassTransit.RabbitMqTransport.IntegrationTests
+          project: MessageTransit.RabbitMqTransport.IntegrationTests
 
   test-sqs:
     name: "Transports: SQS (+S3)"
@@ -69,4 +69,4 @@ jobs:
       - name: Test SQS
         uses: ./.github/actions/test
         with:
-          project: MassTransit.AmazonSqsTransport.IntegrationTests
+          project: MessageTransit.AmazonSqsTransport.IntegrationTests

@@ -1,0 +1,32 @@
+﻿namespace MessageTransit;
+
+using System;
+using System.Runtime.Serialization;
+
+
+/// <summary>
+/// Published when a RabbitMQ channel is closed and the message was not confirmed by the broker.
+/// </summary>
+[Serializable]
+public class MessageReturnedException : MessageTransitException
+{
+    public MessageReturnedException()
+    {
+    }
+
+    public MessageReturnedException(string message)
+        : base(message)
+    {
+    }
+
+    public MessageReturnedException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
+
+    [Obsolete("Formatter-based serialization is obsolete and should not be used.")]
+    protected MessageReturnedException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    {
+    }
+}
