@@ -1,7 +1,11 @@
-<!--
-Thank you for sending the PR!
+## Summary
 
-If you changed any code, please provide us with clear instructions on how you verified your changes work. Bonus points for screenshots!
+<!-- What changes, and why. Link a reproduction for bug fixes. -->
 
-Happy contributing!
--->
+## Consumer impact
+
+<!-- Behavior, API, wire, or stored-data changes visible to applications, and the documentation updated for them. Write "None" if there are none. -->
+
+## Verification
+
+<!-- The checks you ran and their results, for example `python3 scripts/ci_build.py` or a `dotnet test` command. Name relevant checks you did not run. -->
