@@ -45,7 +45,6 @@ The following NuGet packages are the currently supported.
 * [MassTransit.Azure.Cosmos.Table](https://nuget.org/packages/MassTransit.Azure.Cosmos.Table/)
 * [MassTransit.DapperIntegration](https://nuget.org/packages/MassTransit.DapperIntegration/)
 * [MassTransit.DynamoDb](https://nuget.org/packages/MassTransit.DynamoDb/)
-* [MassTransit.EntityFramework](https://nuget.org/packages/MassTransit.EntityFramework/)
 * [MassTransit.EntityFrameworkCore](https://nuget.org/packages/MassTransit.EntityFrameworkCore/)
 * [MassTransit.Marten](https://nuget.org/packages/MassTransit.Marten/)
 * [MassTransit.MongoDb](https://nuget.org/packages/MassTransit.MongoDb/)

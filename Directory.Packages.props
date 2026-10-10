@@ -20,7 +20,6 @@
     <PackageVersion Include="coverlet.collector" Version="3.1.2" />
     <PackageVersion Include="Dapper" Version="2.1.79" />
     <PackageVersion Include="dapper.contrib" Version="2.0.78" />
-    <PackageVersion Include="EntityFramework" Version="6.5.2" />
     <PackageVersion Include="Google.Protobuf" Version="3.34.1" />
     <PackageVersion Include="Hangfire.AspNetCore" Version="1.8.23" />
     <PackageVersion Include="Hangfire.Core" Version="1.8.23" />
@@ -79,7 +78,7 @@
     <PackageVersion Include="SharpZipLib" Version="1.4.2" />
     <PackageVersion Include="StackExchange.Redis" Version="2.13.17" />
     <PackageVersion Include="System.Data.SqlClient" Version="4.9.0" />
-    <PackageVersion Include="System.Data.SQLite" Version="1.0.119" />
+    <PackageVersion Include="System.Data.SQLite.Core" Version="1.0.119" />
     <PackageVersion Include="Testcontainers.MsSql" Version="4.15.0" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.15.0" />
   </ItemGroup>

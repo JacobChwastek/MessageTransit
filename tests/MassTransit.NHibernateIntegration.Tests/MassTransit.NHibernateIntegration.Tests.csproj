@@ -15,7 +15,7 @@
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="Microsoft.Data.SqlClient" />
     <PackageReference Include="System.Data.SqlClient"/>
-    <PackageReference Include="System.Data.SQLite" />
+    <PackageReference Include="System.Data.SQLite.Core" />
     <ProjectReference Include="..\..\src\MassTransit.TestFramework\MassTransit.TestFramework.csproj" />
     <ProjectReference Include="..\..\src\Persistence\MassTransit.NHibernateIntegration\MassTransit.NHibernateIntegration.csproj" />
     <ProjectReference Include="..\MassTransit.Tests\MassTransit.Tests.csproj" />

@@ -47,11 +47,11 @@
     "errors": []
   },
   "input_sha256": {
-    ".github/workflows/build.yml": "5310b03c5dae2904b3d2a56d91b21cc9d6b17df6474bbb9188f3e45147ce62db",
+    ".github/workflows/build.yml": "7e30decff92264e2b921dd5b33dcabd35af19c2d94a928a31d32826920932763",
     ".github/workflows/nightly-transports.yml": "b50c92689db50ea60a3023f576eb8aea36aca3ca1eaafd2e58760ac20cfb1d85",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
-    "Directory.Packages.props": "b5595d257c89155c641ee83b23f135c200fa205e789e224dc9fc0d4e47935045",
-    "MassTransit.sln": "4bf1c6d7f225b5e40081d8e31875778ab2cadca7095b65e267275c177210c436",
+    "Directory.Packages.props": "b3b50fe95e0f8321a22d93291323aa29bd6964ca17e8ed7baf146633b9f62ce5",
+    "MassTransit.sln": "ea433acc6eddb5322e866c8da78c97d7e3568d7f26d1aff6edccb4786cb1e13d",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
     "signing.props": "4e31404f98199753192cc9ea0dc53c90642f73e8a29b5d202cfd7f141a82b3b4",
     "src/Directory.Build.props": "4ee982a76219a385f3953fa607719135553f11512b2c63dc9e8e52b75069f3d9",
@@ -72,7 +72,6 @@
     "src/Persistence/MassTransit.DapperIntegration/MassTransit.DapperIntegration.csproj": "e2f0132c156914e6a6e0b0ceb6599492a32fcfa95c34c53b7b08401999bc3350",
     "src/Persistence/MassTransit.DynamoDbIntegration/MassTransit.DynamoDbIntegration.csproj": "65061d2a71fbac0ab3864d413448396843b34d9c22c0de0b8a4f4e75e2239f4c",
     "src/Persistence/MassTransit.EntityFrameworkCoreIntegration/MassTransit.EntityFrameworkCoreIntegration.csproj": "f35acf9e3e7b1a95472034d3bcd1c08e6c57a51b9799d93681f6cf12c08f2f32",
-    "src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj": "494d30d17f0058dfd82f13426d325bdd561e16cf42c76783c0e351ea5a39266d",
     "src/Persistence/MassTransit.MartenIntegration/MassTransit.MartenIntegration.csproj": "b5e531809a5e4a4466512cc6d2a1d31cf11acc3bd50a42f888f429e111c45767",
     "src/Persistence/MassTransit.MongoDbIntegration/Directory.Build.props": "f99fda18062fb3125250f984cd920ce1003ea3ea01d0a4972ff808ac46bf6ee6",
     "src/Persistence/MassTransit.MongoDbIntegration/MassTransit.MongoDbIntegration.csproj": "0fa58bd82c2b4f8cfc85ed809eaca7530fd5e6b22cef84f4d04ca5c868e47f71",
@@ -103,14 +102,13 @@
     "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj": "95d7bd20954fe1a8acbaedcecc670dbef4bcf7a67577c55c1a881241f5e0ebe2",
     "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj": "5da0ec2d6a7c51f52530905dadc17a49a084bd9a98d0c8f458eda19103598ead",
     "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj": "4c2dc230dd6b31b91028de602fe07b41d9796817399de547ba228028f4090d60",
-    "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj": "94b64cf06427deeaa34ee6430ac5b592eb1d8246598756d946bd6558a437742e",
     "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj": "583466fdff31fd878f277288eec38ca054b4706c4a89a9ad02996d4b26abd2b4",
     "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj": "2e573d2e52bf21d0575ba2594cee4a51f1922db2a63ebb6bf6f8767948cdb45e",
     "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj": "5425dbbb5aee04800524c00ca4276a3c8cb0cdb2c633c69a99e05ce143591eaf",
     "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj": "fdc8276cb23ddbbc6f6fe0ab79a7a2061d4d7d25fc904a5d7dc9d62e60fea727",
     "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj": "98e71c365cfe3c4d6f75cbdcb958dc19cb4d1be8e4fcaf161f901fa6dafeacb5",
     "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj": "45c147958f545fb478a7622f4b82a2eed9b6bc3624bcafc1d0698a3cd4960bdb",
-    "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj": "5f8db195a8c444e1d62b2cd9caaa57457fe58c441e48a0e1b3b806e148c0cd11",
+    "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj": "4b17cd5a6dd29e860d4d3ad0158117d02c607c66a98b781242c773b4e2086a72",
     "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj": "c17f24d2eabf45b2ffe3f04c9d09631b11c709db19617cc036b474c66fb39167",
     "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj": "c597db7c8d2e19acc62b75ec4918b77838ffb150429320c970f6ef5ca6b92867",
     "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj": "83b4d2563d517dcf27873ef680e839f7eff3160d5851fd353d87133490229a9c",
@@ -119,13 +117,13 @@
     "tests/MassTransit.Tests/MassTransit.Tests.csproj": "7fce38a1481e54d69044cbf2e1dd9d546e9644051cda14cd467e272323edab60"
   },
   "summary": {
-    "tracked_projects": 59,
-    "source": 33,
-    "test": 24,
+    "tracked_projects": 57,
+    "source": 32,
+    "test": 23,
     "benchmark": 2,
-    "test_and_benchmark": 26,
+    "test_and_benchmark": 25,
     "solution_project_counts": {
-      "MassTransit.sln": 56
+      "MassTransit.sln": 54
     },
     "outside_solution": [
       "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj",
@@ -278,13 +276,6 @@
           "attributes": {
             "Include": "dapper.contrib",
             "Version": "2.0.78"
-          }
-        },
-        {
-          "element": "PackageVersion",
-          "attributes": {
-            "Include": "EntityFramework",
-            "Version": "6.5.2"
           }
         },
         {
@@ -674,7 +665,7 @@
         {
           "element": "PackageVersion",
           "attributes": {
-            "Include": "System.Data.SQLite",
+            "Include": "System.Data.SQLite.Core",
             "Version": "1.0.119"
           }
         },
@@ -1291,37 +1282,6 @@
           "element": "PackageReference",
           "attributes": {
             "Include": "Microsoft.Extensions.Caching.Memory"
-          }
-        },
-        {
-          "element": "ProjectReference",
-          "attributes": {
-            "Include": "..\\..\\MassTransit\\MassTransit.csproj"
-          }
-        }
-      ],
-      "conditions": []
-    },
-    "src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj": {
-      "declarations": [
-        {
-          "element": "Import",
-          "attributes": {
-            "Project": "../../../signing.props"
-          }
-        },
-        {
-          "element": "TargetFramework",
-          "value": "net10.0"
-        },
-        {
-          "element": "PackageId",
-          "value": "MassTransit.EntityFramework"
-        },
-        {
-          "element": "PackageReference",
-          "attributes": {
-            "Include": "EntityFramework"
           }
         },
         {
@@ -2803,73 +2763,6 @@
       ],
       "conditions": []
     },
-    "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj": {
-      "declarations": [
-        {
-          "element": "TargetFramework",
-          "value": "net10.0"
-        },
-        {
-          "element": "PackageReference",
-          "attributes": {
-            "Include": "Microsoft.NET.Test.Sdk"
-          }
-        },
-        {
-          "element": "PackageReference",
-          "attributes": {
-            "Include": "NUnit"
-          }
-        },
-        {
-          "element": "PackageReference",
-          "attributes": {
-            "Include": "NUnit.Analyzers"
-          },
-          "metadata": [
-            {
-              "name": "PrivateAssets",
-              "value": "all"
-            },
-            {
-              "name": "IncludeAssets",
-              "value": "runtime; build; native; contentfiles; analyzers; buildtransitive"
-            }
-          ]
-        },
-        {
-          "element": "PackageReference",
-          "attributes": {
-            "Include": "NUnit3TestAdapter"
-          }
-        },
-        {
-          "element": "ProjectReference",
-          "attributes": {
-            "Include": "..\\..\\src\\Persistence\\MassTransit.EntityFrameworkIntegration\\MassTransit.EntityFrameworkIntegration.csproj"
-          }
-        },
-        {
-          "element": "ProjectReference",
-          "attributes": {
-            "Include": "..\\..\\src\\MassTransit.TestFramework\\MassTransit.TestFramework.csproj"
-          }
-        },
-        {
-          "element": "ProjectReference",
-          "attributes": {
-            "Include": "..\\MassTransit.Tests\\MassTransit.Tests.csproj"
-          }
-        },
-        {
-          "element": "ProjectReference",
-          "attributes": {
-            "Include": "..\\..\\src\\MassTransit\\MassTransit.csproj"
-          }
-        }
-      ],
-      "conditions": []
-    },
     "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj": {
       "declarations": [
         {
@@ -3331,7 +3224,7 @@
         {
           "element": "PackageReference",
           "attributes": {
-            "Include": "System.Data.SQLite"
+            "Include": "System.Data.SQLite.Core"
           }
         },
         {
@@ -3900,7 +3793,6 @@
       "src/Persistence/MassTransit.DapperIntegration/MassTransit.DapperIntegration.csproj",
       "src/Persistence/MassTransit.DynamoDbIntegration/MassTransit.DynamoDbIntegration.csproj",
       "src/Persistence/MassTransit.EntityFrameworkCoreIntegration/MassTransit.EntityFrameworkCoreIntegration.csproj",
-      "src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj",
       "src/Persistence/MassTransit.MartenIntegration/MassTransit.MartenIntegration.csproj",
       "src/Persistence/MassTransit.MongoDbIntegration/MassTransit.MongoDbIntegration.csproj",
       "src/Persistence/MassTransit.NHibernateIntegration/MassTransit.NHibernateIntegration.csproj",
@@ -3927,7 +3819,6 @@
       "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
       "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
       "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-      "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
       "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
       "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
       "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
@@ -4109,7 +4000,6 @@
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj",
@@ -4486,7 +4376,6 @@
           "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
@@ -4689,7 +4578,6 @@
           "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
@@ -4915,7 +4803,6 @@
           "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
@@ -5301,7 +5188,6 @@
           "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
@@ -5529,7 +5415,6 @@
         "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
         "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
         "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-        "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
         "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
         "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
         "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
@@ -5552,7 +5437,6 @@
           "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
@@ -5575,7 +5459,6 @@
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
@@ -5842,7 +5725,6 @@
         "src/Persistence/MassTransit.DapperIntegration/MassTransit.DapperIntegration.csproj",
         "src/Persistence/MassTransit.DynamoDbIntegration/MassTransit.DynamoDbIntegration.csproj",
         "src/Persistence/MassTransit.EntityFrameworkCoreIntegration/MassTransit.EntityFrameworkCoreIntegration.csproj",
-        "src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj",
         "src/Persistence/MassTransit.MartenIntegration/MassTransit.MartenIntegration.csproj",
         "src/Persistence/MassTransit.MongoDbIntegration/MassTransit.MongoDbIntegration.csproj",
         "src/Persistence/MassTransit.NHibernateIntegration/MassTransit.NHibernateIntegration.csproj",
@@ -5869,7 +5751,6 @@
         "tests/MassTransit.BenchmarkConsole/MassTransit.BenchmarkConsole.csproj",
         "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
         "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-        "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
         "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
         "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
         "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
@@ -5891,7 +5772,6 @@
           "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
           "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
@@ -5913,7 +5793,6 @@
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj",
@@ -7329,191 +7208,6 @@
         "direct_benchmarks": [
           "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj"
         ],
-        "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
-      }
-    },
-    {
-      "path": "src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj",
-      "name": "MassTransit.EntityFrameworkIntegration",
-      "kind": "source",
-      "solutions": [
-        "MassTransit.sln"
-      ],
-      "declarations": "src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj",
-      "framework_and_package_variants": [
-        {
-          "contexts": [
-            {
-              "platform": "non_windows",
-              "configuration": "Release"
-            },
-            {
-              "platform": "windows",
-              "configuration": "Release"
-            }
-          ],
-          "properties": {
-            "TargetFramework": "net10.0",
-            "TargetFrameworks": "",
-            "PackageId": "MassTransit.EntityFramework",
-            "IsPackable": "True",
-            "PackageLicenseExpression": "Apache-2.0",
-            "IsTestProject": "",
-            "OutputType": "Library",
-            "TargetFrameworkIdentifier": ".NETCoreApp",
-            "TargetFrameworkVersion": "v10.0",
-            "ManagePackageVersionsCentrally": "true",
-            "LangVersion": "12"
-          },
-          "target_frameworks": [
-            "net10.0"
-          ]
-        }
-      ],
-      "target_variants": [
-        {
-          "contexts": [
-            {
-              "platform": "non_windows",
-              "configuration": "Release"
-            },
-            {
-              "platform": "windows",
-              "configuration": "Release"
-            }
-          ],
-          "target_framework": "net10.0",
-          "properties": {
-            "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.EntityFramework",
-            "IsPackable": "True",
-            "PackageLicenseExpression": "Apache-2.0",
-            "IsTestProject": "",
-            "OutputType": "Library",
-            "TargetFrameworkIdentifier": ".NETCoreApp",
-            "TargetFrameworkVersion": "v10.0",
-            "ManagePackageVersionsCentrally": "true",
-            "LangVersion": "12"
-          },
-          "project_references": [
-            {
-              "id": "../../MassTransit/MassTransit.csproj",
-              "metadata": {
-                "ReferenceSourceTarget": "ProjectReference"
-              },
-              "origin": "src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj",
-              "path": "src/MassTransit/MassTransit.csproj"
-            }
-          ],
-          "package_references": [
-            {
-              "id": "EntityFramework",
-              "origin": "src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj",
-              "kind": "direct",
-              "version": "6.5.2",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "EntityFramework",
-                  "metadata": {
-                    "Version": "6.5.2"
-                  },
-                  "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "GitHubActionsTestLogger",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "2.4.1",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "GitHubActionsTestLogger",
-                  "metadata": {
-                    "Version": "2.4.1"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            }
-          ],
-          "framework_references": [
-            {
-              "id": "Microsoft.NETCore.App",
-              "metadata": {
-                "IsImplicitlyDefined": "true",
-                "Pack": "false",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:Microsoft.NET.Sdk.DefaultItems.props"
-            }
-          ],
-          "assembly_references": [],
-          "global_package_references": [
-            {
-              "id": "GitHubActionsTestLogger",
-              "metadata": {
-                "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
-              },
-              "origin": "Directory.Packages.props"
-            }
-          ]
-        }
-      ],
-      "status": {
-        "build": "evaluated only; not built",
-        "package": "identity and packability evaluated only; not packed or published",
-        "dependencies": "direct and SDK evaluation only; not restored; no transitive resolution",
-        "test": "references inventoried only; not executed",
-        "consumer": {
-          "repository": "see referenced_by and test_references",
-          "external_applications": "not assessed"
-        }
-      },
-      "referenced_by": [
-        "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj"
-      ],
-      "test_references": {
-        "direct_tests": [
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj"
-        ],
-        "tests_reaching_project_including_transitive": [
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj"
-        ],
-        "direct_benchmarks": [],
         "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
       }
     },
@@ -13985,263 +13679,6 @@
       }
     },
     {
-      "path": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-      "name": "MassTransit.EntityFrameworkIntegration.Tests",
-      "kind": "test",
-      "solutions": [
-        "MassTransit.sln"
-      ],
-      "declarations": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-      "framework_and_package_variants": [
-        {
-          "contexts": [
-            {
-              "platform": "non_windows",
-              "configuration": "Release"
-            },
-            {
-              "platform": "windows",
-              "configuration": "Release"
-            }
-          ],
-          "properties": {
-            "TargetFramework": "net10.0",
-            "TargetFrameworks": "",
-            "PackageId": "MassTransit.EntityFrameworkIntegration.Tests",
-            "IsPackable": "false",
-            "PackageLicenseExpression": "",
-            "IsTestProject": "true",
-            "OutputType": "Library",
-            "TargetFrameworkIdentifier": ".NETCoreApp",
-            "TargetFrameworkVersion": "v10.0",
-            "ManagePackageVersionsCentrally": "true",
-            "LangVersion": "12"
-          },
-          "target_frameworks": [
-            "net10.0"
-          ]
-        }
-      ],
-      "target_variants": [
-        {
-          "contexts": [
-            {
-              "platform": "non_windows",
-              "configuration": "Release"
-            },
-            {
-              "platform": "windows",
-              "configuration": "Release"
-            }
-          ],
-          "target_framework": "net10.0",
-          "properties": {
-            "TargetFramework": "net10.0",
-            "PackageId": "MassTransit.EntityFrameworkIntegration.Tests",
-            "IsPackable": "false",
-            "PackageLicenseExpression": "",
-            "IsTestProject": "true",
-            "OutputType": "Library",
-            "TargetFrameworkIdentifier": ".NETCoreApp",
-            "TargetFrameworkVersion": "v10.0",
-            "ManagePackageVersionsCentrally": "true",
-            "LangVersion": "12"
-          },
-          "project_references": [
-            {
-              "id": "../../src/MassTransit.TestFramework/MassTransit.TestFramework.csproj",
-              "metadata": {
-                "ReferenceSourceTarget": "ProjectReference"
-              },
-              "origin": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-              "path": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj"
-            },
-            {
-              "id": "../../src/MassTransit/MassTransit.csproj",
-              "metadata": {
-                "ReferenceSourceTarget": "ProjectReference"
-              },
-              "origin": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-              "path": "src/MassTransit/MassTransit.csproj"
-            },
-            {
-              "id": "../../src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj",
-              "metadata": {
-                "ReferenceSourceTarget": "ProjectReference"
-              },
-              "origin": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-              "path": "src/Persistence/MassTransit.EntityFrameworkIntegration/MassTransit.EntityFrameworkIntegration.csproj"
-            },
-            {
-              "id": "../MassTransit.Tests/MassTransit.Tests.csproj",
-              "metadata": {
-                "ReferenceSourceTarget": "ProjectReference"
-              },
-              "origin": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-              "path": "tests/MassTransit.Tests/MassTransit.Tests.csproj"
-            }
-          ],
-          "package_references": [
-            {
-              "id": "GitHubActionsTestLogger",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "2.4.1",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "GitHubActionsTestLogger",
-                  "metadata": {
-                    "Version": "2.4.1"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.NET.Test.Sdk",
-              "origin": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-              "kind": "direct",
-              "version": "18.5.1",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.NET.Test.Sdk",
-                  "metadata": {
-                    "Version": "18.5.1"
-                  },
-                  "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
-              "id": "NUnit",
-              "origin": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-              "kind": "direct",
-              "version": "4.4.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "NUnit",
-                  "metadata": {
-                    "Version": "4.4.0"
-                  },
-                  "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "NUnit.Analyzers",
-              "metadata": {
-                "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
-                "PrivateAssets": "all"
-              },
-              "origin": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-              "kind": "direct",
-              "version": "4.11.2",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "NUnit.Analyzers",
-                  "metadata": {
-                    "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
-                    "PrivateAssets": "all",
-                    "Version": "4.11.2"
-                  },
-                  "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "NUnit3TestAdapter",
-              "origin": "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
-              "kind": "direct",
-              "version": "6.1.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "NUnit3TestAdapter",
-                  "metadata": {
-                    "Version": "6.1.0"
-                  },
-                  "origin": "Directory.Packages.props"
-                }
-              ]
-            }
-          ],
-          "framework_references": [
-            {
-              "id": "Microsoft.NETCore.App",
-              "metadata": {
-                "IsImplicitlyDefined": "true",
-                "Pack": "false",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:Microsoft.NET.Sdk.DefaultItems.props"
-            }
-          ],
-          "assembly_references": [],
-          "global_package_references": [
-            {
-              "id": "GitHubActionsTestLogger",
-              "metadata": {
-                "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
-              },
-              "origin": "Directory.Packages.props"
-            }
-          ]
-        }
-      ],
-      "status": {
-        "build": "evaluated only; not built",
-        "package": "identity and packability evaluated only; not packed or published",
-        "dependencies": "direct and SDK evaluation only; not restored; no transitive resolution",
-        "test": "references inventoried only; not executed",
-        "consumer": {
-          "repository": "see referenced_by and test_references",
-          "external_applications": "not assessed"
-        }
-      },
-      "referenced_by": [],
-      "test_references": {
-        "direct_tests": [],
-        "tests_reaching_project_including_transitive": [],
-        "direct_benchmarks": [],
-        "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
-      }
-    },
-    {
       "path": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
       "name": "MassTransit.EventHubIntegration.Tests",
       "kind": "test",
@@ -16090,14 +15527,14 @@
               ]
             },
             {
-              "id": "System.Data.SQLite",
+              "id": "System.Data.SQLite.Core",
               "origin": "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
               "kind": "direct",
               "version": "1.0.119",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
-                  "id": "System.Data.SQLite",
+                  "id": "System.Data.SQLite.Core",
                   "metadata": {
                     "Version": "1.0.119"
                   },
@@ -17962,7 +17399,6 @@
         "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
         "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
         "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-        "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
         "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
         "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
         "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
@@ -17973,7 +17409,6 @@
           "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
@@ -17983,7 +17418,6 @@
           "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
           "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
           "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
-          "tests/MassTransit.EntityFrameworkIntegration.Tests/MassTransit.EntityFrameworkIntegration.Tests.csproj",
           "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
           "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
           "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",

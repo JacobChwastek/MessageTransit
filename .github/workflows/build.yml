@@ -312,18 +312,9 @@ jobs:
         with:
           project: MassTransit.DapperIntegration.Tests
   test-entity-framework:
-    name: "Storage: EntityFramework"
+    name: "Storage: EntityFramework Core"
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    services:
-      # EF6 only; the EF Core tests start their own SQL Server and PostgreSQL containers
-      mssql:
-        image: mcr.microsoft.com/azure-sql-edge
-        env:
-          ACCEPT_EULA: Y
-          SA_PASSWORD: "Password12!"
-        ports:
-          - 1433:1433
     env:
       # otherwise the client barks
       DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: false
@@ -341,11 +332,6 @@ jobs:
         with:
           project: MassTransit.EntityFrameworkCoreIntegration.Tests
 
-      - name: Test EntityFramework
-        if: ${{ !cancelled() }}
-        uses: ./.github/actions/test
-        with:
-          project: MassTransit.EntityFrameworkIntegration.Tests
   test-marten:
     name: "Storage: Marten"
     timeout-minutes: 10

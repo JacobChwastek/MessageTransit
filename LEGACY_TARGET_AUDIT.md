@@ -2,6 +2,8 @@
 
 This audit specifies the cleanup needed for MessageTransit runtime packages to support .NET 10 exclusively. It records the pinned pre-migration source baseline and its keep, simplify, or delete dispositions. Its tables remain historical audit evidence after implementation; current targets and declared dependencies are recorded in the [project inventory](docs/architecture/dependency-inventory.md). This audit does not establish build or test results.
 
+The EF6 adapter and its tests have since been removed. References to retaining or retargeting EF6 below describe the historical transition. EF Core is the retained integration; see the [migration guide](ENTITY_FRAMEWORK_MIGRATION.md).
+
 The source baseline is [f78227eba](https://github.com/JacobChwastek/MessageTransit/commit/f78227eba59bfc20a3cea9c4ba2dd9e201de37be). It contains 59 tracked projects: 32 runtime libraries, one analyzer, 24 test suites, and two benchmark executables. Seven tracked `.props` files contain shared build configuration; there are no tracked `.targets` files. The source uses `MassTransit` names pending the coordinated [namespace and wire migration](NAMESPACE_AND_WIRE_MIGRATION.md).
 
 ## Target policy

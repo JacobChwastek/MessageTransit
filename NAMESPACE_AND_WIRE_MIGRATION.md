@@ -12,14 +12,13 @@ This is the planned migration contract for the first MessageTransit release. The
 | Compatibility shims | Do not ship an old `MassTransit` namespace facade, type forwarders, a legacy URN registry, or automatic durable-data conversion in the first release. | Rebuild consumers and extensions. Any deployment retaining old work requires a separately specified cutover. |
 | Third-party names and attribution | Keep third-party protocol names, source attribution, and legal notices. | A residual `MassTransit` search must classify legal/provenance text rather than delete it indiscriminately. |
 
-All 33 source projects currently derive their assembly simple name from the project filename. Rename the leading `MassTransit` segment of each assembly name, preserving its suffix. **Eighteen assemblies have a different suffix from their NuGet package ID**; their planned names are:
+All 32 source projects currently derive their assembly simple name from the project filename. Rename the leading `MassTransit` segment of each assembly name, preserving its suffix. **Seventeen assemblies have a different suffix from their NuGet package ID**; their planned names are:
 
 | Current assembly | Planned assembly | Planned NuGet ID |
 | --- | --- | --- |
 | `MassTransit.Azure.Table` | `MessageTransit.Azure.Table` | `MessageTransit.Azure.Cosmos.Table` |
 | `MassTransit.DynamoDbIntegration` | `MessageTransit.DynamoDbIntegration` | `MessageTransit.DynamoDb` |
 | `MassTransit.EntityFrameworkCoreIntegration` | `MessageTransit.EntityFrameworkCoreIntegration` | `MessageTransit.EntityFrameworkCore` |
-| `MassTransit.EntityFrameworkIntegration` | `MessageTransit.EntityFrameworkIntegration` | `MessageTransit.EntityFramework` |
 | `MassTransit.MartenIntegration` | `MessageTransit.MartenIntegration` | `MessageTransit.Marten` |
 | `MassTransit.MongoDbIntegration` | `MessageTransit.MongoDbIntegration` | `MessageTransit.MongoDb` |
 | `MassTransit.NHibernateIntegration` | `MessageTransit.NHibernateIntegration` | `MessageTransit.NHibernate` |
@@ -35,7 +34,7 @@ All 33 source projects currently derive their assembly simple name from the proj
 | `MassTransit.WebJobs.EventHubsIntegration` | `MessageTransit.WebJobs.EventHubsIntegration` | `MessageTransit.WebJobs.EventHubs` |
 | `MassTransit.WebJobs.ServiceBusIntegration` | `MessageTransit.WebJobs.ServiceBusIntegration` | `MessageTransit.WebJobs.ServiceBus` |
 
-The remaining 15 assembly names follow the corresponding package ID. The current signing configuration enables strong-name signing for 25 of the 33 assemblies through [`signing.props`](signing.props); eight are unsigned. The later rename must inspect actual assembly names, public key tokens, package dependency IDs, and analyzer DLL paths rather than infer them from filenames alone.
+The remaining 15 assembly names follow the corresponding package ID. The current signing configuration enables strong-name signing for 24 of the 32 assemblies through [`signing.props`](signing.props); eight are unsigned. The EF6 assembly is retired; see the [migration guide](ENTITY_FRAMEWORK_MIGRATION.md). The later rename must inspect actual assembly names, public key tokens, package dependency IDs, and analyzer DLL paths rather than infer them from filenames alone.
 
 ## Message and broker identity
 
