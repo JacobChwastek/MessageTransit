@@ -67,7 +67,7 @@ The metadata decisions for the coordinated rename are:
 
 - Use the package IDs above, `Product=MessageTransit`, fork-specific titles, descriptions and tags, and the [MessageTransit repository](https://github.com/JacobChwastek/MessageTransit) as the project URL until a separate site exists. Verify that the packed repository URL still points to the fork.
 - Add Jacob Chwastek to package author metadata while retaining existing contributor credits where applicable. Package authors are descriptive metadata; NuGet publishing rights depend on the account's actual package ownership.
-- Replace the packed root `NuGet.README.md` and the public repository README with accurate fork installation, support, and package information. Review the separate `src/NuGet.README.md` copy so the repository does not retain two contradictory package descriptions. Remove inherited upstream CI badges and support links from fork-facing claims.
+- Replace the packed root `NuGet.README.md` and the public repository README with accurate fork installation, support, and package information. The repository keeps a single packed `NuGet.README.md`. Remove inherited upstream CI badges and support links from fork-facing claims.
 - Omit the NuGet icon until an original MessageTransit asset is ready. The package build no longer packs the inherited `mt-logo-small.png`. The repository credits its artwork to The Agile Badger, but no separate permission for presenting it as MessageTransit branding has been established here.
 - Keep `LICENSE`, `NOTICE`, `COPYRIGHT`, `THIRD-PARTY-NOTICES`, and applicable source attribution. [Apache-2.0 section 6](https://www.apache.org/licenses/LICENSE-2.0.html) does not grant general rights to use upstream trade names or marks as a new product identity.
 
