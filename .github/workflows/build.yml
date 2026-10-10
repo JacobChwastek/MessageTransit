@@ -121,13 +121,6 @@ jobs:
     name: "Transports: ActiveMQ"
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    services:
-      activemq:
-        image: masstransit/activemq:latest
-        ports:
-          - "61616:61616"
-          - "8161:8161"
-          - "5672:5672"
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -140,27 +133,12 @@ jobs:
       - name: Test ActiveMQ
         uses: ./.github/actions/test
         with:
-          project: MassTransit.ActiveMqTransport.Tests
+          project: MassTransit.ActiveMqTransport.IntegrationTests
 
   test-sql-transport:
     name: "Transport: SQL"
-    timeout-minutes: 10
+    timeout-minutes: 15
     runs-on: ubuntu-latest
-    services:
-      mssql:
-        image: mcr.microsoft.com/azure-sql-edge
-        env:
-          ACCEPT_EULA: Y
-          SA_PASSWORD: "Password12!"
-        ports:
-          - 1433:1433
-      postgres:
-        image: postgres:14.7
-        env:
-          POSTGRES_PASSWORD: "Password12!"
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: false
     steps:
@@ -175,19 +153,12 @@ jobs:
       - name: Test Database Transport
         uses: ./.github/actions/test
         with:
-          project: MassTransit.SqlTransport.Tests
+          project: MassTransit.SqlTransport.IntegrationTests
 
   test-rabbitmq:
     name: "Transports: RabbitMQ"
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    services:
-      rabbitmq:
-        image: masstransit/rabbitmq:latest
-        ports:
-          - "5672:5672"
-          - "15672:15672"
-        options: --health-cmd "rabbitmqctl node_health_check" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -200,18 +171,11 @@ jobs:
       - name: Test RabbitMQ
         uses: ./.github/actions/test
         with:
-          project: MassTransit.RabbitMqTransport.Tests
+          project: MassTransit.RabbitMqTransport.IntegrationTests
   test-sqs:
     name: "Transports: SQS (+S3)"
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    services:
-      localstack:
-        image: localstack/localstack:3.0.2
-        ports:
-          - "4566:4566"
-          - "4571:4571"
-        options: --health-cmd "curl --fail http://localhost:4566/_localstack/health || exit 1" --health-interval 10s --health-timeout 5s --health-retries 5 --health-start-period 15s
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -224,7 +188,7 @@ jobs:
       - name: Test SQS
         uses: ./.github/actions/test
         with:
-          project: MassTransit.AmazonSqsTransport.Tests
+          project: MassTransit.AmazonSqsTransport.IntegrationTests
   test-dynamodb:
     name: "Storage: DynamoDB"
     timeout-minutes: 10
@@ -268,21 +232,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Spin up test environment
-        run: |
-          docker compose -f docker-compose.yml up -d
-        working-directory: tests/MassTransit.Azure.Table.Tests
-
       - name: Test Azure Table
         uses: ./.github/actions/test
         with:
-          project: MassTransit.Azure.Table.Tests
+          project: MassTransit.Azure.Table.IntegrationTests
 
-      - name: Stop test environment
-        if: always()
-        run: |
-          docker compose -f docker-compose.yml down
-        working-directory: tests/MassTransit.Azure.Table.Tests
   test-dapper:
     name: "Storage: Dapper"
     timeout-minutes: 10
@@ -330,7 +284,7 @@ jobs:
       - name: Test EntityFrameworkCore
         uses: ./.github/actions/test
         with:
-          project: MassTransit.EntityFrameworkCoreIntegration.Tests
+          project: MassTransit.EntityFrameworkCoreIntegration.IntegrationTests
 
   test-marten:
     name: "Storage: Marten"
@@ -370,21 +324,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Spin up test environment
-        run: |
-          docker compose -f docker-compose.yml up -d
-        working-directory: tests/MassTransit.MongoDbIntegration.Tests
-
       - name: Test MongoDB
         uses: ./.github/actions/test
         with:
-          project: MassTransit.MongoDbIntegration.Tests
+          project: MassTransit.MongoDbIntegration.IntegrationTests
 
-      - name: Stop test environment
-        if: always()
-        run: |
-          docker compose -f docker-compose.yml down
-        working-directory: tests/MassTransit.MongoDbIntegration.Tests
   test-nhibernate:
     name: "Storage: NHibernate"
     timeout-minutes: 10
@@ -406,12 +350,6 @@ jobs:
     name: "Storage: Redis"
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    services:
-      redis:
-        image: redis
-        ports:
-          - '6379:6379'
-        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -424,17 +362,13 @@ jobs:
       - name: Test Redis
         uses: ./.github/actions/test
         with:
-          project: MassTransit.RedisIntegration.Tests
+          project: MassTransit.RedisIntegration.IntegrationTests
   test-valkey:
     name: "Storage: Valkey"
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    services:
-      valkey:
-        image: valkey/valkey:8
-        ports:
-          - '6379:6379'
-        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      MT_REDIS_SERVER: valkey
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -447,7 +381,7 @@ jobs:
       - name: Test Valkey
         uses: ./.github/actions/test
         with:
-          project: MassTransit.RedisIntegration.Tests
+          project: MassTransit.RedisIntegration.IntegrationTests
   test-hangfire:
     name: "Scheduler: Hangfire"
     timeout-minutes: 10
@@ -495,30 +429,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Spin up test environment
-        run: |
-          docker compose -f docker-compose.yml up -d
-          for attempt in $(seq 1 60); do
-            if docker compose -f docker-compose.yml logs emulator | grep -q "Emulator Service is Successfully Up"; then
-              exit 0
-            fi
-            sleep 2
-          done
-          docker compose -f docker-compose.yml logs
-          echo "The Event Hubs emulator did not become ready." >&2
-          exit 1
-        working-directory: tests/MassTransit.EventHubIntegration.Tests
-
       - name: Test EventHub
         uses: ./.github/actions/test
         with:
-          project: MassTransit.EventHubIntegration.Tests
+          project: MassTransit.EventHubIntegration.IntegrationTests
 
-      - name: Stop test environment
-        if: always()
-        run: |
-          docker compose -f docker-compose.yml down
-        working-directory: tests/MassTransit.EventHubIntegration.Tests
   test-kafka:
     name: "Rider: Kafka"
     timeout-minutes: 15
@@ -532,31 +447,10 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Spin up test environment
-        run: |
-          docker compose -f docker-compose.yml up -d
-          # Schema Registry only answers once it can reach the broker.
-          for attempt in $(seq 1 60); do
-            if curl --silent --fail http://localhost:8081/subjects > /dev/null; then
-              exit 0
-            fi
-            sleep 2
-          done
-          docker compose -f docker-compose.yml logs
-          echo "Kafka and Schema Registry did not become ready." >&2
-          exit 1
-        working-directory: tests/MassTransit.KafkaIntegration.Tests
-
       - name: Test Kafka
         uses: ./.github/actions/test
         with:
-          project: MassTransit.KafkaIntegration.Tests
-
-      - name: Stop test environment
-        if: always()
-        run: |
-          docker compose -f docker-compose.yml down
-        working-directory: tests/MassTransit.KafkaIntegration.Tests
+          project: MassTransit.KafkaIntegration.IntegrationTests
 
   test-signalr:
     name: SignalR
