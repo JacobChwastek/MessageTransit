@@ -47,11 +47,11 @@
     "errors": []
   },
   "input_sha256": {
-    ".github/workflows/build.yml": "7e30decff92264e2b921dd5b33dcabd35af19c2d94a928a31d32826920932763",
+    ".github/workflows/build.yml": "bf08209b2ec74e7e2a461398a398212362fd8cf993529f9c0a0f997c074a0cd5",
     ".github/workflows/nightly-transports.yml": "b50c92689db50ea60a3023f576eb8aea36aca3ca1eaafd2e58760ac20cfb1d85",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
     "Directory.Packages.props": "b3b50fe95e0f8321a22d93291323aa29bd6964ca17e8ed7baf146633b9f62ce5",
-    "MassTransit.sln": "ea433acc6eddb5322e866c8da78c97d7e3568d7f26d1aff6edccb4786cb1e13d",
+    "MassTransit.slnx": "9f28cca81c91d29d72c0b8244d42c6d968d220a581b11443914310374dacc72b",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
     "signing.props": "4e31404f98199753192cc9ea0dc53c90642f73e8a29b5d202cfd7f141a82b3b4",
     "src/Directory.Build.props": "4ee982a76219a385f3953fa607719135553f11512b2c63dc9e8e52b75069f3d9",
@@ -123,7 +123,7 @@
     "benchmark": 2,
     "test_and_benchmark": 25,
     "solution_project_counts": {
-      "MassTransit.sln": 54
+      "MassTransit.slnx": 54
     },
     "outside_solution": [
       "tests/MassTransit.Benchmark/MassTransit.Benchmark.csproj",
@@ -131,7 +131,7 @@
       "tests/MassTransit.Interop.NServiceBus.Tests/MassTransit.Interop.NServiceBus.Tests.csproj"
     ],
     "solution_members_without_tracked_project": {
-      "MassTransit.sln": []
+      "MassTransit.slnx": []
     }
   },
   "source_files": {
@@ -3776,7 +3776,7 @@
     }
   },
   "solutions": {
-    "MassTransit.sln": [
+    "MassTransit.slnx": [
       "src/MassTransit.Abstractions/MassTransit.Abstractions.csproj",
       "src/MassTransit.Analyzers/MassTransit.Analyzers.csproj",
       "src/MassTransit.Interop.NServiceBus/MassTransit.Interop.NServiceBus.csproj",
@@ -3839,7 +3839,7 @@
       "name": "MassTransit.Abstractions",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/MassTransit.Abstractions/MassTransit.Abstractions.csproj",
       "framework_and_package_variants": [
@@ -4023,7 +4023,7 @@
       "name": "MassTransit.Analyzers",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/MassTransit.Analyzers/MassTransit.Analyzers.csproj",
       "framework_and_package_variants": [
@@ -4205,7 +4205,7 @@
       "name": "MassTransit.Interop.NServiceBus",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/MassTransit.Interop.NServiceBus/MassTransit.Interop.NServiceBus.csproj",
       "framework_and_package_variants": [
@@ -4392,7 +4392,7 @@
       "name": "MassTransit.MessagePack",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/MassTransit.MessagePack/MassTransit.MessagePack.csproj",
       "framework_and_package_variants": [
@@ -4595,7 +4595,7 @@
       "name": "MassTransit.Newtonsoft",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/MassTransit.Newtonsoft/MassTransit.Newtonsoft.csproj",
       "framework_and_package_variants": [
@@ -4822,7 +4822,7 @@
       "name": "MassTransit.SignalR",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/MassTransit.SignalR/MassTransit.SignalR.csproj",
       "framework_and_package_variants": [
@@ -4995,7 +4995,7 @@
       "name": "MassTransit.StateMachineVisualizer",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/MassTransit.StateMachineVisualizer/MassTransit.StateMachineVisualizer.csproj",
       "framework_and_package_variants": [
@@ -5203,7 +5203,7 @@
       "name": "MassTransit.TestFramework",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/MassTransit.TestFramework/MassTransit.TestFramework.csproj",
       "framework_and_package_variants": [
@@ -5481,7 +5481,7 @@
       "name": "MassTransit",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/MassTransit/MassTransit.csproj",
       "framework_and_package_variants": [
@@ -5819,7 +5819,7 @@
       "name": "MassTransit.AmazonS3",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.AmazonS3/MassTransit.AmazonS3.csproj",
       "framework_and_package_variants": [
@@ -6004,7 +6004,7 @@
       "name": "MassTransit.Azure.Cosmos",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.Azure.Cosmos/MassTransit.Azure.Cosmos.csproj",
       "framework_and_package_variants": [
@@ -6221,7 +6221,7 @@
       "name": "MassTransit.Azure.Storage",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.Azure.Storage/MassTransit.Azure.Storage.csproj",
       "framework_and_package_variants": [
@@ -6422,7 +6422,7 @@
       "name": "MassTransit.Azure.Table",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.Azure.Table/MassTransit.Azure.Table.csproj",
       "framework_and_package_variants": [
@@ -6607,7 +6607,7 @@
       "name": "MassTransit.DapperIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.DapperIntegration/MassTransit.DapperIntegration.csproj",
       "framework_and_package_variants": [
@@ -6824,7 +6824,7 @@
       "name": "MassTransit.DynamoDbIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.DynamoDbIntegration/MassTransit.DynamoDbIntegration.csproj",
       "framework_and_package_variants": [
@@ -7009,7 +7009,7 @@
       "name": "MassTransit.EntityFrameworkCoreIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.EntityFrameworkCoreIntegration/MassTransit.EntityFrameworkCoreIntegration.csproj",
       "framework_and_package_variants": [
@@ -7216,7 +7216,7 @@
       "name": "MassTransit.MartenIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.MartenIntegration/MassTransit.MartenIntegration.csproj",
       "framework_and_package_variants": [
@@ -7401,7 +7401,7 @@
       "name": "MassTransit.MongoDbIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.MongoDbIntegration/MassTransit.MongoDbIntegration.csproj",
       "framework_and_package_variants": [
@@ -7586,7 +7586,7 @@
       "name": "MassTransit.NHibernateIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.NHibernateIntegration/MassTransit.NHibernateIntegration.csproj",
       "framework_and_package_variants": [
@@ -7787,7 +7787,7 @@
       "name": "MassTransit.RedisIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Persistence/MassTransit.RedisIntegration/MassTransit.RedisIntegration.csproj",
       "framework_and_package_variants": [
@@ -7972,7 +7972,7 @@
       "name": "MassTransit.HangfireIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Scheduling/MassTransit.HangfireIntegration/MassTransit.HangfireIntegration.csproj",
       "framework_and_package_variants": [
@@ -8165,7 +8165,7 @@
       "name": "MassTransit.QuartzIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Scheduling/MassTransit.QuartzIntegration/MassTransit.QuartzIntegration.csproj",
       "framework_and_package_variants": [
@@ -8381,7 +8381,7 @@
       "name": "MassTransit.ActiveMqTransport",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.ActiveMqTransport/MassTransit.ActiveMqTransport.csproj",
       "framework_and_package_variants": [
@@ -8585,7 +8585,7 @@
       "name": "MassTransit.AmazonSqsTransport",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.AmazonSqsTransport/MassTransit.AmazonSqsTransport.csproj",
       "framework_and_package_variants": [
@@ -8789,7 +8789,7 @@
       "name": "MassTransit.Azure.ServiceBus.Core",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.Azure.ServiceBus.Core/MassTransit.Azure.ServiceBus.Core.csproj",
       "framework_and_package_variants": [
@@ -8995,7 +8995,7 @@
       "name": "MassTransit.EventHubIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.EventHubIntegration/MassTransit.EventHubIntegration.csproj",
       "framework_and_package_variants": [
@@ -9196,7 +9196,7 @@
       "name": "MassTransit.KafkaIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.KafkaIntegration/MassTransit.KafkaIntegration.csproj",
       "framework_and_package_variants": [
@@ -9384,7 +9384,7 @@
       "name": "MassTransit.RabbitMqTransport",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.RabbitMqTransport/MassTransit.RabbitMqTransport.csproj",
       "framework_and_package_variants": [
@@ -9572,7 +9572,7 @@
       "name": "MassTransit.SqlTransport.PostgreSql",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.SqlTransport.PostgreSql/MassTransit.SqlTransport.PostgreSql.csproj",
       "framework_and_package_variants": [
@@ -9776,7 +9776,7 @@
       "name": "MassTransit.SqlTransport.SqlServer",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.SqlTransport.SqlServer/MassTransit.SqlTransport.SqlServer.csproj",
       "framework_and_package_variants": [
@@ -9977,7 +9977,7 @@
       "name": "MassTransit.WebJobs.EventHubsIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.WebJobs.EventHubsIntegration/MassTransit.WebJobs.EventHubsIntegration.csproj",
       "framework_and_package_variants": [
@@ -10172,7 +10172,7 @@
       "name": "MassTransit.WebJobs.ServiceBusIntegration",
       "kind": "source",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "src/Transports/MassTransit.WebJobs.ServiceBusIntegration/MassTransit.WebJobs.ServiceBusIntegration.csproj",
       "framework_and_package_variants": [
@@ -10393,7 +10393,7 @@
       "name": "MassTransit.Abstractions.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.Abstractions.Tests/MassTransit.Abstractions.Tests.csproj",
       "framework_and_package_variants": [
@@ -10626,7 +10626,7 @@
       "name": "MassTransit.ActiveMqTransport.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj",
       "framework_and_package_variants": [
@@ -10963,7 +10963,7 @@
       "name": "MassTransit.AmazonSqsTransport.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj",
       "framework_and_package_variants": [
@@ -11284,7 +11284,7 @@
       "name": "MassTransit.Analyzers.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj",
       "framework_and_package_variants": [
@@ -11541,7 +11541,7 @@
       "name": "MassTransit.Azure.Cosmos.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj",
       "framework_and_package_variants": [
@@ -11814,7 +11814,7 @@
       "name": "MassTransit.Azure.ServiceBus.Core.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj",
       "framework_and_package_variants": [
@@ -12087,7 +12087,7 @@
       "name": "MassTransit.Azure.Table.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj",
       "framework_and_package_variants": [
@@ -12842,7 +12842,7 @@
       "name": "MassTransit.DapperIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -13067,7 +13067,7 @@
       "name": "MassTransit.DynamoDbIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -13316,7 +13316,7 @@
       "name": "MassTransit.EntityFrameworkCoreIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -13683,7 +13683,7 @@
       "name": "MassTransit.EventHubIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -13924,7 +13924,7 @@
       "name": "MassTransit.HangfireIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -14480,7 +14480,7 @@
       "name": "MassTransit.KafkaIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -14737,7 +14737,7 @@
       "name": "MassTransit.MartenIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -15018,7 +15018,7 @@
       "name": "MassTransit.MongoDbIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -15275,7 +15275,7 @@
       "name": "MassTransit.NHibernateIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -15596,7 +15596,7 @@
       "name": "MassTransit.QuartzIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -15861,7 +15861,7 @@
       "name": "MassTransit.RabbitMqTransport.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj",
       "framework_and_package_variants": [
@@ -16150,7 +16150,7 @@
       "name": "MassTransit.RedisIntegration.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj",
       "framework_and_package_variants": [
@@ -16399,7 +16399,7 @@
       "name": "MassTransit.SignalR.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj",
       "framework_and_package_variants": [
@@ -16664,7 +16664,7 @@
       "name": "MassTransit.SqlTransport.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj",
       "framework_and_package_variants": [
@@ -17007,7 +17007,7 @@
       "name": "MassTransit.Tests",
       "kind": "test",
       "solutions": [
-        "MassTransit.sln"
+        "MassTransit.slnx"
       ],
       "declarations": "tests/MassTransit.Tests/MassTransit.Tests.csproj",
       "framework_and_package_variants": [

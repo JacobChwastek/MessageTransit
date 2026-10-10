@@ -2,13 +2,13 @@
 """Build every tracked project and smoke-check both benchmark entry points."""
 
 from pathlib import Path
-import re
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOLUTION = ROOT / "MassTransit.sln"
+SOLUTION = ROOT / "MassTransit.slnx"
 BENCHMARKS = (
     ("MassTransit.Benchmark", ["--help"], "Usage: mtbench [OPTIONS]+"),
     ("MassTransit.BenchmarkConsole", ["--list", "flat"], "MassTransit.BenchmarkConsole.Benchmarker.GetNext"),
@@ -22,7 +22,7 @@ def run(*arguments):
 
 def main():
     tracked = set(subprocess.check_output(["git", "ls-files", "*.csproj"], cwd=ROOT, text=True).splitlines())
-    included = {path.replace("\\", "/") for path in re.findall(r'"([^"\r\n]+\.csproj)"', SOLUTION.read_text(encoding="utf-8-sig"))}
+    included = {element.get("Path").replace("\\", "/") for element in ET.parse(SOLUTION).iter("Project") if element.get("Path", "").endswith(".csproj")}
     if not included or included - tracked:
         raise RuntimeError("The solution contains missing or untracked projects, or could not be parsed")
     outside = sorted(tracked - included)
@@ -53,6 +53,6 @@ if __name__ == "__main__":
         print(error.output or "", flush=True)
         print(f"CI build failed: {error}", file=sys.stderr)
         sys.exit(1)
-    except (OSError, RuntimeError, subprocess.SubprocessError) as error:
+    except (OSError, RuntimeError, ET.ParseError, subprocess.SubprocessError) as error:
         print(f"CI build failed: {error}", file=sys.stderr)
         sys.exit(1)

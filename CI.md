@@ -1,6 +1,6 @@
 # Continuous integration
 
-The main workflow builds every tracked C# project on Linux and Windows using the .NET 10 SDK. This includes projects outside `MassTransit.sln`. Runtime libraries, test processes, and benchmark executables target `net10.0`. The analyzer assembly remains `netstandard2.0` for compiler-host compatibility; its tests run on .NET 10.
+The main workflow builds every tracked C# project on Linux and Windows using the .NET 10 SDK. This includes projects outside `MassTransit.slnx`. Runtime libraries, test processes, and benchmark executables target `net10.0`. The analyzer assembly remains `netstandard2.0` for compiler-host compatibility; its tests run on .NET 10.
 
 ## Test matrix
 
