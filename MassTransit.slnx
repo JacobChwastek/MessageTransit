@@ -1,0 +1,78 @@
+<Solution>
+  <Folder Name="/.solution/">
+    <File Path=".github/workflows/build.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="NuGet.README.md" />
+    <File Path="README.md" />
+    <File Path="signing.props" />
+  </Folder>
+  <Folder Name="/Analyzers/">
+    <Project Path="src/MassTransit.Analyzers/MassTransit.Analyzers.csproj" />
+    <Project Path="tests/MassTransit.Analyzers.Tests/MassTransit.Analyzers.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Interoperability/">
+    <Project Path="src/MassTransit.Interop.NServiceBus/MassTransit.Interop.NServiceBus.csproj" />
+    <Project Path="src/MassTransit.MessagePack/MassTransit.MessagePack.csproj" />
+    <Project Path="src/MassTransit.Newtonsoft/MassTransit.Newtonsoft.csproj" />
+  </Folder>
+  <Folder Name="/Persistence/">
+    <Project Path="src/Persistence/MassTransit.AmazonS3/MassTransit.AmazonS3.csproj" />
+    <Project Path="src/Persistence/MassTransit.Azure.Cosmos/MassTransit.Azure.Cosmos.csproj" />
+    <Project Path="src/Persistence/MassTransit.Azure.Storage/MassTransit.Azure.Storage.csproj" />
+    <Project Path="src/Persistence/MassTransit.Azure.Table/MassTransit.Azure.Table.csproj" />
+    <Project Path="src/Persistence/MassTransit.DapperIntegration/MassTransit.DapperIntegration.csproj" />
+    <Project Path="src/Persistence/MassTransit.DynamoDbIntegration/MassTransit.DynamoDbIntegration.csproj" />
+    <Project Path="src/Persistence/MassTransit.EntityFrameworkCoreIntegration/MassTransit.EntityFrameworkCoreIntegration.csproj" />
+    <Project Path="src/Persistence/MassTransit.MartenIntegration/MassTransit.MartenIntegration.csproj" />
+    <Project Path="src/Persistence/MassTransit.MongoDbIntegration/MassTransit.MongoDbIntegration.csproj" />
+    <Project Path="src/Persistence/MassTransit.NHibernateIntegration/MassTransit.NHibernateIntegration.csproj" />
+    <Project Path="src/Persistence/MassTransit.RedisIntegration/MassTransit.RedisIntegration.csproj" />
+    <Project Path="tests/MassTransit.Azure.Cosmos.Tests/MassTransit.Azure.Cosmos.Tests.csproj" />
+    <Project Path="tests/MassTransit.Azure.Table.Tests/MassTransit.Azure.Table.Tests.csproj" />
+    <Project Path="tests/MassTransit.DapperIntegration.Tests/MassTransit.DapperIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.DynamoDbIntegration.Tests/MassTransit.DynamoDbIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.EntityFrameworkCoreIntegration.Tests/MassTransit.EntityFrameworkCoreIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.MartenIntegration.Tests/MassTransit.MartenIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.MongoDbIntegration.Tests/MassTransit.MongoDbIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.NHibernateIntegration.Tests/MassTransit.NHibernateIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.RedisIntegration.Tests/MassTransit.RedisIntegration.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Scheduling/">
+    <Project Path="src/Scheduling/MassTransit.HangfireIntegration/MassTransit.HangfireIntegration.csproj" />
+    <Project Path="src/Scheduling/MassTransit.QuartzIntegration/MassTransit.QuartzIntegration.csproj" />
+    <Project Path="tests/MassTransit.HangfireIntegration.Tests/MassTransit.HangfireIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.QuartzIntegration.Tests/MassTransit.QuartzIntegration.Tests.csproj" />
+  </Folder>
+  <Folder Name="/SignalR/">
+    <Project Path="src/MassTransit.SignalR/MassTransit.SignalR.csproj" />
+    <Project Path="tests/MassTransit.SignalR.Tests/MassTransit.SignalR.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Transports/">
+    <Project Path="src/Transports/MassTransit.ActiveMqTransport/MassTransit.ActiveMqTransport.csproj" />
+    <Project Path="src/Transports/MassTransit.AmazonSqsTransport/MassTransit.AmazonSqsTransport.csproj" />
+    <Project Path="src/Transports/MassTransit.Azure.ServiceBus.Core/MassTransit.Azure.ServiceBus.Core.csproj" />
+    <Project Path="src/Transports/MassTransit.RabbitMqTransport/MassTransit.RabbitMqTransport.csproj" />
+    <Project Path="src/Transports/MassTransit.SqlTransport.PostgreSql/MassTransit.SqlTransport.PostgreSql.csproj" />
+    <Project Path="src/Transports/MassTransit.SqlTransport.SqlServer/MassTransit.SqlTransport.SqlServer.csproj" />
+    <Project Path="src/Transports/MassTransit.WebJobs.EventHubsIntegration/MassTransit.WebJobs.EventHubsIntegration.csproj" />
+    <Project Path="src/Transports/MassTransit.WebJobs.ServiceBusIntegration/MassTransit.WebJobs.ServiceBusIntegration.csproj" />
+    <Project Path="tests/MassTransit.ActiveMqTransport.Tests/MassTransit.ActiveMqTransport.Tests.csproj" />
+    <Project Path="tests/MassTransit.AmazonSqsTransport.Tests/MassTransit.AmazonSqsTransport.Tests.csproj" />
+    <Project Path="tests/MassTransit.Azure.ServiceBus.Core.Tests/MassTransit.Azure.ServiceBus.Core.Tests.csproj" />
+    <Project Path="tests/MassTransit.RabbitMqTransport.Tests/MassTransit.RabbitMqTransport.Tests.csproj" />
+    <Project Path="tests/MassTransit.SqlTransport.Tests/MassTransit.SqlTransport.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Transports/Riders/">
+    <Project Path="src/Transports/MassTransit.EventHubIntegration/MassTransit.EventHubIntegration.csproj" />
+    <Project Path="src/Transports/MassTransit.KafkaIntegration/MassTransit.KafkaIntegration.csproj" />
+    <Project Path="tests/MassTransit.EventHubIntegration.Tests/MassTransit.EventHubIntegration.Tests.csproj" />
+    <Project Path="tests/MassTransit.KafkaIntegration.Tests/MassTransit.KafkaIntegration.Tests.csproj" />
+  </Folder>
+  <Project Path="src/MassTransit.Abstractions/MassTransit.Abstractions.csproj" />
+  <Project Path="src/MassTransit.StateMachineVisualizer/MassTransit.StateMachineVisualizer.csproj" />
+  <Project Path="src/MassTransit.TestFramework/MassTransit.TestFramework.csproj" />
+  <Project Path="src/MassTransit/MassTransit.csproj" />
+  <Project Path="tests/MassTransit.Abstractions.Tests/MassTransit.Abstractions.Tests.csproj" />
+  <Project Path="tests/MassTransit.Tests/MassTransit.Tests.csproj" />
+</Solution>
