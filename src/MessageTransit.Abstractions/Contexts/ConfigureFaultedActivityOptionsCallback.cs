@@ -1,0 +1,3 @@
+namespace MessageTransit;
+
+public delegate void ConfigureFaultedActivityOptionsCallback(FaultedActivityOptions options);

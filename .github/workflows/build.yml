@@ -1,4 +1,4 @@
-name: MassTransit
+name: MessageTransit
 env:
   MASSTRANSIT_VERSION: 8.5.10
 on:
@@ -6,7 +6,7 @@ on:
     paths:
       - 'src/**'
       - 'tests/**'
-      - 'MassTransit.slnx'
+      - 'MessageTransit.slnx'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
       - 'global.json'
@@ -27,7 +27,7 @@ on:
     paths:
       - 'src/**'
       - 'tests/**'
-      - 'MassTransit.slnx'
+      - 'MessageTransit.slnx'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
       - 'global.json'
@@ -101,25 +101,25 @@ jobs:
       - name: Unit Tests
         uses: ./.github/actions/test
         with:
-          project: MassTransit.Tests
+          project: MessageTransit.Tests
 
       - name: Test Abstractions
         if: ${{ !cancelled() }}
         uses: ./.github/actions/test
         with:
-          project: MassTransit.Abstractions.Tests
+          project: MessageTransit.Abstractions.Tests
 
       - name: Test Analyzers
         if: ${{ !cancelled() }}
         uses: ./.github/actions/test
         with:
-          project: MassTransit.Analyzers.Tests
+          project: MessageTransit.Analyzers.Tests
 
       - name: Test NServiceBus interoperability
         if: ${{ !cancelled() }}
         uses: ./.github/actions/test
         with:
-          project: MassTransit.Interop.NServiceBus.Tests
+          project: MessageTransit.Interop.NServiceBus.Tests
 
   test-dynamodb:
     name: "Storage: DynamoDB"
@@ -149,7 +149,7 @@ jobs:
       - name: Test DynamoDB
         uses: ./.github/actions/test
         with:
-          project: MassTransit.DynamoDbIntegration.Tests
+          project: MessageTransit.DynamoDbIntegration.Tests
 
   test-dapper:
     name: "Storage: Dapper"
@@ -178,7 +178,7 @@ jobs:
       - name: Test Dapper
         uses: ./.github/actions/test
         with:
-          project: MassTransit.DapperIntegration.Tests
+          project: MessageTransit.DapperIntegration.Tests
   test-marten:
     name: "Storage: Marten"
     timeout-minutes: 10
@@ -203,7 +203,7 @@ jobs:
       - name: Test Marten
         uses: ./.github/actions/test
         with:
-          project: MassTransit.MartenIntegration.Tests
+          project: MessageTransit.MartenIntegration.Tests
   test-nhibernate:
     name: "Storage: NHibernate"
     timeout-minutes: 10
@@ -220,7 +220,7 @@ jobs:
       - name: Test NHibernate
         uses: ./.github/actions/test
         with:
-          project: MassTransit.NHibernateIntegration.Tests
+          project: MessageTransit.NHibernateIntegration.Tests
   test-hangfire:
     name: "Scheduler: Hangfire"
     timeout-minutes: 10
@@ -237,7 +237,7 @@ jobs:
       - name: Test Hangfire
         uses: ./.github/actions/test
         with:
-          project: MassTransit.HangfireIntegration.Tests
+          project: MessageTransit.HangfireIntegration.Tests
   test-quartz:
     name: "Scheduler: Quartz"
     timeout-minutes: 10
@@ -254,7 +254,7 @@ jobs:
       - name: Test Quartz
         uses: ./.github/actions/test
         with:
-          project: MassTransit.QuartzIntegration.Tests
+          project: MessageTransit.QuartzIntegration.Tests
   test-signalr:
     name: SignalR
     timeout-minutes: 10
@@ -271,7 +271,7 @@ jobs:
       - name: Test SignalR
         uses: ./.github/actions/test
         with:
-          project: MassTransit.SignalR.Tests
+          project: MessageTransit.SignalR.Tests
 
   calc-version:
     name: Calculate Version

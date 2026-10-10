@@ -1,0 +1,12 @@
+﻿namespace MessageTransit.Middleware
+{
+    public class PipeRouter :
+        DynamicRouter<PipeContext>,
+        IPipeRouter
+    {
+        public PipeRouter()
+            : base(new PipeContextConverterFactory())
+        {
+        }
+    }
+}

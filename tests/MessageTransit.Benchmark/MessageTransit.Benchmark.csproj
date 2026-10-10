@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <AssemblyName>mtbench</AssemblyName>
+    <RootNamespace>MessageTransitBenchmark</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Persistence\MessageTransit.EntityFrameworkCoreIntegration\MessageTransit.EntityFrameworkCoreIntegration.csproj" />
+    <ProjectReference Include="..\..\src\Transports\MessageTransit.ActiveMqTransport\MessageTransit.ActiveMqTransport.csproj" />
+    <ProjectReference Include="..\..\src\Transports\MessageTransit.AmazonSqsTransport\MessageTransit.AmazonSqsTransport.csproj" />
+    <ProjectReference Include="..\..\src\Transports\MessageTransit.Azure.ServiceBus.Core\MessageTransit.Azure.ServiceBus.Core.csproj" />
+    <ProjectReference Include="..\..\src\Transports\MessageTransit.KafkaIntegration\MessageTransit.KafkaIntegration.csproj" />
+    <ProjectReference Include="..\..\src\Transports\MessageTransit.RabbitMqTransport\MessageTransit.RabbitMqTransport.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit\MessageTransit.csproj" />
+    <ProjectReference Include="..\..\src\Transports\MessageTransit.SqlTransport.PostgreSql\MessageTransit.SqlTransport.PostgreSql.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+  </ItemGroup>
+</Project>

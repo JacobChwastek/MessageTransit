@@ -1,0 +1,3 @@
+namespace MessageTransit;
+
+public delegate void ConfigureCompletedActivityOptionsCallback(CompletedActivityOptions options);
