@@ -1,14 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Commercial Support
-    url: https://masstransit.io/support
-    about: Commercial support, the official support services for MassTransit customers
-  - name: GitHub Discussions
-    url: https://github.com/MassTransit/MassTransit/discussions
-    about: Questions on the use of MassTransit, use search to find existing discussions
-  - name: Discord
-    url: https://discord.gg/rNpQgYn
-    about: Active chat room for MassTransit-related conversations. Should not be used for posting code snippets (use GitHub Discusssions)
-  - name: Stack Overflow
-    url: https://stackoverflow.com/questions/tagged/masstransit
-    about: Search for existing questions and answers, should not be used for asking support-related questions.
+  - name: MessageTransit support guidance
+    url: https://github.com/JacobChwastek/MessageTransit/blob/develop/SUPPORT.md
+    about: Current contact availability, reproduction details, and application logging guidance.
+  - name: MessageTransit security policy
+    url: https://github.com/JacobChwastek/MessageTransit/blob/develop/SECURITY.md
+    about: Read before sharing a suspected vulnerability; confidential reporting is currently unavailable.

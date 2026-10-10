@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../signing.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>MessageTransit</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>MessageTransit.Newtonsoft</PackageId>
+    <Title>MessageTransit.Newtonsoft</Title>
+    <PackageTags>MessageTransit;Newtonsoft;JSON.NET</PackageTags>
+    <Description>MessageTransit Newtonsoft JSON/BSON support; $(Description)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MessageTransit\MessageTransit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Newtonsoft.Json.Bson" />
+  </ItemGroup>
+
+</Project>

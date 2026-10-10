@@ -1,152 +1,69 @@
-MassTransit
-===========
+# MessageTransit
 
-MassTransit is a _free, open-source_ distributed application framework for .NET. MassTransit makes it easy to create applications and services that leverage message-based, loosely-coupled asynchronous communication for higher availability, reliability, and scalability.
+MessageTransit is an open-source framework for .NET applications that communicate through messages. It provides consumers, sagas and state machines, transport integrations, scheduling, and a test harness.
 
-![Mass Transit](https://avatars2.githubusercontent.com/u/317796?s=200&v=4 "Mass Transit")
+This repository is an independently maintained fork of [MassTransit v8.5.10](https://github.com/MassTransit/MassTransit/tree/v8.5.10). MessageTransit has its own namespaces, assembly names, signing key, and package IDs. Migrating an application requires source changes and a review of message and stored-data compatibility; see [namespace and wire migration](NAMESPACE_AND_WIRE_MIGRATION.md).
 
-MassTransit is Apache 2.0 licensed.
+## Requirements and availability
 
-## Documentation
+The runtime libraries require **.NET 10**. Building the repository requires the .NET 10 SDK selected by `global.json`. `MessageTransit.Analyzers` is compiler tooling targeting **.NET Standard 2.0**, which does not extend the runtime libraries' supported frameworks.
 
-Get started by [reading through the documentation](https://masstransit-project.com/).
+The package list below describes the 32 retained source projects. It does not announce a published or supported MessageTransit release. Use a source checkout or locally built packages while release availability and support are being established. The intended first public version series is `0.1.0-preview.1`; `8.5.10` identifies the upstream source baseline.
 
-For persistence changes in this fork, see [Migrating from Entity Framework 6 to EF Core](ENTITY_FRAMEWORK_MIGRATION.md).
+## Package family
 
-Build Status
-------------
+| Area | Package IDs |
+| --- | --- |
+| Core | `MessageTransit`, `MessageTransit.Abstractions` |
+| Serialization | `MessageTransit.Newtonsoft`, `MessageTransit.MessagePack` |
+| Compiler tooling | `MessageTransit.Analyzers` |
+| Testing and visualization | `MessageTransit.TestFramework`, `MessageTransit.StateMachineVisualizer` |
+| Integrations | `MessageTransit.SignalR`, `MessageTransit.Interop.NServiceBus` |
+| Persistence and message data | `MessageTransit.AmazonS3`, `MessageTransit.Azure.Cosmos`, `MessageTransit.Azure.Storage`, `MessageTransit.Azure.Cosmos.Table`, `MessageTransit.DapperIntegration`, `MessageTransit.DynamoDb`, `MessageTransit.EntityFrameworkCore`, `MessageTransit.Marten`, `MessageTransit.MongoDb`, `MessageTransit.NHibernate`, `MessageTransit.Redis` |
+| Scheduling | `MessageTransit.Hangfire`, `MessageTransit.Quartz` |
+| Transports | `MessageTransit.ActiveMQ`, `MessageTransit.AmazonSQS`, `MessageTransit.Azure.ServiceBus.Core`, `MessageTransit.RabbitMQ`, `MessageTransit.SqlTransport.PostgreSQL`, `MessageTransit.SqlTransport.SqlServer` |
+| Riders | `MessageTransit.EventHub`, `MessageTransit.Kafka` |
+| Azure WebJobs | `MessageTransit.WebJobs.EventHubs`, `MessageTransit.WebJobs.ServiceBus` |
 
-| Branch        |                                                                                                Status                                                                                                |
-|---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| master        |    [![master](https://github.com/MassTransit/MassTransit/actions/workflows/build.yml/badge.svg?branch=master&event=push)](https://github.com/MassTransit/MassTransit/actions/workflows/build.yml)    |
-| develop       |   [![develop](https://github.com/MassTransit/MassTransit/actions/workflows/build.yml/badge.svg?branch=develop&event=push)](https://github.com/MassTransit/MassTransit/actions/workflows/build.yml)   |
+Package IDs can differ from project and assembly names. In particular, the Azure Table project produces `MessageTransit.Azure.Cosmos.Table`, and the Dapper package is `MessageTransit.DapperIntegration`. See the [package identity map](PACKAGE_IDENTITY.md) for the complete migration mapping. The EF6 integration has been removed; use the [EF Core migration guide](ENTITY_FRAMEWORK_MIGRATION.md) when migrating persistence.
 
-Runtime targets in this fork
----------------------------
+## Build source and local packages
 
-The retained runtime projects require .NET 10. The analyzer is a compiler tooling asset on .NET Standard 2.0. Package links below identify the inherited upstream packages; the table describes this repository's source targets.
+Run these commands from a shell with the .NET 10 SDK available:
 
-| Package Name                                                    |   .NET   | .NET Standard | .NET Framework |
-|-----------------------------------------------------------------|:--------:|:-------------:|:--------------:|
-| **Main**                                                        |          |               |                |
-| [MassTransit][MassTransit.nuget]                                | 10.0 | — | — |
-| [MassTransit.Abstractions][MassTransitAbstractions.nuget]       | 10.0 | — | — |
-| [MassTransit.Newtonsoft][MassTransitNewtonsoft.nuget]           | 10.0 | — | — |
-| [MassTransit.MessagePack][MassTransitMessagePack.nuget]         | 10.0 | — | — |
-| **Other**                                                       |          |               |                |
-| [MassTransit.Analyzers][Analyzers.nuget]                        |          |      2.0      |                |
-| [MassTransit.Templates][Templates.nuget]                        |          |               |                |
-| [MassTransit.SignalR][SignalR.nuget]                            | 10.0 | — | — |
-| [MassTransit.Interop.NServiceBus][MassTransitNServiceBus.nuget] | 10.0 | — | — |
-| [MassTransit.TestFramework][TestFramework.nuget]                | 10.0 | — | — |
-| **Persistence**                                                 |          |               |                |
-| [MassTransit.AmazonS3][AmazonS3.nuget]                          | 10.0 | — | — |
-| [MassTransit.Azure.Cosmos][Cosmos.nuget]                        | 10.0 | — | — |
-| [MassTransit.Azure.Storage][AzureStorage.nuget]                 | 10.0 | — | — |
-| [MassTransit.Azure.Table][AzureTable.nuget]                     | 10.0 | — | — |
-| [MassTransit.Dapper][Dapper.nuget]                              | 10.0 | — | — |
-| [MassTransit.DynamoDb][DynamoDb.nuget]                          | 10.0 | — | — |
-| [MassTransit.EntityFrameworkCore][EFCore.nuget]                 | 10.0 | — | — |
-| [MassTransit.Marten][Marten.nuget]                              | 10.0 | — | — |
-| [MassTransit.MongoDb][MongoDb.nuget]                            | 10.0 | — | — |
-| [MassTransit.NHibernate][NHibernate.nuget]                      | 10.0 | — | — |
-| [MassTransit.Redis][Redis.nuget]                                | 10.0 | — | — |
-| **Scheduling**                                                  |          |               |                |
-| [MassTransit.Hangfire][Hangfire.nuget]                          | 10.0 | — | — |
-| [MassTransit.Quartz][Quartz.nuget]                              | 10.0 | — | — |
-| **Transports**                                                  |          |               |                |
-| [MassTransit.ActiveMQ][ActiveMQ.nuget]                          | 10.0 | — | — |
-| [MassTransit.AmazonSQS][AmazonSQS.nuget]                        | 10.0 | — | — |
-| [MassTransit.Azure.ServiceBus.Core][AzureSbCore.nuget]          | 10.0 | — | — |
-| [MassTransit.RabbitMQ][RabbitMQ.nuget]                          | 10.0 | — | — |
-| [MassTransit.SqlTransport.PostgreSQL][PostgreSQL.nuget]         | 10.0 | — | — |
-| [MassTransit.SqlTransport.SqlServer][SqlServer.nuget]           | 10.0 | — | — |
-| [MassTransit.WebJobs.EventHubs][EventHubs.nuget]                | 10.0 | — | — |
-| [MassTransit.WebJobs.ServiceBus][AzureFunc.nuget]               | 10.0 | — | — |
-| **Riders**                                                      |          |               |                |
-| [MassTransit.Kafka][Kafka.nuget]                                | 10.0 | — | — |
-| [MassTransit.EventHub][EventHub.nuget]                          | 10.0 | — | — |
+```bash
+git clone https://github.com/JacobChwastek/MessageTransit.git
+cd MessageTransit
+dotnet restore MessageTransit.slnx
+dotnet build MessageTransit.slnx --configuration Release --no-restore -m:1 -p:Version=0.1.0-local.1
+dotnet pack MessageTransit.slnx --configuration Release --no-build --no-restore -p:Version=0.1.0-local.1 --output ./artifacts
+```
 
-## Discord 
+The build and pack commands use the same illustrative local version so package dependencies remain coordinated. These commands create local artifacts; they do not publish them. The solution covers the runtime library and analyzer projects. See [CI coverage and local commands](CI.md) for additional projects and verification requirements; integration suites require their corresponding services.
 
-Get help live at the MassTransit Discord server.
+For an existing .NET 10 consumer project, add a local package reference and restore using both the local package directory and a source for third-party dependencies. Substitute the actual consumer project and absolute artifact path:
 
-[![alt Join the conversation](https://img.shields.io/discord/682238261753675864.svg "Discord")](https://discord.gg/rNpQgYn)
+```bash
+dotnet add Consumer.csproj package MessageTransit --version 0.1.0-local.1 --no-restore
+dotnet restore Consumer.csproj --source "/absolute/path/to/MessageTransit/artifacts" --source https://api.nuget.org/v3/index.json
+```
 
-## GitHub Issues
+Add the transport and persistence packages your application uses at the same local version. For source references, reference the appropriate renamed project under `src/`.
 
-**Pay attention**
+## Using the fork
 
-Please do not open an issue on GitHub, unless you have spotted an actual bug in MassTransit. 
+Use `MessageTransit` namespaces and registration APIs such as `AddMessageTransit`; update state-machine types to `MessageTransitStateMachine<T>`. Follow the [namespace and wire migration guide](NAMESPACE_AND_WIRE_MIGRATION.md) before connecting migrated applications to existing queues, stored saga state, or other processes.
 
-Use [GitHub Discussions](https://github.com/MassTransit/MassTransit/discussions) to ask questions, bring up ideas, or other general items. Issues are not the place for questions, and will either be converted to a discussion or closed.
+For .NET 10 async sequence operators such as `Take` and `ToListAsync`, use `System.Linq`. Message-list helpers that handle timeouts and cancellation remain available.
 
-This policy is in place to avoid bugs being drowned out in a pile of sensible suggestions for future 
-enhancements and calls for help from people who forget to check back if they get it and so on.
+## Support and contributing
 
-## Async sequence helpers
+Read [MessageTransit support guidance](SUPPORT.md) for current contact availability, reproduction details, and logging instructions. Issues and Discussions are currently disabled for this repository. Read the [security policy](SECURITY.md) before sharing a suspected vulnerability; private vulnerability reporting is also currently unavailable.
 
-Use `System.Linq` for .NET 10 async sequence operators such as `Take` and `ToListAsync`. The general test sequence `Take` extension has been removed in favor of the framework implementation; `Take(0)` returns an empty sequence without enumerating its source. Message-list helpers that handle timeouts and cancellation remain available.
+For contributions, describe the behavior being changed, include a minimal reproduction when applicable, and report the checks actually performed. Preserve copyright notices, license text, and third-party attribution.
 
-## Building from Source
+## License and attribution
 
- 1. Install the latest [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
- 2. Clone the source down to your machine<br/>
-    ```bash
-    git clone https://github.com/JacobChwastek/MessageTransit.git
-    ```
- 3. Run `dotnet build`
+MessageTransit retains the upstream Apache-2.0 license and contributor attribution. Some bundled components also carry MIT terms. See [LICENSE](LICENSE), [NOTICE](NOTICE), [COPYRIGHT](COPYRIGHT), and [THIRD-PARTY-NOTICES](THIRD-PARTY-NOTICES).
 
-## Contributing
-
- 1. Turn off `autocrlf`
-    ```bash
-    git config core.autocrlf false
-    ```
- 2. Hack!
- 3. Make a pull request
- 
-# REQUIREMENTS
-* .NET 10 SDK
-
-# CREDITS
-Logo Design by _The Agile Badger_
-
-[MassTransit.nuget]: https://www.nuget.org/packages/MassTransit
-[MassTransitAbstractions.nuget]: https://www.nuget.org/packages/MassTransit.Abstractions
-[MassTransitNewtonsoft.nuget]: https://www.nuget.org/packages/MassTransit.Newtonsoft
-[MassTransitMessagePack.nuget]: https://www.nuget.org/packages/MassTransit.MessagePack
-[MassTransitNServiceBus.nuget]: https://www.nuget.org/packages/MassTransit.Interop.NServiceBus
-[Analyzers.nuget]: https://www.nuget.org/packages/MassTransit.Analyzers
-[Templates.nuget]: https://www.nuget.org/packages/MassTransit.Templates
-[SignalR.nuget]: https://www.nuget.org/packages/MassTransit.SignalR
-[TestFramework.nuget]: https://www.nuget.org/packages/MassTransit.TestFramework
-
-[Prometheus.nuget]: https://www.nuget.org/packages/MassTransit.Prometheus
-
-[Cosmos.nuget]: https://www.nuget.org/packages/MassTransit.Azure.Cosmos
-[AzureStorage.nuget]: https://www.nuget.org/packages/MassTransit.Azure.Storage
-[AzureTable.nuget]: https://www.nuget.org/packages/MassTransit.Azure.Table
-[Dapper.nuget]: https://www.nuget.org/packages/MassTransit.DapperIntegration
-[DynamoDb.nuget]: https://www.nuget.org/packages/MassTransit.DynamoDb
-[EFCore.nuget]: https://www.nuget.org/packages/MassTransit.EntityFrameworkCore
-[Marten.nuget]: https://www.nuget.org/packages/MassTransit.Marten
-[MongoDb.nuget]: https://www.nuget.org/packages/MassTransit.MongoDb
-[NHibernate.nuget]: https://www.nuget.org/packages/MassTransit.NHibernate
-[Redis.nuget]: https://www.nuget.org/packages/MassTransit.Redis
-
-[Hangfire.nuget]: https://www.nuget.org/packages/MassTransit.Hangfire
-[Quartz.nuget]: https://www.nuget.org/packages/MassTransit.Quartz
-
-[ActiveMQ.nuget]: https://www.nuget.org/packages/MassTransit.ActiveMQ
-[AmazonS3.nuget]: https://www.nuget.org/packages/MassTransit.AmazonS3
-[AmazonSQS.nuget]: https://www.nuget.org/packages/MassTransit.AmazonSQS
-[AzureSbCore.nuget]: https://www.nuget.org/packages/MassTransit.Azure.ServiceBus.Core
-[RabbitMQ.nuget]: https://www.nuget.org/packages/MassTransit.RabbitMQ
-[PostgreSQL.nuget]: https://nuget.org/packages/MassTransit.SqlTransport.PostgreSQL/
-[SqlServer.nuget]: https://nuget.org/packages/MassTransit.SqlTransport.SqlServer/
-[EventHubs.nuget]: https://www.nuget.org/packages/MassTransit.WebJobs.EventHubs
-[AzureFunc.nuget]: https://www.nuget.org/packages/MassTransit.WebJobs.ServiceBus
-
-[Kafka.nuget]: https://www.nuget.org/packages/MassTransit.Kafka
-[EventHub.nuget]: https://www.nuget.org/packages/MassTransit.EventHub
+The inherited upstream logo artwork is credited to The Agile Badger.

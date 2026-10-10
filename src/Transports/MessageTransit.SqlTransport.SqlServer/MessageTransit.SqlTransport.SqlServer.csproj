@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>MessageTransit</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>MessageTransit.SqlTransport.SqlServer</PackageId>
+    <Title>MessageTransit.SqlTransport.SQL Server</Title>
+    <PackageTags>MessageTransit;Database;Transport;SQL Server;Microsoft;Azure;SQL</PackageTags>
+    <Description>MessageTransit SQL Server Transport; $(Description)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" />
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MessageTransit\MessageTransit.csproj" />
+  </ItemGroup>
+</Project>

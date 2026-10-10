@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>MessageTransit</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>MessageTransit.Interop.NServiceBus</PackageId>
+    <Title>MessageTransit.Interop.NServiceBus</Title>
+    <PackageTags>MessageTransit;NServiceBus</PackageTags>
+    <Description>MessageTransit Interoperability support for NServiceBus; $(Description)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MessageTransit.Newtonsoft\MessageTransit.Newtonsoft.csproj" />
+    <ProjectReference Include="..\MessageTransit\MessageTransit.csproj" />
+  </ItemGroup>
+</Project>

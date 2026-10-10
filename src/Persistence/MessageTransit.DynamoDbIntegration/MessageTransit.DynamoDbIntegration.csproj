@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../../signing.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RootNamespace>MessageTransit</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>MessageTransit.DynamoDb</PackageId>
+    <Title>MessageTransit.DynamoDb</Title>
+    <PackageTags>MessageTransit;DynamoDb;AWS;Amazon</PackageTags>
+    <Description>MessageTransit DynamoDb persistence support; $(Description)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.DynamoDBv2" />
+    <ProjectReference Include="..\..\MessageTransit\MessageTransit.csproj" />
+  </ItemGroup>
+
+</Project>

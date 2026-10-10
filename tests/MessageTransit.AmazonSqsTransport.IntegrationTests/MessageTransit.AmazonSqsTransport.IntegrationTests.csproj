@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>MessageTransit.AmazonSqsTransport.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="OpenTelemetry.Exporter.Jaeger" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting"/>
+    <ProjectReference Include="..\..\src\MessageTransit.Newtonsoft\MessageTransit.Newtonsoft.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit.TestFramework\MessageTransit.TestFramework.csproj" />
+    <ProjectReference Include="..\..\src\MessageTransit\MessageTransit.csproj" />
+    <ProjectReference Include="..\..\src\Persistence\MessageTransit.AmazonS3\MessageTransit.AmazonS3.csproj" />
+    <ProjectReference Include="..\..\src\Transports\MessageTransit.AmazonSqsTransport\MessageTransit.AmazonSqsTransport.csproj" />
+    <ProjectReference Include="..\..\src\Scheduling\MessageTransit.QuartzIntegration\MessageTransit.QuartzIntegration.csproj" />
+    <ProjectReference Include="..\MessageTransit.Testing.Containers\MessageTransit.Testing.Containers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="MessageTransit.Testing.Containers" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+  </ItemGroup>
+
+</Project>

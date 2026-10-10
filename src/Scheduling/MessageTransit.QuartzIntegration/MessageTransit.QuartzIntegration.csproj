@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../../signing.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RootNamespace>MessageTransit</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>MessageTransit.Quartz</PackageId>
+    <Title>MessageTransit.Quartz</Title>
+    <PackageTags>MessageTransit;Quartz;Scheduler;Scheduling</PackageTags>
+    <Description>MessageTransit Quartz.NET scheduler support; $(Description)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Quartz" />
+    <PackageReference Include="Quartz.Extensions.Hosting" />
+    <ProjectReference Include="..\..\MessageTransit\MessageTransit.csproj" />
+  </ItemGroup>
+</Project>

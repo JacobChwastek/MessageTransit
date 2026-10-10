@@ -8,10 +8,10 @@ import xml.etree.ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOLUTION = ROOT / "MassTransit.slnx"
+SOLUTION = ROOT / "MessageTransit.slnx"
 BENCHMARKS = (
-    ("MassTransit.Benchmark", ["--help"], "Usage: mtbench [OPTIONS]+"),
-    ("MassTransit.BenchmarkConsole", ["--list", "flat"], "MassTransit.BenchmarkConsole.Benchmarker.GetNext"),
+    ("MessageTransit.Benchmark", ["--help"], "Usage: mtbench [OPTIONS]+"),
+    ("MessageTransit.BenchmarkConsole", ["--list", "flat"], "MessageTransit.BenchmarkConsole.Benchmarker.GetNext"),
 )
 
 
