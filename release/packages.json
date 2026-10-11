@@ -1,0 +1,38 @@
+{
+  "publish": [
+    "MessageTransit",
+    "MessageTransit.Abstractions",
+    "MessageTransit.ActiveMQ",
+    "MessageTransit.AmazonS3",
+    "MessageTransit.AmazonSQS",
+    "MessageTransit.Analyzers",
+    "MessageTransit.Azure.Cosmos.Table",
+    "MessageTransit.DapperIntegration",
+    "MessageTransit.DynamoDb",
+    "MessageTransit.EntityFrameworkCore",
+    "MessageTransit.EventHub",
+    "MessageTransit.Hangfire",
+    "MessageTransit.Interop.NServiceBus",
+    "MessageTransit.Kafka",
+    "MessageTransit.Marten",
+    "MessageTransit.MessagePack",
+    "MessageTransit.MongoDb",
+    "MessageTransit.Newtonsoft",
+    "MessageTransit.NHibernate",
+    "MessageTransit.Quartz",
+    "MessageTransit.RabbitMQ",
+    "MessageTransit.Redis",
+    "MessageTransit.SignalR",
+    "MessageTransit.SqlTransport.PostgreSQL",
+    "MessageTransit.SqlTransport.SqlServer",
+    "MessageTransit.StateMachineVisualizer",
+    "MessageTransit.TestFramework"
+  ],
+  "held": {
+    "MessageTransit.Azure.Cosmos": "Its test suite needs the Cosmos DB emulator with a trusted certificate and is not executed in CI.",
+    "MessageTransit.Azure.ServiceBus.Core": "Its test suite needs a live Azure Service Bus namespace and is not executed in CI.",
+    "MessageTransit.Azure.Storage": "Its only tests run in the Azure Service Bus suite, which is not executed in CI.",
+    "MessageTransit.WebJobs.EventHubs": "It has no test suite and depends on held packages.",
+    "MessageTransit.WebJobs.ServiceBus": "It has no test suite and depends on a held package."
+  }
+}

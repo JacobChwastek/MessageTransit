@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Report validation scope
-        run: sed -n '/^## Manual transport validation/,/^## /{/^## Local commands/!p;}' CI.md >> "$GITHUB_STEP_SUMMARY"
+        run: sed -n '/^## Manual transport validation/,/^## /{/^## Local commands/!p;}' docs/ci.md >> "$GITHUB_STEP_SUMMARY"
 
   test-activemq:
     name: "Transports: ActiveMQ"
