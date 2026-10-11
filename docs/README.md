@@ -6,6 +6,7 @@ Start with the repository [README](../README.md) for requirements, the package f
 
 - [Namespace and wire migration](migration/namespace-and-wire.md): moving a MassTransit 8.x application to MessageTransit, including renamed APIs, message identities, and stored data.
 - [EF Core migration](migration/entity-framework-core.md): replacing the removed EF6 saga repository and audit store with EF Core.
+- [Marten 9 upgrade](migration/marten.md): the Marten 9 changes that affect saga storage, including the default serializer.
 
 ## Packages and releases
 
