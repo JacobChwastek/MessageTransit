@@ -9,4 +9,12 @@ using NUnit.Framework;
 [SetUpFixture]
 public class TestRun : ContainerTestRun
 {
+    /// <summary>
+    /// Starts MongoDB before any test harness runs, so a slow first start does not count against a harness inactivity timeout
+    /// </summary>
+    [OneTimeSetUp]
+    public void Start_containers()
+    {
+        TestMongo.Server.Start();
+    }
 }
