@@ -82,7 +82,7 @@
     "src/Persistence/MessageTransit.MongoDbIntegration/MessageTransit.MongoDbIntegration.csproj": "7040c9a021f1232a86890489cf294d86603cc76b0a3a7a8d0a03c94e2eec3df2",
     "src/Persistence/MessageTransit.NHibernateIntegration/MessageTransit.NHibernateIntegration.csproj": "22352c32b9f00328330c7b710362e842b4f1fa8ff3a16f922b762df09667d8a8",
     "src/Persistence/MessageTransit.RedisIntegration/MessageTransit.RedisIntegration.csproj": "26b828630804871a1d6993a8b5ea862ed4143b8ab353d52d79172726905f9ffe",
-    "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj": "0fca51fc70fb854620540bcf346563ff5fed7c878694da57a2723e62e9a7bd19",
+    "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj": "c4e0507b057ecb002d14abc6ff321339fa0c8f55d1cd0a9a1fc9ce020ef204e2",
     "src/Scheduling/MessageTransit.QuartzIntegration/MessageTransit.QuartzIntegration.csproj": "1012ce32414ba6f72fd3eed245332ad82e7aca666f9ea4fc99347af3aed6625a",
     "src/Transports/MessageTransit.ActiveMqTransport/MessageTransit.ActiveMqTransport.csproj": "831bcc39210c6822c6f2362636c695780bb38bedd3a0f33418fcf29bfbdb5a1d",
     "src/Transports/MessageTransit.AmazonSqsTransport/MessageTransit.AmazonSqsTransport.csproj": "f3ea24f2054d71718a0dc8cb123aa01bd6c5b074482095bd8d2c3231c7dbfa6c",
@@ -1514,6 +1514,12 @@
           "element": "PackageReference",
           "attributes": {
             "Include": "Hangfire.Core"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Newtonsoft.Json"
           }
         }
       ],
@@ -8390,6 +8396,22 @@
                     "Version": "8.0.0"
                   },
                   "origin": "sdk:NuGet.targets"
+                }
+              ]
+            },
+            {
+              "id": "Newtonsoft.Json",
+              "origin": "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj",
+              "kind": "direct",
+              "version": "13.0.4",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Newtonsoft.Json",
+                  "metadata": {
+                    "Version": "13.0.4"
+                  },
+                  "origin": "Directory.Packages.props"
                 }
               ]
             }
