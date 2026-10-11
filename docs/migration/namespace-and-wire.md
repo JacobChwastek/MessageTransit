@@ -7,18 +7,18 @@ MessageTransit does not interoperate with MassTransit processes. Do not run Mass
 ## Before you start
 
 - **Runtime.** MessageTransit runtime packages require .NET 10. Retarget the application and its test projects first.
-- **Release status.** No MessageTransit release has been published yet. Build packages from source as described in the [README](README.md#build-source-and-local-packages), and use one version for every MessageTransit package.
+- **Release status.** No MessageTransit release has been published yet. Build packages from source as described in the [README](../../README.md#build-source-and-local-packages), and use one version for every MessageTransit package.
 - **Deployment plan.** Decide whether the migrated application starts on fresh broker entities and stores, or whether existing work must be drained first. See [plan the cutover](#5-plan-the-cutover).
-- **Entity Framework 6.** The EF6 integration has been removed. Move EF6 saga repositories to EF Core first, using the [EF Core migration guide](ENTITY_FRAMEWORK_MIGRATION.md).
+- **Entity Framework 6.** The EF6 integration has been removed. Move EF6 saga repositories to EF Core first, using the [EF Core migration guide](entity-framework-core.md).
 
 ## 1. Replace package references
 
-Replace each `MassTransit*` package with its MessageTransit counterpart. Most IDs replace only the leading `MassTransit`, for example `MassTransit.RabbitMQ` becomes `MessageTransit.RabbitMQ`. The [package ID map](PACKAGE_IDENTITY.md#package-id-map) lists all 32 packages.
+Replace each `MassTransit*` package with its MessageTransit counterpart. Most IDs replace only the leading `MassTransit`, for example `MassTransit.RabbitMQ` becomes `MessageTransit.RabbitMQ`. The [package ID map](../package-identity.md#package-id-map) lists all 32 packages.
 
 ```xml
-<PackageReference Include="MessageTransit" Version="0.1.0-local.1" />
-<PackageReference Include="MessageTransit.RabbitMQ" Version="0.1.0-local.1" />
-<PackageReference Include="MessageTransit.EntityFrameworkCore" Version="0.1.0-local.1" />
+<PackageReference Include="MessageTransit" Version="1.0.0-local.1" />
+<PackageReference Include="MessageTransit.RabbitMQ" Version="1.0.0-local.1" />
+<PackageReference Include="MessageTransit.EntityFrameworkCore" Version="1.0.0-local.1" />
 ```
 
 After restoring, confirm that no MassTransit package remains, including transitive references from your own libraries:

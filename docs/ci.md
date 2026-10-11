@@ -4,14 +4,15 @@ The main workflow builds every tracked C# project on Linux and Windows using the
 
 ## When tests run
 
-Two workflows split the suites by what they need:
+The build and integration workflows divide the source suites; the release workflow requires both:
 
 | Workflow | Runs | Triggers |
 | --- | --- | --- |
-| [build.yml](.github/workflows/build.yml) | Build on Linux and Windows, `*.Tests` projects, and the suites that still use workflow service containers (Dapper, Marten, DynamoDB) | Every push and every pull request touching build inputs |
-| [integration.yml](.github/workflows/integration.yml) | Every `tests/*.IntegrationTests` project except Cosmos DB, plus the Redis suite against Valkey, one matrix leg each | Pull requests into `master`, and nightly on the default branch |
+| [build.yml](../.github/workflows/build.yml) | Build on Linux and Windows, `*.Tests` projects, and the suites that still use workflow service containers (Dapper, Marten, DynamoDB) | Every push and every pull request touching build inputs, and each release |
+| [integration.yml](../.github/workflows/integration.yml) | Every `tests/*.IntegrationTests` project except Cosmos DB, plus the Redis suite against Valkey, one matrix leg each | Pull requests into `master`, nightly on the default branch, and each release |
+| [release.yml](../.github/workflows/release.yml) | The full build and integration workflows, inspected packages, and isolated package consumers; publishing waits for approval | Every push to `master`; a manual run is a dry run unless it publishes from `master` |
 
-`integration.yml` discovers its suites from the `*.IntegrationTests` directories, so a new container-based suite needs no workflow change. Its `Integration` job passes only when every leg passes and is the check to require on `master`. Both workflows cancel an in-progress run when a newer one starts for the same branch or pull request.
+`integration.yml` discovers its suites from the `*.IntegrationTests` directories, so a new container-based suite needs no workflow change. Its `Integration` job passes only when every leg passes and is the check to require on `master`. Ordinary branch and pull request runs cancel superseded runs. Release calls use their own concurrency groups so unrelated validation cannot cancel the candidate's checks.
 
 ## Test matrix
 
@@ -59,11 +60,15 @@ Coverage exclusions apply as follows:
 - **Platform:** unsupported-platform tests are reported as skipped. Core tests run on both Windows and Linux. The Windows daylight-saving cron test also returns early when the runner's local timezone has no daylight saving, so a passing Windows job does not prove that branch executed.
 - **Benchmarks:** both executables are built on Linux and Windows. CI checks the custom benchmark's `--help` output and BenchmarkDotNet's `--list flat` output. These startup checks do not run workloads, contact brokers, or establish throughput or latency results.
 
+## Releases
+
+Only the release workflow publishes packages, and only from `master` after a maintainer approves the inspected candidates. Each push to `master` calculates a preview version. Stable publication requires an explicit channel selection. Recovery reuses a retained candidate artifact and checks its original commit; it cannot substitute newly built files under a reserved version. The [release process](releasing.md) describes the setup, the checks, and the steps.
+
 ## Manual transport validation
 
 `Transport Validation` is a manually dispatched workflow for RabbitMQ, ActiveMQ, and SQS/S3, using the same .NET 10 test action and local-service configuration as the main workflow. Azure Service Bus is not run because it requires a real namespace and Azure Storage credentials. SQL, Kafka, Event Hubs, and persistence suites are covered by the main workflow. No package publishing job exists in the manual workflow.
 
-Changes to workflow definitions, the shared test action, CI helper scripts, or this matrix trigger the main workflow. Both build lanes include all tracked projects; the three currently outside the solution are the NServiceBus interoperability tests and the two benchmark executables.
+Changes to workflow definitions, the shared test action, CI helper scripts, or this matrix trigger the main workflow. Both build lanes include all tracked projects; the four currently outside the solution are the NServiceBus interoperability tests, the two benchmark executables, and the release symbol inspection tool. The release regression job also compiles real PDB fixtures to check that tool.
 
 ## Local commands
 

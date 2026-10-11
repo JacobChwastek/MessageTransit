@@ -43,9 +43,11 @@ sw.*
 
 # Local documentation, graph analysis, and workflow artifacts
 /docs/*
-!/docs/decisions/
-/docs/decisions/*
-!/docs/decisions/0001-fork-provenance-and-support.md
+!/docs/README.md
+!/docs/ci.md
+!/docs/releasing.md
+!/docs/package-identity.md
+!/docs/migration/
 !/docs/legal/
 /docs/legal/*
 !/docs/legal/redistribution-inventory.md
@@ -53,5 +55,6 @@ sw.*
 /docs/architecture/*
 !/docs/architecture/dependency-inventory.md
 !/docs/architecture/dependency-inventory.json
+!/docs/architecture/legacy-target-audit.md
 /graphify-out/
 /.workflow/

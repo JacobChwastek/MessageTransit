@@ -47,15 +47,19 @@
     "errors": []
   },
   "input_sha256": {
-    ".github/workflows/build.yml": "4ace4f82a8fce8554f4f8b3c981434652ccce15cf8f58e9345958c2bf8773c44",
-    ".github/workflows/integration.yml": "d7cb3af1b8d7344de4f4775ea87147627bcaf412e182e4dbbb17cf1d1b5fad33",
-    ".github/workflows/nightly-transports.yml": "3f82a0bb122a3835965e1034c5fce5ad18b3939fdd3eb3dad558e7822bc9b676",
+    ".github/workflows/build.yml": "63f8bb979cdc997f351af299c6f9fd6b3729571792659c4a25468006bafaa37e",
+    ".github/workflows/integration.yml": "7fdbc2def2fc7ed0cfdc00479a523d0fc60cd453b6d0009c02bc68b9acc21a77",
+    ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
+    ".github/workflows/release.yml": "0f2e384535bf9ada1a3344c9f510d4581d146ac5ece88b648f912cd00b041e2b",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
     "Directory.Packages.props": "064b9a6e6341d5a13c9fa3ad7a360d5b6f16eb911a4cf84853e1a9978eabdaff",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
+    "scripts/release_symbols/Directory.Build.props": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
+    "scripts/release_symbols/Directory.Packages.props": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
+    "scripts/release_symbols/ReleaseSymbols.csproj": "727d0721f11212e08035cc59275b0226c0092f3ea92492d621c3d25879ef974f",
     "signing.props": "895b9ce7062f9db9404bfb3b53fe0a48109d169ad92e03e34c5e4e656183dba8",
-    "src/Directory.Build.props": "f089699421b6bf62aa253a849a71e19fe220c2bbdf4d5362d766bd09e08866d9",
+    "src/Directory.Build.props": "209c502cc26d22e39b0bb5a5904739c1b31ac437ace6c5e2aa4f6aaf48cdc285",
     "src/MessageTransit.Abstractions/MessageTransit.Abstractions.csproj": "b7fdbc65b1433c6e4621b9095264b418e7718f74a3e0a80f1a7d9050f82d66f8",
     "src/MessageTransit.Analyzers/MessageTransit.Analyzers.csproj": "31582aae0c6f22e4b8735cd954bd3ba0de339c9c5f4647ec54f4b36d722232d4",
     "src/MessageTransit.Interop.NServiceBus/MessageTransit.Interop.NServiceBus.csproj": "d4a9fdf13ddd02f07e486d9d553012bc0287cad8430fe98eb5399a60e8b66184",
@@ -119,16 +123,17 @@
     "tests/MessageTransit.Tests/MessageTransit.Tests.csproj": "3f8f958a354ad59cc9882bb34898750db24e3958719f2ae8bca059b31126fa9f"
   },
   "summary": {
-    "tracked_projects": 58,
+    "tracked_projects": 59,
     "source": 32,
     "test": 23,
     "benchmark": 2,
-    "test_support": 1,
+    "test_support": 2,
     "test_and_benchmark": 25,
     "solution_project_counts": {
       "MessageTransit.slnx": 55
     },
     "outside_solution": [
+      "scripts/release_symbols/ReleaseSymbols.csproj",
       "tests/MessageTransit.Benchmark/MessageTransit.Benchmark.csproj",
       "tests/MessageTransit.BenchmarkConsole/MessageTransit.BenchmarkConsole.csproj",
       "tests/MessageTransit.Interop.NServiceBus.Tests/MessageTransit.Interop.NServiceBus.Tests.csproj"
@@ -734,6 +739,31 @@
             "Include": "Microsoft.SourceLink.GitHub",
             "Version": "8.0.0"
           }
+        }
+      ],
+      "conditions": []
+    },
+    "scripts/release_symbols/Directory.Build.props": {
+      "declarations": [],
+      "conditions": []
+    },
+    "scripts/release_symbols/Directory.Packages.props": {
+      "declarations": [],
+      "conditions": []
+    },
+    "scripts/release_symbols/ReleaseSymbols.csproj": {
+      "declarations": [
+        {
+          "element": "OutputType",
+          "value": "Exe"
+        },
+        {
+          "element": "TargetFramework",
+          "value": "net10.0"
+        },
+        {
+          "element": "IsPackable",
+          "value": "false"
         }
       ],
       "conditions": []
@@ -4004,6 +4034,102 @@
     ]
   },
   "projects": [
+    {
+      "path": "scripts/release_symbols/ReleaseSymbols.csproj",
+      "name": "ReleaseSymbols",
+      "kind": "test_support",
+      "solutions": [],
+      "declarations": "scripts/release_symbols/ReleaseSymbols.csproj",
+      "framework_and_package_variants": [
+        {
+          "contexts": [
+            {
+              "platform": "non_windows",
+              "configuration": "Release"
+            },
+            {
+              "platform": "windows",
+              "configuration": "Release"
+            }
+          ],
+          "properties": {
+            "TargetFramework": "net10.0",
+            "TargetFrameworks": "",
+            "PackageId": "ReleaseSymbols",
+            "IsPackable": "false",
+            "PackageLicenseExpression": "",
+            "IsTestProject": "",
+            "OutputType": "Exe",
+            "TargetFrameworkIdentifier": ".NETCoreApp",
+            "TargetFrameworkVersion": "v10.0",
+            "ManagePackageVersionsCentrally": "",
+            "LangVersion": "14.0"
+          },
+          "target_frameworks": [
+            "net10.0"
+          ]
+        }
+      ],
+      "target_variants": [
+        {
+          "contexts": [
+            {
+              "platform": "non_windows",
+              "configuration": "Release"
+            },
+            {
+              "platform": "windows",
+              "configuration": "Release"
+            }
+          ],
+          "target_framework": "net10.0",
+          "properties": {
+            "TargetFramework": "net10.0",
+            "PackageId": "ReleaseSymbols",
+            "IsPackable": "false",
+            "PackageLicenseExpression": "",
+            "IsTestProject": "",
+            "OutputType": "Exe",
+            "TargetFrameworkIdentifier": ".NETCoreApp",
+            "TargetFrameworkVersion": "v10.0",
+            "ManagePackageVersionsCentrally": "",
+            "LangVersion": "14.0"
+          },
+          "project_references": [],
+          "package_references": [],
+          "framework_references": [
+            {
+              "id": "Microsoft.NETCore.App",
+              "metadata": {
+                "IsImplicitlyDefined": "true",
+                "Pack": "false",
+                "PrivateAssets": "All"
+              },
+              "origin": "sdk:Microsoft.NET.Sdk.DefaultItems.props"
+            }
+          ],
+          "assembly_references": [],
+          "global_package_references": []
+        }
+      ],
+      "status": {
+        "build": "evaluated only; not built",
+        "package": "identity and packability evaluated only; not packed or published",
+        "dependencies": "direct and SDK evaluation only; not restored; no transitive resolution",
+        "test": "references inventoried only; not executed",
+        "consumer": {
+          "repository": "see referenced_by and test_references",
+          "external_applications": "not assessed"
+        }
+      },
+      "referenced_by": [],
+      "test_references": {
+        "direct_tests": [],
+        "tests_reaching_project_including_transitive": [],
+        "direct_benchmarks": [],
+        "basis": "union of evaluated platform/configuration/TFM edges; reference reachability is not test coverage or execution"
+      }
+    },
     {
       "path": "src/MessageTransit.Abstractions/MessageTransit.Abstractions.csproj",
       "name": "MessageTransit.Abstractions",

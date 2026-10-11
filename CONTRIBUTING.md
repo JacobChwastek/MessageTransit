@@ -30,7 +30,7 @@ Run a test project with the same options as CI:
 dotnet test tests/MessageTransit.Tests -c Release -f net10.0 --filter 'Category!=Flaky'
 ```
 
-Container-based suites need no further setup beyond Docker; a suite that uses fixed host ports conflicts with a local service already listening on them. [CI.md](CI.md) lists every test project, the services it uses, and which workflow runs it.
+Container-based suites need no further setup beyond Docker; a suite that uses fixed host ports conflicts with a local service already listening on them. The [CI coverage guide](docs/ci.md) lists every test project, the services it uses, and which workflow runs it.
 
 ## Making a change
 
