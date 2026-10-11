@@ -72,7 +72,7 @@ An advisory that is accepted rather than fixed is suppressed in the project or p
 </ItemGroup>
 ```
 
-The release script tests reject a suppression without both values, and release validation fails once a review date has passed.
+Do not hide audit warnings with `NoWarn` or `WarningsNotAsErrors`, and do not change `NuGetAudit`, `NuGetAuditMode`, `NuGetAuditLevel` or replace `WarningsAsErrors` in individual projects. The release script tests reject those changes and any suppression without both values. Release validation also fails once a review date has passed.
 
 ## Releases
 
