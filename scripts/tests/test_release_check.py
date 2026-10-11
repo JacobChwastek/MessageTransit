@@ -136,10 +136,65 @@ class ConsumerChecks(unittest.TestCase):
         self.assertTrue(any('Include="MessageTransit"' in project and 'Include="MessageTransit.Abstractions"' not in project
                             and 'Include="MessageTransit.Newtonsoft"' not in project for project in references), references)
 
+    def test_consumers_audit_the_candidate_graph(self):
+        generated = []
+        def run(arguments, cwd):
+            generated.append(((Path(cwd) / "Directory.Build.props").read_text(), (Path(cwd) / "nuget.config").read_text()))
+            return 1, "stop after inspecting generated settings"
+        with patch.object(check, "run_captured", side_effect=run):
+            check.smoke_test(Path("/tmp"), "1.0.0-dev.1", check.load_manifest()[0], [])
+        self.assertEqual(len(check.consumer_recipes(check.load_manifest()[0])), len(generated))
+        for props, config in generated:
+            self.assertIn("<NuGetAuditMode>all</NuGetAuditMode>", props)
+            self.assertIn("<WarningsAsErrors>NU1900;NU1903;NU1904;NU1905</WarningsAsErrors>", props)
+            self.assertIn('<auditSources><clear /><add key="nuget.org" value="https://api.nuget.org/v3/index.json" /></auditSources>', config)
+
+    def test_audit_errors_are_reported_without_build_noise(self):
+        output = ("restoring\n/tmp/c/ReleaseSmoke.csproj : error NU1904: Warning As Error: Package 'Example' 1.0.0 has a known critical severity vulnerability\n"
+                  "/tmp/c/ReleaseSmoke.csproj : warning NU1902: Package 'Other' 1.0.0 has a known moderate severity vulnerability\n")
+        failures = []
+        with patch.object(check, "run_captured", return_value=(1, output)):
+            check.smoke_test(Path("/tmp"), "1.0.0-dev.1", check.load_manifest()[0], failures)
+        self.assertTrue(failures[0].startswith("smoke co-install: NuGet audit failed\n"), failures[0])
+        self.assertIn("error NU1904", failures[0])
+        self.assertNotIn("NU1902", failures[0])
+
     def test_diagnostics_preserve_consumer_build_errors(self):
         args = SimpleNamespace(version="1.0.0-dev.1", commit="abc")
         report = check.render_report(args, [], {}, [], None, ["smoke core: build failed\nNU1301: example feed unavailable"])
         self.assertIn("NU1301", report)
+
+
+class AuditSuppressionChecks(unittest.TestCase):
+    def suppressions(self, items, today):
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / "Example.props").write_text(f"<Project><ItemGroup>{items}</ItemGroup></Project>", encoding="utf-8")
+            failures = []
+            with patch.object(check, "ROOT", Path(directory)), \
+                    patch.object(check.subprocess, "run", return_value=SimpleNamespace(stdout="Example.props\n")):
+                suppressions = check.audit_suppressions(failures, check.datetime.date.fromisoformat(today))
+            return suppressions, failures
+
+    def test_accepted_advisory_with_reason_and_review_date_passes(self):
+        suppressions, failures = self.suppressions(
+            '<NuGetAuditSuppress Include="https://github.com/advisories/GHSA-0000" Reason="Test-only" ReviewBy="2026-12-01" />', "2026-11-30")
+        self.assertEqual([], failures)
+        self.assertEqual("Test-only", suppressions[0]["reason"])
+
+    def test_metadata_elements_are_read(self):
+        _, failures = self.suppressions('<NuGetAuditSuppress Include="https://github.com/advisories/GHSA-0000">'
+                                        '<Reason>Test-only</Reason><ReviewBy>2026-12-01</ReviewBy></NuGetAuditSuppress>', "2026-11-30")
+        self.assertEqual([], failures)
+
+    def test_missing_reason_or_review_date_fails(self):
+        _, failures = self.suppressions('<NuGetAuditSuppress Include="https://github.com/advisories/GHSA-0000" />', "2026-11-30")
+        self.assertTrue(any("has no Reason" in failure for failure in failures), failures)
+        self.assertTrue(any("needs ReviewBy" in failure for failure in failures), failures)
+
+    def test_expired_review_date_fails(self):
+        _, failures = self.suppressions(
+            '<NuGetAuditSuppress Include="https://github.com/advisories/GHSA-0000" Reason="Test-only" ReviewBy="2026-12-01" />', "2026-12-02")
+        self.assertTrue(any("passed its review date 2026-12-01" in failure for failure in failures), failures)
 
 
 class SourceExpectations(unittest.TestCase):

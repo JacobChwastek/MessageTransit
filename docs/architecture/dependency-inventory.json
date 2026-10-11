@@ -51,11 +51,11 @@
     ".github/workflows/integration.yml": "7fdbc2def2fc7ed0cfdc00479a523d0fc60cd453b6d0009c02bc68b9acc21a77",
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "0f2e384535bf9ada1a3344c9f510d4581d146ac5ece88b648f912cd00b041e2b",
-    "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
+    "Directory.Build.props": "5f13accb203dc5de2dd7469244c16e26da713e6d6bf2fe5a7000317322d67b81",
     "Directory.Packages.props": "4218ec6585585052080fa4fe761a6e3cfada2239ec5fb087752045ca2ee068c1",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
-    "scripts/release_symbols/Directory.Build.props": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
+    "scripts/release_symbols/Directory.Build.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "scripts/release_symbols/Directory.Packages.props": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
     "scripts/release_symbols/ReleaseSymbols.csproj": "727d0721f11212e08035cc59275b0226c0092f3ea92492d621c3d25879ef974f",
     "signing.props": "895b9ce7062f9db9404bfb3b53fe0a48109d169ad92e03e34c5e4e656183dba8",
@@ -82,7 +82,7 @@
     "src/Persistence/MessageTransit.MongoDbIntegration/MessageTransit.MongoDbIntegration.csproj": "7040c9a021f1232a86890489cf294d86603cc76b0a3a7a8d0a03c94e2eec3df2",
     "src/Persistence/MessageTransit.NHibernateIntegration/MessageTransit.NHibernateIntegration.csproj": "22352c32b9f00328330c7b710362e842b4f1fa8ff3a16f922b762df09667d8a8",
     "src/Persistence/MessageTransit.RedisIntegration/MessageTransit.RedisIntegration.csproj": "26b828630804871a1d6993a8b5ea862ed4143b8ab353d52d79172726905f9ffe",
-    "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj": "f12e679760b02f92d7075b59694bd158724488d716f9ab88f5697c9ad0dc0428",
+    "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj": "0fca51fc70fb854620540bcf346563ff5fed7c878694da57a2723e62e9a7bd19",
     "src/Scheduling/MessageTransit.QuartzIntegration/MessageTransit.QuartzIntegration.csproj": "1012ce32414ba6f72fd3eed245332ad82e7aca666f9ea4fc99347af3aed6625a",
     "src/Transports/MessageTransit.ActiveMqTransport/MessageTransit.ActiveMqTransport.csproj": "831bcc39210c6822c6f2362636c695780bb38bedd3a0f33418fcf29bfbdb5a1d",
     "src/Transports/MessageTransit.AmazonSqsTransport/MessageTransit.AmazonSqsTransport.csproj": "f3ea24f2054d71718a0dc8cb123aa01bd6c5b074482095bd8d2c3231c7dbfa6c",
@@ -1503,12 +1503,6 @@
         {
           "element": "PackageId",
           "value": "MessageTransit.Hangfire"
-        },
-        {
-          "element": "ProjectReference",
-          "attributes": {
-            "Include": "..\\..\\MessageTransit.Newtonsoft\\MessageTransit.Newtonsoft.csproj"
-          }
         },
         {
           "element": "ProjectReference",
@@ -5082,7 +5076,6 @@
       },
       "referenced_by": [
         "src/MessageTransit.Interop.NServiceBus/MessageTransit.Interop.NServiceBus.csproj",
-        "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj",
         "tests/MessageTransit.AmazonSqsTransport.IntegrationTests/MessageTransit.AmazonSqsTransport.IntegrationTests.csproj",
         "tests/MessageTransit.Azure.ServiceBus.Core.Tests/MessageTransit.Azure.ServiceBus.Core.Tests.csproj",
         "tests/MessageTransit.BenchmarkConsole/MessageTransit.BenchmarkConsole.csproj",
@@ -8334,14 +8327,6 @@
             "LangVersion": "12"
           },
           "project_references": [
-            {
-              "id": "../../MessageTransit.Newtonsoft/MessageTransit.Newtonsoft.csproj",
-              "metadata": {
-                "ReferenceSourceTarget": "ProjectReference"
-              },
-              "origin": "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj",
-              "path": "src/MessageTransit.Newtonsoft/MessageTransit.Newtonsoft.csproj"
-            },
             {
               "id": "../../MessageTransit/MessageTransit.csproj",
               "metadata": {
