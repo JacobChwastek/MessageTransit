@@ -2,13 +2,13 @@
 
 MessageTransit provides message-based application components for .NET: consumers, sagas and state machines, transport integrations, scheduling, and a test harness.
 
-This is an independently maintained fork of [MassTransit v8.5.10](https://github.com/MassTransit/MassTransit/tree/v8.5.10). It uses MessageTransit namespaces, assembly identities, a distinct signing key, and package IDs. Existing applications must follow the [namespace and wire migration guide](https://github.com/JacobChwastek/MessageTransit/blob/develop/NAMESPACE_AND_WIRE_MIGRATION.md) before adopting the fork.
+This is an independently maintained fork of [MassTransit v8.5.10](https://github.com/MassTransit/MassTransit/tree/v8.5.10). It uses MessageTransit namespaces, assembly identities, a distinct signing key, and package IDs. Existing applications must follow the [namespace and wire migration guide](https://github.com/JacobChwastek/MessageTransit/blob/develop/docs/migration/namespace-and-wire.md) before adopting the fork.
 
 ## Requirements and release availability
 
 Runtime libraries require **.NET 10**. Build source with a **.NET 10 SDK** compatible with the repository's `global.json`. `MessageTransit.Analyzers` targets **.NET Standard 2.0** as compiler tooling; runtime libraries still require .NET 10.
 
-The following 32 package IDs correspond to retained source projects. This README does not announce a published or supported MessageTransit release. Use source references or locally built packages while release availability and support are being established. The intended first public series begins with `0.1.0-preview.1`.
+The following 32 package IDs correspond to retained source projects; not every ID is published. Releases are previews numbered `X.Y.Z-preview.N`, beginning with `1.0.0-preview.1`, and none is designated as supported; a stable release requires an explicit release decision. Each [GitHub release](https://github.com/JacobChwastek/MessageTransit/releases) lists the packages it published, the checks and package-consumer scenarios that passed, and the packages held back. Reference every MessageTransit package at the same version.
 
 ## Package family
 
@@ -25,7 +25,7 @@ The following 32 package IDs correspond to retained source projects. This README
 | Riders | `MessageTransit.EventHub`, `MessageTransit.Kafka` |
 | Azure WebJobs | `MessageTransit.WebJobs.EventHubs`, `MessageTransit.WebJobs.ServiceBus` |
 
-The effective Azure Table package ID is `MessageTransit.Azure.Cosmos.Table`; the Dapper package ID is `MessageTransit.DapperIntegration`. Package IDs and assembly names may differ. See the [package identity map](https://github.com/JacobChwastek/MessageTransit/blob/develop/PACKAGE_IDENTITY.md) for all old-to-new package mappings. The EF6 integration has been removed; see [migration to EF Core](https://github.com/JacobChwastek/MessageTransit/blob/develop/ENTITY_FRAMEWORK_MIGRATION.md).
+The effective Azure Table package ID is `MessageTransit.Azure.Cosmos.Table`; the Dapper package ID is `MessageTransit.DapperIntegration`. Package IDs and assembly names may differ. See the [package identity map](https://github.com/JacobChwastek/MessageTransit/blob/develop/docs/package-identity.md) for all old-to-new package mappings. The EF6 integration has been removed; see [migration to EF Core](https://github.com/JacobChwastek/MessageTransit/blob/develop/docs/migration/entity-framework-core.md).
 
 ## Build and consume local packages
 
@@ -35,14 +35,14 @@ Clone the source and build and pack the solution with one coordinated local vers
 git clone https://github.com/JacobChwastek/MessageTransit.git
 cd MessageTransit
 dotnet restore MessageTransit.slnx
-dotnet build MessageTransit.slnx --configuration Release --no-restore -m:1 -p:Version=0.1.0-local.1
-dotnet pack MessageTransit.slnx --configuration Release --no-build --no-restore -p:Version=0.1.0-local.1 --output ./artifacts
+dotnet build MessageTransit.slnx --configuration Release --no-restore -m:1 -p:Version=1.0.0-local.1
+dotnet pack MessageTransit.slnx --configuration Release --no-build --no-restore -p:Version=1.0.0-local.1 --output ./artifacts
 ```
 
-The example version `0.1.0-local.1` identifies local artifacts. These commands do not publish packages. Add the packages needed by your .NET 10 application at that version. For an existing consumer, replace the project name and artifact path below:
+The example version `1.0.0-local.1` identifies local artifacts. These commands do not publish packages. Add the packages needed by your .NET 10 application at that version. For an existing consumer, replace the project name and artifact path below:
 
 ```bash
-dotnet add Consumer.csproj package MessageTransit --version 0.1.0-local.1 --no-restore
+dotnet add Consumer.csproj package MessageTransit --version 1.0.0-local.1 --no-restore
 dotnet restore Consumer.csproj --source "/absolute/path/to/MessageTransit/artifacts" --source https://api.nuget.org/v3/index.json
 ```
 
@@ -50,7 +50,7 @@ The second source supplies third-party dependencies. Add transport or persistenc
 
 ## Migration and verified integrations
 
-Applications moving from MassTransit 8.x must replace packages, rename namespaces and APIs, and plan a cutover for queued messages and stored framework data. The [migration guide](https://github.com/JacobChwastek/MessageTransit/blob/develop/NAMESPACE_AND_WIRE_MIGRATION.md) lists the renamed APIs and wire identifiers.
+Applications moving from MassTransit 8.x must replace packages, rename namespaces and APIs, and plan a cutover for queued messages and stored framework data. The [migration guide](https://github.com/JacobChwastek/MessageTransit/blob/develop/docs/migration/namespace-and-wire.md) lists the renamed APIs and wire identifiers.
 
 The repository README lists the [transports and providers exercised in CI](https://github.com/JacobChwastek/MessageTransit/blob/develop/README.md#verified-integrations). Azure Service Bus, Azure Cosmos DB, Azure Storage message data, and the Azure WebJobs packages are built but not exercised.
 

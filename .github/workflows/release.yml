@@ -1,0 +1,227 @@
+name: Release
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: Preview by default; stable explicitly promotes a preview or creates a stable release.
+        type: choice
+        options:
+          - preview
+          - stable
+        default: preview
+      bump:
+        description: auto continues a preview series or uses Conventional Commits after a stable release.
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+        default: auto
+      version:
+        description: Optional explicit version matching the selected channel.
+        type: string
+      candidate_run:
+        description: Original Actions run ID to recover its exact release-candidate artifact.
+        type: string
+      publish:
+        description: Publish after approval from master; otherwise perform a dry run.
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+jobs:
+  candidate:
+    name: Build or recover inspected candidates
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      version: ${{ steps.identity.outputs.version }}
+      release: ${{ steps.identity.outputs.release }}
+      commit: ${{ steps.identity.outputs.commit }}
+    steps:
+      - name: Check out release tooling
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Recover the original immutable candidate
+        if: inputs.candidate_run != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: release-candidate
+          path: artifacts
+          run-id: ${{ inputs.candidate_run }}
+          github-token: ${{ github.token }}
+
+      - name: Calculate version
+        if: inputs.candidate_run == ''
+        id: version
+        env:
+          BUMP: ${{ inputs.bump || 'auto' }}
+          CHANNEL: ${{ inputs.channel || 'preview' }}
+          EXPLICIT_VERSION: ${{ inputs.version }}
+        run: |
+          args=(--bump "$BUMP" --channel "$CHANNEL")
+          if [ -n "$EXPLICIT_VERSION" ]; then args+=(--version "$EXPLICIT_VERSION"); fi
+          python3 scripts/release_version.py "${args[@]}"
+
+      - name: Install .NET 10 SDK
+        if: inputs.candidate_run == '' && steps.version.outputs.release == 'true'
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Require a clean candidate checkout
+        if: inputs.candidate_run == '' && steps.version.outputs.release == 'true'
+        run: |
+          git diff --exit-code
+          git diff --cached --exit-code
+          test -z "$(git ls-files --others --exclude-standard)"
+
+      - name: Build and pack
+        if: inputs.candidate_run == '' && steps.version.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          dotnet build MessageTransit.slnx --configuration Release -p:Version="$VERSION"
+          dotnet pack MessageTransit.slnx --configuration Release --no-build -p:Version="$VERSION" --output artifacts/packages
+          dotnet build scripts/release_symbols/ReleaseSymbols.csproj --configuration Release
+
+      - name: Inspect packages and test clean consumers
+        if: inputs.candidate_run == '' && steps.version.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          python3 scripts/release_check.py inspect --version "$VERSION" --commit "$GITHUB_SHA" \
+            --packages artifacts/packages --report artifacts/report.md --approved artifacts/approved.txt
+          python3 scripts/release_publish.py prepare --version "$VERSION" --commit "$GITHUB_SHA" \
+            --packages artifacts/packages --approved artifacts/approved.txt --report artifacts/report.md \
+            --output artifacts/candidate.json
+
+      - name: Verify exact candidate identity
+        if: inputs.candidate_run != '' || steps.version.outputs.release == 'true'
+        id: identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_RUN: ${{ inputs.candidate_run }}
+        run: |
+          args=(verify --manifest artifacts/candidate.json --github-output)
+          if [ -n "$CANDIDATE_RUN" ]; then args+=(--recovery-run "$CANDIDATE_RUN" --repository "$GITHUB_REPOSITORY"); fi
+          python3 scripts/release_publish.py "${args[@]}"
+
+      - name: Summarize
+        if: ${{ !cancelled() }}
+        run: test -f artifacts/report.md && cat artifacts/report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Keep the immutable candidate
+        if: steps.identity.outputs.release == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-candidate
+          path: artifacts/
+          retention-days: 90
+          if-no-files-found: error
+
+  # Separate from the candidate so its validation still runs before the environment is set up.
+  approval-gate:
+    name: Require an approval gate for publishing
+    if: github.event_name == 'push' || inputs.publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+    steps:
+      # A missing environment is created without protection; require reviewers before publishing.
+      - name: Require reviewers on the nuget-org environment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! reviewers=$(gh api "repos/$GITHUB_REPOSITORY/environments/nuget-org" --jq '[.protection_rules[] | select(.type == "required_reviewers")] | length'); then
+            echo "::error::Create the nuget-org environment with a required reviewer before publishing; see docs/releasing.md."
+            exit 1
+          fi
+          if [ "$reviewers" -eq 0 ]; then
+            echo "::error::The nuget-org environment has no required reviewer; see docs/releasing.md."
+            exit 1
+          fi
+
+  full-ci:
+    name: Complete source CI
+    needs: candidate
+    if: needs.candidate.outputs.release == 'true'
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ needs.candidate.outputs.commit }}
+
+  integration:
+    name: Integration suites
+    needs: candidate
+    if: needs.candidate.outputs.release == 'true'
+    uses: ./.github/workflows/integration.yml
+    with:
+      ref: ${{ needs.candidate.outputs.commit }}
+
+  publish:
+    name: Publish to NuGet.org
+    needs:
+      - candidate
+      - approval-gate
+      - full-ci
+      - integration
+    if: needs.candidate.outputs.release == 'true' && github.ref == 'refs/heads/master' && (github.event_name == 'push' || inputs.publish)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: nuget-org
+    concurrency:
+      group: nuget-publish
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Check out the candidate commit
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.candidate.outputs.commit }}
+          fetch-depth: 0
+
+      - name: Download the approved candidate
+        uses: actions/download-artifact@v4
+        with:
+          name: release-candidate
+          path: artifacts
+
+      - name: Verify candidate files before obtaining credentials
+        run: python3 scripts/release_publish.py verify --manifest artifacts/candidate.json
+
+      - name: Install .NET 10 SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Exchange the workflow identity for a NuGet API key
+        id: nuget
+        uses: NuGet/login@v1
+        with:
+          user: ${{ vars.NUGET_USER }}
+
+      - name: Reserve the version, publish, and record the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUGET_API_KEY: ${{ steps.nuget.outputs.NUGET_API_KEY }}
+          NUGET_USER: ${{ vars.NUGET_USER }}
+        run: |
+          python3 scripts/release_publish.py publish --manifest artifacts/candidate.json \
+            --repository "$GITHUB_REPOSITORY" --api-key-env NUGET_API_KEY --nuget-user "$NUGET_USER"

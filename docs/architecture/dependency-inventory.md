@@ -54,7 +54,7 @@ For every source project, build status is **evaluated, not built in this invento
 
 ## CI jobs
 
-The [main workflow](../../.github/workflows/build.yml) defines the build, the `*.Tests` jobs, and the package jobs. The [integration workflow](../../.github/workflows/integration.yml) runs the `*.IntegrationTests` suites, which provision their own containers through Testcontainers, on pull requests into `master` and nightly. See the maintained [CI matrix](../../CI.md) for execution platforms, service requirements, excluded tests, and unavailable cloud suites. Both build lanes include projects outside the solution.
+The [main workflow](../../.github/workflows/build.yml) defines the build, the `*.Tests` jobs, and the package jobs. The [integration workflow](../../.github/workflows/integration.yml) runs the `*.IntegrationTests` suites, which provision their own containers through Testcontainers, on pull requests into `master` and nightly. See the maintained [CI matrix](../ci.md) for execution platforms, service requirements, excluded tests, and unavailable cloud suites. Both build lanes include projects outside the solution.
 
 The separate [transport validation workflow](../../.github/workflows/nightly-transports.yml) is manually dispatched and covers RabbitMQ, ActiveMQ, and SQS/S3. It does not publish packages.
 
@@ -64,7 +64,7 @@ Workflow configuration records intended coverage. This inventory does not establ
 
 The EF6 adapter and its test project have been removed. No `MessageTransit.EntityFramework` package is planned. The retained [EF Core integration](../../src/Persistence/MessageTransit.EntityFrameworkCoreIntegration/MessageTransit.EntityFrameworkCoreIntegration.csproj) provides saga and audit persistence and currently builds as `MessageTransit.EntityFrameworkCore`.
 
-The [migration guide](../../ENTITY_FRAMEWORK_MIGRATION.md) maps EF6 behavior to retained EF Core regression coverage and explains context, mapping, locking, and audit differences. Existing application databases require their own schema, data, and rollback validation; fresh test databases do not establish an in-place migration contract.
+The [migration guide](../migration/entity-framework-core.md) maps EF6 behavior to retained EF Core regression coverage and explains context, mapping, locking, and audit differences. Existing application databases require their own schema, data, and rollback validation; fresh test databases do not establish an in-place migration contract.
 
 EF Core also provides transactional inbox/outbox storage, as shown by the [reliable-messaging context](../../tests/MessageTransit.EntityFrameworkCoreIntegration.IntegrationTests/ReliableMessaging/ReliableDbContext.cs). Those tables are separate from saga/audit storage and had no counterpart in the removed EF6 adapter.
 
