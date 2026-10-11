@@ -7,7 +7,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Internals;
 
 
 public sealed class CronExpression : IEquatable<CronExpression>
@@ -134,8 +133,12 @@ public sealed class CronExpression : IEquatable<CronExpression>
 
             var index = CronExpressionConstants.Second;
 
-            foreach ((ReadOnlySpan<char> expr, ReadOnlySpan<char> _) in expression.SpanSplit(' ', '\t'))
+            // fields are separated by a space or tab; a trailing separator does not start another field
+            ReadOnlySpan<char> remaining = expression;
+            while (!remaining.IsEmpty)
             {
+                var expr = TakeUntil(ref remaining, " \t");
+
                 if (index > CronExpressionConstants.Year)
                     break;
 
@@ -153,8 +156,9 @@ public sealed class CronExpression : IEquatable<CronExpression>
 
                 if (expr.IndexOf(',') != -1)
                 {
-                    foreach (var v in expr.SpanSplit(','))
-                        StoreExpressionValues(0, v, index);
+                    var values = expr;
+                    while (!values.IsEmpty)
+                        StoreExpressionValues(0, TakeUntil(ref values, ","), index);
                 }
                 else
                     StoreExpressionValues(0, expr, index);
@@ -401,6 +405,24 @@ public sealed class CronExpression : IEquatable<CronExpression>
             incr = 1;
 
         AddToSet(sval, eval, incr, type);
+    }
+
+    /// <summary>
+    /// Returns the text before the first separator and advances <paramref name="remaining" /> past that separator
+    /// </summary>
+    static ReadOnlySpan<char> TakeUntil(ref ReadOnlySpan<char> remaining, ReadOnlySpan<char> separators)
+    {
+        var separatorIndex = remaining.IndexOfAny(separators);
+        if (separatorIndex < 0)
+        {
+            var last = remaining;
+            remaining = ReadOnlySpan<char>.Empty;
+            return last;
+        }
+
+        var value = remaining[..separatorIndex];
+        remaining = remaining[(separatorIndex + 1)..];
+        return value;
     }
 
     void StoreExpressionValues(int position, ReadOnlySpan<char> span, int type)

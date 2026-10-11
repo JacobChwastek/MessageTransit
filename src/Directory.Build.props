@@ -3,6 +3,9 @@
 
   <PropertyGroup>
     <Product>MessageTransit</Product>
+    <!-- releases pass an explicit Version; other builds are development packages -->
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionSuffix>dev</VersionSuffix>
     <Copyright>Copyright 2007-2024 Chris Patterson; Copyright 2026 Jacob Chwastek</Copyright>
     <Authors>Chris Patterson, Jacob Chwastek</Authors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

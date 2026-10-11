@@ -1,122 +1,56 @@
-﻿namespace MessageTransit.SignalR.Utils
+namespace MessageTransit.SignalR.Utils;
+
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+
+
+/// <summary>
+/// A thread-safe set backed by a <see cref="ConcurrentDictionary{TKey,TValue}" />
+/// </summary>
+public class ConcurrentHashSet<T> : IDisposable
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
+    readonly ConcurrentDictionary<T, byte> _items;
 
-
-    // From here: https://stackoverflow.com/a/11034999/6558597
-    public class ConcurrentHashSet<T> : IDisposable
+    public ConcurrentHashSet()
     {
-        readonly HashSet<T> _hashSet;
-        readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+        _items = new ConcurrentDictionary<T, byte>();
+    }
 
-        public ConcurrentHashSet()
-        {
-            _hashSet = new HashSet<T>();
-        }
+    public ConcurrentHashSet(IEqualityComparer<T> equalityComparer)
+    {
+        _items = new ConcurrentDictionary<T, byte>(equalityComparer);
+    }
 
-        public ConcurrentHashSet(IEqualityComparer<T> equalityComparer)
-        {
-            _hashSet = new HashSet<T>(equalityComparer);
-        }
+    public int Count => _items.Count;
 
-        public int Count
-        {
-            get
-            {
-                try
-                {
-                    _lock.EnterReadLock();
-                    return _hashSet.Count;
-                }
-                finally
-                {
-                    if (_lock.IsReadLockHeld)
-                        _lock.ExitReadLock();
-                }
-            }
-        }
+    public void Dispose()
+    {
+    }
 
-    #region Dispose
+    public bool Add(T item)
+    {
+        return _items.TryAdd(item, 0);
+    }
 
-        public void Dispose()
-        {
-            if (_lock != null)
-                _lock.Dispose();
-        }
+    public void Clear()
+    {
+        _items.Clear();
+    }
 
-    #endregion
+    public bool Contains(T item)
+    {
+        return _items.ContainsKey(item);
+    }
 
-        public bool Add(T item)
-        {
-            try
-            {
-                _lock.EnterWriteLock();
-                return _hashSet.Add(item);
-            }
-            finally
-            {
-                if (_lock.IsWriteLockHeld)
-                    _lock.ExitWriteLock();
-            }
-        }
+    public bool Remove(T item)
+    {
+        return _items.TryRemove(item, out _);
+    }
 
-        public void Clear()
-        {
-            try
-            {
-                _lock.EnterWriteLock();
-                _hashSet.Clear();
-            }
-            finally
-            {
-                if (_lock.IsWriteLockHeld)
-                    _lock.ExitWriteLock();
-            }
-        }
-
-        public bool Contains(T item)
-        {
-            try
-            {
-                _lock.EnterReadLock();
-                return _hashSet.Contains(item);
-            }
-            finally
-            {
-                if (_lock.IsReadLockHeld)
-                    _lock.ExitReadLock();
-            }
-        }
-
-        public bool Remove(T item)
-        {
-            try
-            {
-                _lock.EnterWriteLock();
-                return _hashSet.Remove(item);
-            }
-            finally
-            {
-                if (_lock.IsWriteLockHeld)
-                    _lock.ExitWriteLock();
-            }
-        }
-
-        public T[] ToArray()
-        {
-            try
-            {
-                _lock.EnterReadLock();
-                return _hashSet.ToArray(); // Internally Linq .ToArray uses CopyTo
-            }
-            finally
-            {
-                if (_lock.IsReadLockHeld)
-                    _lock.ExitReadLock();
-            }
-        }
+    public T[] ToArray()
+    {
+        return _items.Keys.ToArray();
     }
 }
