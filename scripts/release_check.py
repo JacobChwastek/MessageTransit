@@ -39,9 +39,14 @@ CONSUMER_PROPS = """<Project>
     <NuGetAuditLevel>low</NuGetAuditLevel>
     <WarningsAsErrors>NU1900;NU1903;NU1904;NU1905</WarningsAsErrors>
   </PropertyGroup>
-</Project>
+{accepted}</Project>
 """
+BUILD_ERROR = re.compile(r"\berror [A-Z]+[0-9]+\b")
 AUDIT_ERROR = re.compile(r"\berror NU190[0-9]\b")
+AUDIT_CODE = re.compile(r"\bNU190[0-9]\b")
+# only these files may set the shared NuGet audit properties
+AUDIT_SETTINGS_FILES = {"Directory.Build.props", "scripts/release_symbols/Directory.Build.props"}
+AUDIT_PROPERTIES = {"NuGetAudit", "NuGetAuditMode", "NuGetAuditLevel"}
 UPSTREAM_NAMES = [name.encode(encoding) for name in ("masstransit", "MassTransit", "MASSTRANSIT", "massTransit") for encoding in ("utf-8", "utf-16-le")]
 
 
@@ -267,29 +272,44 @@ def inspect_symbols(packages, results, commit, tool, failures):
             return []
 
 
-def audit_suppressions(failures, today=None):
-    """Require every accepted advisory to state why it is accepted and when it must be reviewed again."""
+def audit_policy(failures, today=None):
+    """Accept advisories only through NuGetAuditSuppress items with a reason and a current review date, and keep
+    projects from weakening the shared audit settings. Returns the suppressions with whether each is accepted."""
     today = today or datetime.date.today()
     tracked = subprocess.run(["git", "ls-files", "*.props", "*.targets", "*.csproj"], cwd=ROOT, check=True,
                              text=True, stdout=subprocess.PIPE).stdout.split()
     suppressions = []
     for name in tracked:
-        for item in ET.parse(ROOT / name).iter():
-            if local_name(item) != "NuGetAuditSuppress":
+        for element in ET.parse(ROOT / name).iter():
+            tag = local_name(element)
+            values = [(tag, element.text or "")] + list(element.attrib.items())
+            for key, value in values:
+                if key in ("NoWarn", "WarningsNotAsErrors") and AUDIT_CODE.search(value):
+                    failures.append(f"{name}: {key} hides NuGet audit warnings; accept an advisory with NuGetAuditSuppress instead")
+            if name not in AUDIT_SETTINGS_FILES:
+                if tag in AUDIT_PROPERTIES:
+                    failures.append(f"{name}: sets {tag}; NuGet audit settings belong in Directory.Build.props")
+                elif tag == "WarningsAsErrors" and "$(WarningsAsErrors)" not in (element.text or ""):
+                    failures.append(f"{name}: replaces WarningsAsErrors instead of extending $(WarningsAsErrors)")
+            if tag != "NuGetAuditSuppress" or "Include" not in element.attrib:
                 continue
-            metadata = {local_name(child): (child.text or "").strip() for child in item} | item.attrib
-            advisory = metadata.get("Include", "")
-            suppressions.append({"file": name, "advisory": advisory, "reason": metadata.get("Reason", ""),
-                                 "reviewBy": metadata.get("ReviewBy", "")})
-            if not metadata.get("Reason"):
+            metadata = {local_name(child): (child.text or "").strip() for child in element} | \
+                       {key: value.strip() for key, value in element.attrib.items()}
+            advisory = metadata["Include"]
+            suppression = {"file": name, "advisory": advisory, "reason": metadata.get("Reason", ""),
+                           "reviewBy": metadata.get("ReviewBy", ""), "accepted": False}
+            suppressions.append(suppression)
+            if not suppression["reason"]:
                 failures.append(f"{name}: NuGetAuditSuppress {advisory} has no Reason")
             try:
-                review = datetime.date.fromisoformat(metadata.get("ReviewBy", ""))
+                review = datetime.date.fromisoformat(suppression["reviewBy"])
             except ValueError:
                 failures.append(f"{name}: NuGetAuditSuppress {advisory} needs ReviewBy as YYYY-MM-DD")
                 continue
             if review < today:
                 failures.append(f"{name}: NuGetAuditSuppress {advisory} passed its review date {review.isoformat()}")
+            else:
+                suppression["accepted"] = bool(suppression["reason"])
     return suppressions
 
 
@@ -312,8 +332,9 @@ def inspect(arguments):
 
     results = [inspect_package(packages[package], arguments.version, arguments.commit, publish, failures) for package in sorted(packages)]
     symbols = inspect_symbols(packages, results, arguments.commit, Path(getattr(arguments, "symbols_tool", None) or SYMBOLS_TOOL), failures)
-    smoke = smoke_test(packages_directory, arguments.version, publish, failures) if not arguments.skip_smoke else None
-    suppressions = audit_suppressions(failures)
+    suppressions = audit_policy(failures)
+    accepted = [item["advisory"] for item in suppressions if item["accepted"]]
+    smoke = smoke_test(packages_directory, arguments.version, publish, failures, accepted) if not arguments.skip_smoke else None
 
     report = render_report(arguments, publish, held, results, smoke, failures)
     if arguments.skip_smoke:
@@ -365,9 +386,12 @@ def consumer_recipes(publish):
     ]
 
 
-def smoke_test(packages_directory, version, publish, failures):
+def smoke_test(packages_directory, version, publish, failures, accepted=()):
     """Keep co-install coverage and independently exercise top-level packages in minimal consumers."""
     smoke = {"built": False, "scenario": [], "analyzer": False, "consumers": []}
+    # consumers accept the same advisories as the repository while their review date has not passed
+    accepted_items = "".join(f'    <NuGetAuditSuppress Include="{escape(advisory, {chr(34): "&quot;"})}" />\n' for advisory in accepted)
+    suppressions = f"  <ItemGroup>\n{accepted_items}  </ItemGroup>\n" if accepted_items else ""
     with tempfile.TemporaryDirectory(prefix="messagetransit-smoke-") as directory:
         base = Path(directory)
         for index, (name, packages, external, sources, constants, expected) in enumerate(consumer_recipes(publish)):
@@ -407,18 +431,19 @@ def smoke_test(packages_directory, version, publish, failures):
             ET.SubElement(local, "package", pattern="MessageTransit.*")
             public = ET.SubElement(mapping, "packageSource", key="nuget.org")
             ET.SubElement(public, "package", pattern="*")
-            audit = ET.SubElement(config, "auditSources")
-            ET.SubElement(audit, "clear")
-            ET.SubElement(audit, "add", key="nuget.org", value="https://api.nuget.org/v3/index.json")
+            audit_sources = ET.SubElement(config, "auditSources")
+            ET.SubElement(audit_sources, "clear")
+            ET.SubElement(audit_sources, "add", key="nuget.org", value="https://api.nuget.org/v3/index.json")
             ET.ElementTree(config).write(consumer / "nuget.config", encoding="utf-8", xml_declaration=True)
-            (consumer / "Directory.Build.props").write_text(CONSUMER_PROPS, encoding="utf-8")
+            (consumer / "Directory.Build.props").write_text(CONSUMER_PROPS.format(accepted=suppressions), encoding="utf-8")
             (consumer / "Directory.Packages.props").write_text("<Project />\n", encoding="utf-8")
 
             code, output = run_captured(["dotnet", "build", "-c", "Release", "--nologo"], consumer)
             if code != 0:
-                audit = sorted({line.strip() for line in output.splitlines() if AUDIT_ERROR.search(line)})
-                if audit:
-                    failures.append(f"smoke {name}: NuGet audit failed\n" + "\n".join(audit))
+                errors = {line.strip() for line in output.splitlines() if BUILD_ERROR.search(line)}
+                audit_errors = sorted(error for error in errors if AUDIT_ERROR.search(error))
+                if audit_errors and len(audit_errors) == len(errors):
+                    failures.append(f"smoke {name}: NuGet audit failed\n" + "\n".join(audit_errors))
                 else:
                     failures.append(f"smoke {name}: build failed\n" + output[-4000:])
                 continue

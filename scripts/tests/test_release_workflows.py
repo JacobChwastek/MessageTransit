@@ -56,9 +56,9 @@ class NuGetAuditTests(unittest.TestCase):
             with self.subTest(name=name):
                 self.assertIn('<Import Project="..\\Directory.Build.props"/>', (ROOT / name).read_text())
 
-    def test_accepted_advisories_state_a_reason_and_review_date(self):
+    def test_projects_follow_the_audit_policy(self):
         failures = []
-        check.audit_suppressions(failures, today=datetime.date.min)
+        check.audit_policy(failures, today=datetime.date.min)
         self.assertEqual([], failures)
 
 
