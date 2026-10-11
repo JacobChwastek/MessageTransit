@@ -1,7 +1,12 @@
+import datetime
+import importlib.util
 from pathlib import Path
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
+spec = importlib.util.spec_from_file_location("release_check", ROOT / "scripts/release_check.py")
+check = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(check)
 
 
 class WorkflowTests(unittest.TestCase):
@@ -36,6 +41,25 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('name: release-candidate\n', release)
         self.assertIn('scripts/release_publish.py verify', release)
         self.assertIn('scripts/release_publish.py prepare', release)
+
+
+class NuGetAuditTests(unittest.TestCase):
+    def test_every_project_fails_restore_on_high_and_critical_advisories(self):
+        for name in ('Directory.Build.props', 'scripts/release_symbols/Directory.Build.props'):
+            with self.subTest(name=name):
+                props = (ROOT / name).read_text()
+                self.assertIn('<NuGetAudit>true</NuGetAudit>', props)
+                self.assertIn('<NuGetAuditMode>all</NuGetAuditMode>', props)
+                self.assertIn('<NuGetAuditLevel>low</NuGetAuditLevel>', props)
+                self.assertIn('<WarningsAsErrors>$(WarningsAsErrors);NU1903;NU1904</WarningsAsErrors>', props)
+        for name in ('src/Directory.Build.props', 'tests/Directory.Build.props'):
+            with self.subTest(name=name):
+                self.assertIn('<Import Project="..\\Directory.Build.props"/>', (ROOT / name).read_text())
+
+    def test_accepted_advisories_state_a_reason_and_review_date(self):
+        failures = []
+        check.audit_suppressions(failures, today=datetime.date.min)
+        self.assertEqual([], failures)
 
 
 if __name__ == '__main__':

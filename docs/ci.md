@@ -60,6 +60,20 @@ Coverage exclusions apply as follows:
 - **Platform:** unsupported-platform tests are reported as skipped. Core tests run on both Windows and Linux. The Windows daylight-saving cron test also returns early when the runner's local timezone has no daylight saving, so a passing Windows job does not prove that branch executed.
 - **Benchmarks:** both executables are built on Linux and Windows. CI checks the custom benchmark's `--help` output and BenchmarkDotNet's `--list flat` output. These startup checks do not run workloads, contact brokers, or establish throughput or latency results.
 
+## Dependency advisories
+
+Every restore runs [NuGet audit](https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages) over direct and transitive packages. High and critical advisories (`NU1903`, `NU1904`) fail the restore in every project, including tests, benchmarks and build tools. Low and moderate advisories (`NU1901`, `NU1902`) stay warnings. When advisory data cannot be retrieved (`NU1900`, `NU1905`), ordinary builds warn and continue; release validation fails.
+
+An advisory that is accepted rather than fixed is suppressed in the project or props file that resolves it, with a reason and a review date:
+
+```xml
+<ItemGroup>
+  <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-xxxx-xxxx-xxxx" Reason="Why the advisory does not apply" ReviewBy="2026-12-31" />
+</ItemGroup>
+```
+
+The release script tests reject a suppression without both values, and release validation fails once a review date has passed.
+
 ## Releases
 
 Only the release workflow publishes packages, and only from `master` after a maintainer approves the inspected candidates. Each push to `master` calculates a preview version. Stable publication requires an explicit channel selection. Recovery reuses a retained candidate artifact and checks its original commit; it cannot substitute newly built files under a reserved version. The [release process](releasing.md) describes the setup, the checks, and the steps.
