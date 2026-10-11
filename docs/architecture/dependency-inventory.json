@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "0f2e384535bf9ada1a3344c9f510d4581d146ac5ece88b648f912cd00b041e2b",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
-    "Directory.Packages.props": "1c63ab2b8f890858fc525d05e32b071e5132e30cbb7ffe1ba144886c1355d32c",
+    "Directory.Packages.props": "4218ec6585585052080fa4fe761a6e3cfada2239ec5fb087752045ca2ee068c1",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
     "scripts/release_symbols/Directory.Build.props": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
@@ -332,7 +332,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Marten",
-            "Version": "8.37.2"
+            "Version": "9.48.0"
           }
         },
         {
@@ -7612,13 +7612,13 @@
               "id": "Marten",
               "origin": "src/Persistence/MessageTransit.MartenIntegration/MessageTransit.MartenIntegration.csproj",
               "kind": "direct",
-              "version": "8.37.2",
+              "version": "9.48.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Marten",
                   "metadata": {
-                    "Version": "8.37.2"
+                    "Version": "9.48.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
