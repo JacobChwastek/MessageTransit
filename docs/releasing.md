@@ -24,6 +24,7 @@ Candidate validation includes:
 - expected managed assembly assets and identities;
 - embedded SourceLink mappings and source document checksums for the candidate checkout;
 - a clean .NET 10 consumer that checks the complete package set can be installed together;
+- a NuGet audit of every consumer's resolved package graph, which fails on high or critical advisories and when advisory data is unavailable; repository suppressions do not apply to consumers, and the report lists each accepted advisory with its reason and review date;
 - minimally referenced consumers that exercise core messaging, both alternative serializers, EF Core persistence, and RabbitMQ against a broker started with Docker, so direct references do not hide missing transitive dependencies;
 - the full source build and test matrix described in the [CI coverage guide](ci.md), including both Linux and Windows build/unit lanes and the provisioned service suites.
 

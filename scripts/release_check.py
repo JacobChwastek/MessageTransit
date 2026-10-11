@@ -2,6 +2,7 @@
 """Calculate the next release version, inspect candidate packages, and smoke-test them in a clean consumer."""
 
 import argparse
+import datetime
 import functools
 import hashlib
 import json
@@ -30,6 +31,17 @@ REQUIRED_FILES = ("LICENSE", "NOTICE", "COPYRIGHT", "NuGet.README.md")
 TARGET_FRAMEWORK = "net10.0"
 # files that credit the upstream project by name
 ATTRIBUTION_FILES = {"LICENSE", "NOTICE", "COPYRIGHT", "THIRD-PARTY-NOTICES", "NuGet.README.md"}
+# Consumers audit the graph resolved from the candidate packages and also fail when advisory data is unavailable.
+CONSUMER_PROPS = """<Project>
+  <PropertyGroup>
+    <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
+    <WarningsAsErrors>NU1900;NU1903;NU1904;NU1905</WarningsAsErrors>
+  </PropertyGroup>
+</Project>
+"""
+AUDIT_ERROR = re.compile(r"\berror NU190[0-9]\b")
 UPSTREAM_NAMES = [name.encode(encoding) for name in ("masstransit", "MassTransit", "MASSTRANSIT", "massTransit") for encoding in ("utf-8", "utf-16-le")]
 
 
@@ -255,6 +267,32 @@ def inspect_symbols(packages, results, commit, tool, failures):
             return []
 
 
+def audit_suppressions(failures, today=None):
+    """Require every accepted advisory to state why it is accepted and when it must be reviewed again."""
+    today = today or datetime.date.today()
+    tracked = subprocess.run(["git", "ls-files", "*.props", "*.targets", "*.csproj"], cwd=ROOT, check=True,
+                             text=True, stdout=subprocess.PIPE).stdout.split()
+    suppressions = []
+    for name in tracked:
+        for item in ET.parse(ROOT / name).iter():
+            if local_name(item) != "NuGetAuditSuppress":
+                continue
+            metadata = {local_name(child): (child.text or "").strip() for child in item} | item.attrib
+            advisory = metadata.get("Include", "")
+            suppressions.append({"file": name, "advisory": advisory, "reason": metadata.get("Reason", ""),
+                                 "reviewBy": metadata.get("ReviewBy", "")})
+            if not metadata.get("Reason"):
+                failures.append(f"{name}: NuGetAuditSuppress {advisory} has no Reason")
+            try:
+                review = datetime.date.fromisoformat(metadata.get("ReviewBy", ""))
+            except ValueError:
+                failures.append(f"{name}: NuGetAuditSuppress {advisory} needs ReviewBy as YYYY-MM-DD")
+                continue
+            if review < today:
+                failures.append(f"{name}: NuGetAuditSuppress {advisory} passed its review date {review.isoformat()}")
+    return suppressions
+
+
 def inspect(arguments):
     if arguments.approved:
         Path(arguments.approved).unlink(missing_ok=True)
@@ -275,10 +313,13 @@ def inspect(arguments):
     results = [inspect_package(packages[package], arguments.version, arguments.commit, publish, failures) for package in sorted(packages)]
     symbols = inspect_symbols(packages, results, arguments.commit, Path(getattr(arguments, "symbols_tool", None) or SYMBOLS_TOOL), failures)
     smoke = smoke_test(packages_directory, arguments.version, publish, failures) if not arguments.skip_smoke else None
+    suppressions = audit_suppressions(failures)
 
     report = render_report(arguments, publish, held, results, smoke, failures)
     if arguments.skip_smoke:
         report += "\nPackage consumer smoke checks were skipped; this inspection does not establish release readiness.\n"
+    report += "\n## Accepted NuGet advisories\n\n"
+    report += "".join(f"- {item['advisory']} in {item['file']}, review by {item['reviewBy']}: {item['reason']}\n" for item in suppressions) or "None.\n"
     report += "\n## Source Link and source checksums\n\n"
     report += "These checks compare symbol documents with the current checkout or verified embedded generated source; they do not establish that uncommitted source is reproducible from the recorded commit.\n\n"
     for item in symbols:
@@ -366,13 +407,20 @@ def smoke_test(packages_directory, version, publish, failures):
             ET.SubElement(local, "package", pattern="MessageTransit.*")
             public = ET.SubElement(mapping, "packageSource", key="nuget.org")
             ET.SubElement(public, "package", pattern="*")
+            audit = ET.SubElement(config, "auditSources")
+            ET.SubElement(audit, "clear")
+            ET.SubElement(audit, "add", key="nuget.org", value="https://api.nuget.org/v3/index.json")
             ET.ElementTree(config).write(consumer / "nuget.config", encoding="utf-8", xml_declaration=True)
-            (consumer / "Directory.Build.props").write_text("<Project />\n", encoding="utf-8")
+            (consumer / "Directory.Build.props").write_text(CONSUMER_PROPS, encoding="utf-8")
             (consumer / "Directory.Packages.props").write_text("<Project />\n", encoding="utf-8")
 
             code, output = run_captured(["dotnet", "build", "-c", "Release", "--nologo"], consumer)
             if code != 0:
-                failures.append(f"smoke {name}: build failed\n" + output[-4000:])
+                audit = sorted({line.strip() for line in output.splitlines() if AUDIT_ERROR.search(line)})
+                if audit:
+                    failures.append(f"smoke {name}: NuGet audit failed\n" + "\n".join(audit))
+                else:
+                    failures.append(f"smoke {name}: build failed\n" + output[-4000:])
                 continue
             result["built"] = True
             if name == "co-install":
