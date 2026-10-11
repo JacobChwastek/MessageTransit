@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <PackageReference Include="Hangfire.Core" />
+    <!-- Hangfire.Core accepts Newtonsoft.Json 11.0.1, which has a high severity advisory -->
+    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
 
 </Project>
