@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "0f2e384535bf9ada1a3344c9f510d4581d146ac5ece88b648f912cd00b041e2b",
     "Directory.Build.props": "65b6e6f32db58eee051c15ba658491048cd3555da8b4a82ee8366822b3db760e",
-    "Directory.Packages.props": "064b9a6e6341d5a13c9fa3ad7a360d5b6f16eb911a4cf84853e1a9978eabdaff",
+    "Directory.Packages.props": "1c63ab2b8f890858fc525d05e32b071e5132e30cbb7ffe1ba144886c1355d32c",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
     "scripts/release_symbols/Directory.Build.props": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
@@ -117,7 +117,7 @@
     "tests/MessageTransit.QuartzIntegration.Tests/MessageTransit.QuartzIntegration.Tests.csproj": "45fb6ecb8a2ded3eeb56e9a25085264f6028ae148c8ca4a9f4ecc646a39f5985",
     "tests/MessageTransit.RabbitMqTransport.IntegrationTests/MessageTransit.RabbitMqTransport.IntegrationTests.csproj": "e838b12bfea3117c3d6e1d4af980b695b713aab96fe91e76b103ff05f010ed33",
     "tests/MessageTransit.RedisIntegration.IntegrationTests/MessageTransit.RedisIntegration.IntegrationTests.csproj": "0ad0eec99b2892fb79ffc2dfb92e9d2233eafd1d5e8c2dfafa9798a55cb9bbf2",
-    "tests/MessageTransit.SignalR.Tests/MessageTransit.SignalR.Tests.csproj": "07eab9dfd6b985da6947dfa74946651ce4edb4282f706ba2bc170f1b2162a2dc",
+    "tests/MessageTransit.SignalR.Tests/MessageTransit.SignalR.Tests.csproj": "f51dc28962184dbc7f4ffc9a59444460600291004e7d7ecec0bc96527486ac33",
     "tests/MessageTransit.SqlTransport.IntegrationTests/MessageTransit.SqlTransport.IntegrationTests.csproj": "3f00a49989a85b2be19491acd5898ab10d395242e7fcaabc01d52dd5ff956b74",
     "tests/MessageTransit.Testing.Containers/MessageTransit.Testing.Containers.csproj": "d6041ca68324db85d8e57f64728ad8689d61cd123327962421970059607dcd57",
     "tests/MessageTransit.Tests/MessageTransit.Tests.csproj": "3f8f958a354ad59cc9882bb34898750db24e3958719f2ae8bca059b31126fa9f"
@@ -353,7 +353,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "MessagePack",
-            "Version": "3.1.6"
+            "Version": "3.1.11"
           }
         },
         {
@@ -3598,6 +3598,13 @@
         {
           "element": "PackageReference",
           "attributes": {
+            "Include": "MessagePack",
+            "VersionOverride": "2.5.307"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
             "Include": "Microsoft.NET.Test.Sdk"
           }
         },
@@ -4789,13 +4796,13 @@
               "id": "MessagePack",
               "origin": "src/MessageTransit.MessagePack/MessageTransit.MessagePack.csproj",
               "kind": "direct",
-              "version": "3.1.6",
+              "version": "3.1.11",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "MessagePack",
                   "metadata": {
-                    "Version": "3.1.6"
+                    "Version": "3.1.11"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -16845,6 +16852,25 @@
                     "Version": "2.4.1"
                   },
                   "origin": "sdk:NuGet.targets"
+                }
+              ]
+            },
+            {
+              "id": "MessagePack",
+              "metadata": {
+                "VersionOverride": "2.5.307"
+              },
+              "origin": "tests/MessageTransit.SignalR.Tests/MessageTransit.SignalR.Tests.csproj",
+              "kind": "direct",
+              "version": "2.5.307",
+              "version_source": "VersionOverride",
+              "central_versions": [
+                {
+                  "id": "MessagePack",
+                  "metadata": {
+                    "Version": "3.1.11"
+                  },
+                  "origin": "Directory.Packages.props"
                 }
               ]
             },
