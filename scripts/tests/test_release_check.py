@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+import xml.etree.ElementTree as ET
 import zipfile
 from types import SimpleNamespace
 import contextlib
@@ -159,20 +160,43 @@ class ConsumerChecks(unittest.TestCase):
         self.assertIn("error NU1904", failures[0])
         self.assertNotIn("NU1902", failures[0])
 
+    def test_restore_errors_are_kept_when_audit_data_is_unavailable(self):
+        output = ("/tmp/c/ReleaseSmoke.csproj : error NU1301: Unable to load the service index for source https://api.nuget.org/v3/index.json.\n"
+                  "/tmp/c/ReleaseSmoke.csproj : error NU1900: Warning As Error: Error occurred while getting package vulnerability data\n")
+        failures = []
+        with patch.object(check, "run_captured", return_value=(1, output)):
+            check.smoke_test(Path("/tmp"), "1.0.0-dev.1", check.load_manifest()[0], failures)
+        self.assertTrue(failures[0].startswith("smoke co-install: build failed\n"), failures[0])
+        self.assertIn("error NU1301", failures[0])
+
+    def test_consumers_accept_the_repository_accepted_advisories(self):
+        generated = []
+        def run(arguments, cwd):
+            generated.append((Path(cwd) / "Directory.Build.props").read_text())
+            return 1, "stop after inspecting generated settings"
+        with patch.object(check, "run_captured", side_effect=run):
+            check.smoke_test(Path("/tmp"), "1.0.0-dev.1", check.load_manifest()[0], [], ["https://github.com/advisories/GHSA-0000"])
+        for props in generated:
+            item = ET.fromstring(props).find("ItemGroup/NuGetAuditSuppress")
+            self.assertEqual("https://github.com/advisories/GHSA-0000", item.get("Include"))
+
     def test_diagnostics_preserve_consumer_build_errors(self):
         args = SimpleNamespace(version="1.0.0-dev.1", commit="abc")
         report = check.render_report(args, [], {}, [], None, ["smoke core: build failed\nNU1301: example feed unavailable"])
         self.assertIn("NU1301", report)
 
 
-class AuditSuppressionChecks(unittest.TestCase):
-    def suppressions(self, items, today):
+class AuditPolicyChecks(unittest.TestCase):
+    def suppressions(self, items, today="2026-11-30"):
+        return self.policy(f"<Project><ItemGroup>{items}</ItemGroup></Project>", today)
+
+    def policy(self, project, today="2026-11-30"):
         with tempfile.TemporaryDirectory() as directory:
-            (Path(directory) / "Example.props").write_text(f"<Project><ItemGroup>{items}</ItemGroup></Project>", encoding="utf-8")
+            (Path(directory) / "Example.props").write_text(project, encoding="utf-8")
             failures = []
             with patch.object(check, "ROOT", Path(directory)), \
                     patch.object(check.subprocess, "run", return_value=SimpleNamespace(stdout="Example.props\n")):
-                suppressions = check.audit_suppressions(failures, check.datetime.date.fromisoformat(today))
+                suppressions = check.audit_policy(failures, check.datetime.date.fromisoformat(today))
             return suppressions, failures
 
     def test_accepted_advisory_with_reason_and_review_date_passes(self):
@@ -180,6 +204,7 @@ class AuditSuppressionChecks(unittest.TestCase):
             '<NuGetAuditSuppress Include="https://github.com/advisories/GHSA-0000" Reason="Test-only" ReviewBy="2026-12-01" />', "2026-11-30")
         self.assertEqual([], failures)
         self.assertEqual("Test-only", suppressions[0]["reason"])
+        self.assertTrue(suppressions[0]["accepted"])
 
     def test_metadata_elements_are_read(self):
         _, failures = self.suppressions('<NuGetAuditSuppress Include="https://github.com/advisories/GHSA-0000">'
@@ -192,9 +217,40 @@ class AuditSuppressionChecks(unittest.TestCase):
         self.assertTrue(any("needs ReviewBy" in failure for failure in failures), failures)
 
     def test_expired_review_date_fails(self):
-        _, failures = self.suppressions(
+        suppressions, failures = self.suppressions(
             '<NuGetAuditSuppress Include="https://github.com/advisories/GHSA-0000" Reason="Test-only" ReviewBy="2026-12-01" />', "2026-12-02")
         self.assertTrue(any("passed its review date 2026-12-01" in failure for failure in failures), failures)
+        self.assertFalse(suppressions[0]["accepted"])
+
+    def test_removing_a_suppression_is_not_an_accepted_advisory(self):
+        suppressions, failures = self.suppressions('<NuGetAuditSuppress Remove="https://github.com/advisories/GHSA-0000" />')
+        self.assertEqual(([], []), (suppressions, failures))
+
+    def test_attribute_metadata_is_trimmed(self):
+        _, failures = self.suppressions(
+            '<NuGetAuditSuppress Include="https://github.com/advisories/GHSA-0000" Reason="Test-only" ReviewBy=" 2026-12-01 " />')
+        self.assertEqual([], failures)
+
+    def test_hidden_audit_warnings_fail(self):
+        for project in ('<Project><PropertyGroup><NoWarn>$(NoWarn);NU1903</NoWarn></PropertyGroup></Project>',
+                        '<Project><PropertyGroup><WarningsNotAsErrors>NU1904</WarningsNotAsErrors></PropertyGroup></Project>',
+                        '<Project><ItemGroup><PackageReference Include="Example" NoWarn="NU1903" /></ItemGroup></Project>',
+                        '<Project><ItemGroup><PackageReference Include="Example"><NoWarn>NU1904</NoWarn></PackageReference></ItemGroup></Project>'):
+            with self.subTest(project=project):
+                _, failures = self.policy(project)
+                self.assertTrue(any("hides NuGet audit warnings" in failure for failure in failures), failures)
+
+    def test_weakened_audit_settings_fail(self):
+        for project, expected in (('<Project><PropertyGroup><NuGetAudit>false</NuGetAudit></PropertyGroup></Project>', "sets NuGetAudit"),
+                                  ('<Project><PropertyGroup><NuGetAuditLevel>critical</NuGetAuditLevel></PropertyGroup></Project>', "sets NuGetAuditLevel"),
+                                  ('<Project><PropertyGroup><WarningsAsErrors>CS0168</WarningsAsErrors></PropertyGroup></Project>', "replaces WarningsAsErrors")):
+            with self.subTest(project=project):
+                _, failures = self.policy(project)
+                self.assertTrue(any(expected in failure for failure in failures), failures)
+
+    def test_extending_warnings_as_errors_passes(self):
+        _, failures = self.policy('<Project><PropertyGroup><WarningsAsErrors>$(WarningsAsErrors);CS0168</WarningsAsErrors></PropertyGroup></Project>')
+        self.assertEqual([], failures)
 
 
 class SourceExpectations(unittest.TestCase):
