@@ -18,7 +18,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MessageTransit.Newtonsoft\MessageTransit.Newtonsoft.csproj" />
     <ProjectReference Include="..\..\MessageTransit\MessageTransit.csproj" />
   </ItemGroup>
 

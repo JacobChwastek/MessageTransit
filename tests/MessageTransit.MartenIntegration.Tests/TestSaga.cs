@@ -1,14 +1,13 @@
-﻿namespace MessageTransit.MartenIntegration.Tests
+﻿namespace MessageTransit.MartenIntegration.Tests;
+
+using System;
+using JasperFx;
+
+
+public class TestSaga : ISaga
 {
-    using System;
-    using Marten.Schema;
+    public Guid Id => CorrelationId;
 
-
-    public class TestSaga : ISaga
-    {
-        public Guid Id => CorrelationId;
-
-        [Identity]
-        public Guid CorrelationId { get; set; }
-    }
+    [Identity]
+    public Guid CorrelationId { get; set; }
 }
