@@ -4,9 +4,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this form for a reproducible problem in MessageTransit when issue reporting is available.
-        GitHub Issues are currently disabled for this repository. Read the [support guidance](https://github.com/JacobChwastek/MessageTransit/blob/develop/SUPPORT.md) for current contact availability and reproduction requirements.
-        For a suspected vulnerability, read the [security policy](https://github.com/JacobChwastek/MessageTransit/blob/develop/SECURITY.md) before sharing details.
+        Use this form for a reproducible problem in MessageTransit. Read the [support guidance](https://github.com/JacobChwastek/MessageTransit/blob/develop/SUPPORT.md) for the details to include.
+        Do not report a suspected vulnerability here; follow the [security policy](https://github.com/JacobChwastek/MessageTransit/blob/develop/SECURITY.md).
   - type: input
     id: version
     attributes:

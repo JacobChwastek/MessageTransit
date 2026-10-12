@@ -56,9 +56,7 @@ The repository README lists the [transports and providers exercised in CI](https
 
 ## Support and security
 
-[Support guidance](https://github.com/JacobChwastek/MessageTransit/blob/develop/SUPPORT.md) describes the current contact limitations, how to prepare a reproduction, and how to collect application logs. GitHub Issues and Discussions are currently disabled for this repository.
-
-Read the [security policy](https://github.com/JacobChwastek/MessageTransit/blob/develop/SECURITY.md) before sharing vulnerability information. Private vulnerability reporting is currently unavailable; no confidential reporting channel is advertised.
+[Support guidance](https://github.com/JacobChwastek/MessageTransit/blob/develop/SUPPORT.md) describes how to report a problem, prepare a reproduction, and collect application logs. Report a reproducible problem through [GitHub Issues](https://github.com/JacobChwastek/MessageTransit/issues/new?template=bug_report.yml), and a suspected vulnerability privately as the [security policy](https://github.com/JacobChwastek/MessageTransit/blob/develop/SECURITY.md) describes.
 
 ## Source and licenses
 

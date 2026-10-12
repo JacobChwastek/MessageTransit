@@ -38,11 +38,10 @@ Package-only consumers and tests built with project references provide complemen
 4. **Protected environment.** Create `nuget-org` with a required maintainer reviewer and restrict deployment branches to `master`. A separate job checks that an approval rule exists; until it does, candidates are still built and inspected but cannot be published. OIDC credentials are requested only after approval.
 5. **Tag permissions.** Allow the publishing workflow to create the fork's release tags and GitHub releases. Those tags must not be moved or deleted to recycle a package version.
 
-Before approving the first public release:
+Before approving a release:
 
-- Enable GitHub private vulnerability reporting and update [SECURITY.md](../SECURITY.md).
-- Provide a public bug-reporting route and update [SUPPORT.md](../SUPPORT.md).
-- Resolve the public identity checks described in the [package identity guide](package-identity.md#public-facing-metadata-and-artwork).
+- Confirm that GitHub private vulnerability reporting and Issues are still enabled, as [SECURITY.md](../SECURITY.md) and [SUPPORT.md](../SUPPORT.md) describe.
+- Review the public identity notes in the [package identity guide](package-identity.md#public-facing-metadata-and-artwork).
 
 ## Candidate review and publication
 

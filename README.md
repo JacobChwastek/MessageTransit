@@ -118,7 +118,7 @@ These packages are built but not exercised: Azure Service Bus, Azure Cosmos DB, 
 
 ## Support and contributing
 
-Read [MessageTransit support guidance](SUPPORT.md) for current contact availability, reproduction details, and logging instructions. Issues and Discussions are currently disabled for this repository. Read the [security policy](SECURITY.md) before sharing a suspected vulnerability; private vulnerability reporting is also currently unavailable.
+Read [MessageTransit support guidance](SUPPORT.md) for reproduction details and logging instructions. Report a reproducible problem with the [bug report form](https://github.com/JacobChwastek/MessageTransit/issues/new?template=bug_report.yml); GitHub Discussions are disabled. Report a suspected vulnerability privately as the [security policy](SECURITY.md) describes.
 
 To propose a change, read the [contribution guide](CONTRIBUTING.md) for build, test, and pull request expectations.
 
