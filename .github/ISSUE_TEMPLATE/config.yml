@@ -2,7 +2,7 @@ blank_issues_enabled: false
 contact_links:
   - name: MessageTransit support guidance
     url: https://github.com/JacobChwastek/MessageTransit/blob/develop/SUPPORT.md
-    about: Current contact availability, reproduction details, and application logging guidance.
-  - name: MessageTransit security policy
+    about: Reproduction details and application logging guidance.
+  - name: Report a security vulnerability
     url: https://github.com/JacobChwastek/MessageTransit/blob/develop/SECURITY.md
-    about: Read before sharing a suspected vulnerability; confidential reporting is currently unavailable.
+    about: Read the security policy, then report a suspected vulnerability privately instead of opening an issue.
