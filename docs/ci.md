@@ -82,7 +82,7 @@ Only the release workflow publishes packages, and only from `master` after a mai
 
 `Transport Validation` is a manually dispatched workflow for RabbitMQ, ActiveMQ, and SQS/S3, using the same .NET 10 test action and local-service configuration as the main workflow. Azure Service Bus is not run because it requires a real namespace and Azure Storage credentials. SQL, Kafka, Event Hubs, and persistence suites are covered by the main workflow. No package publishing job exists in the manual workflow.
 
-Changes to workflow definitions, the shared test action, CI helper scripts, or this matrix trigger the main workflow. Both build lanes include all tracked projects; the four currently outside the solution are the NServiceBus interoperability tests, the two benchmark executables, and the release symbol inspection tool. The release regression job also compiles real PDB fixtures to check that tool.
+Changes to workflow definitions, the shared test action, CI helper scripts, or this matrix trigger the main workflow. Both build lanes include all tracked projects; the four currently outside the solution are the NServiceBus interoperability tests, the two benchmark executables, and the release symbol inspection tool. The release regression job also compiles real PDB fixtures to check that tool, and checks that the dependency inventory in `docs/architecture/` matches the projects.
 
 ## Local commands
 

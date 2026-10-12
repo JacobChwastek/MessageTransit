@@ -1,0 +1,10 @@
+<Project>
+  <!-- NuGet audit checks the whole package graph on every restore; high and critical advisories fail it.
+       An accepted advisory is suppressed with a NuGetAuditSuppress item that has Reason and ReviewBy metadata. -->
+  <PropertyGroup>
+    <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
+    <WarningsAsErrors>$(WarningsAsErrors);NU1903;NU1904</WarningsAsErrors>
+  </PropertyGroup>
+</Project>
