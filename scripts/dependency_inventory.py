@@ -2,7 +2,8 @@
 """Inventory tracked MSBuild projects without restoring, building, or packing.
 
 Requires Python 3.9+, Git, and a .NET SDK with MSBuild -getProperty/-getItem.
-Run from any directory. --check re-evaluates and compares the complete document.
+Run from any directory. --check re-evaluates and compares the complete document except the recorded SDK and
+MSBuild versions, so an SDK update alone does not make unchanged projects stale.
 Only the inventory output is written; restored obj imports are disabled.
 """
 
@@ -371,6 +372,12 @@ def generate(jobs):
     }
 
 
+def comparable(document):
+    """Drop the SDK and MSBuild versions, which record the tools that ran rather than the projects."""
+    evaluation = {key: value for key, value in document.get("evaluation", {}).items() if key not in ("sdk_versions", "msbuild_versions")}
+    return {**document, "evaluation": evaluation}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Re-evaluate and fail if the saved inventory differs (no writes)")
@@ -383,7 +390,11 @@ def main():
         document = generate(args.jobs)
         content = json.dumps(document, indent=2, ensure_ascii=False) + "\n"
         if args.check:
-            if not args.output.is_file() or args.output.read_text(encoding="utf-8") != content:
+            try:
+                saved = json.loads(args.output.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                saved = None
+            if not isinstance(saved, dict) or comparable(saved) != comparable(document):
                 print("Inventory is stale or missing; run python3 scripts/dependency_inventory.py", file=sys.stderr)
                 return 1
             print("Inventory matches current tracked inputs and MSBuild evaluations")

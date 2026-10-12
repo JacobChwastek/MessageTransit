@@ -148,7 +148,10 @@ class ConsumerChecks(unittest.TestCase):
         for props, config in generated:
             self.assertIn("<NuGetAuditMode>all</NuGetAuditMode>", props)
             self.assertIn("<WarningsAsErrors>NU1900;NU1903;NU1904;NU1905</WarningsAsErrors>", props)
-            self.assertIn('<auditSources><clear /><add key="nuget.org" value="https://api.nuget.org/v3/index.json" /></auditSources>', config)
+            sources = ET.fromstring(config).find("auditSources")
+            self.assertIsNotNone(sources)
+            self.assertEqual(["clear", "add"], [child.tag for child in sources])
+            self.assertEqual("https://api.nuget.org/v3/index.json", sources.find("add").get("value"))
 
     def test_audit_errors_are_reported_without_build_noise(self):
         output = ("restoring\n/tmp/c/ReleaseSmoke.csproj : error NU1904: Warning As Error: Package 'Example' 1.0.0 has a known critical severity vulnerability\n"
@@ -198,6 +201,25 @@ class AuditPolicyChecks(unittest.TestCase):
                     patch.object(check.subprocess, "run", return_value=SimpleNamespace(stdout="Example.props\n")):
                 suppressions = check.audit_policy(failures, check.datetime.date.fromisoformat(today))
             return suppressions, failures
+
+    def test_unreadable_project_file_is_a_failure(self):
+        _, failures = self.policy("<Project><PropertyGroup>")
+        self.assertTrue(any("cannot check the NuGet audit policy" in failure for failure in failures), failures)
+
+    def test_missing_project_file_is_a_failure(self):
+        failures = []
+        with tempfile.TemporaryDirectory() as directory, patch.object(check, "ROOT", Path(directory)), \
+                patch.object(check.subprocess, "run", return_value=SimpleNamespace(stdout="missing.props\n")):
+            self.assertEqual([], check.audit_policy(failures))
+        self.assertTrue(any("missing.props: cannot check the NuGet audit policy" in failure for failure in failures), failures)
+
+    def test_unavailable_git_is_a_failure(self):
+        for error in (OSError("git not found"), check.subprocess.CalledProcessError(128, "git")):
+            with self.subTest(error=type(error).__name__):
+                failures = []
+                with patch.object(check.subprocess, "run", side_effect=error):
+                    self.assertEqual([], check.audit_policy(failures))
+                self.assertTrue(any("cannot list project files" in failure for failure in failures), failures)
 
     def test_accepted_advisory_with_reason_and_review_date_passes(self):
         suppressions, failures = self.suppressions(

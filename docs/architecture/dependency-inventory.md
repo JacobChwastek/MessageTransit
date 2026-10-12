@@ -79,7 +79,7 @@ python3 scripts/dependency_inventory.py --check
 
 The saved evaluation uses **SDK 10.0.400 / MSBuild 18.9.6**, Release configuration and Windows/non-Windows property variants. Current source conditions remain in `source_files`; `input_sha256` detects changes to tracked project, props, targets, solution and workflow inputs. Configuration-specific dependency behavior requires additional evaluation contexts. SDK changes can legitimately change evaluated implicit metadata and require a regenerated snapshot.
 
-`--check` re-evaluates without writing and fails for stale output, evaluation failures or unresolved package versions. New projects must be tracked before they become part of this tracked-project inventory. Each source record explicitly separates build, package, dependency, test and consumer status.
+`--check` re-evaluates without writing and fails for stale output, evaluation failures or unresolved package versions. It ignores the recorded SDK and MSBuild versions, so a newer SDK alone does not fail it. New projects must be tracked before they become part of this tracked-project inventory. Each source record explicitly separates build, package, dependency, test and consumer status.
 
 The generator records repository declarations and evaluated direct dependencies. It does not resolve the full transitive NuGet graph, prove dependency/target compatibility, execute tests, inspect live data or validate package archives. Those remain explicit validation work. Existing `obj/project.assets.json` files are not treated as current restore evidence.
 
