@@ -4,10 +4,10 @@
   "evaluation": {
     "method": "dotnet msbuild -getProperty/-getItem, evaluation only, no targets",
     "sdk_versions": [
-      "10.0.400"
+      "10.0.112"
     ],
     "msbuild_versions": [
-      "18.9.6"
+      "18.0.11"
     ],
     "contexts": [
       {
@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "0f2e384535bf9ada1a3344c9f510d4581d146ac5ece88b648f912cd00b041e2b",
     "Directory.Build.props": "5f13accb203dc5de2dd7469244c16e26da713e6d6bf2fe5a7000317322d67b81",
-    "Directory.Packages.props": "4218ec6585585052080fa4fe761a6e3cfada2239ec5fb087752045ca2ee068c1",
+    "Directory.Packages.props": "8e7fb89cc0e2f03c1706c0e36569b27f8710e236cf66f711dd033a8c980b2566",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
     "scripts/release_symbols/Directory.Build.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
@@ -74,7 +74,7 @@
     "src/Persistence/MessageTransit.Azure.Cosmos/MessageTransit.Azure.Cosmos.csproj": "2b42d035e46534547506172979e7ea717e349855452a78be5ebbb5e52c7ab96b",
     "src/Persistence/MessageTransit.Azure.Storage/MessageTransit.Azure.Storage.csproj": "ff35c979a9e6407a167e9d0ff21984ab9a2d27359f1bf92bfdfd750217bc5c28",
     "src/Persistence/MessageTransit.Azure.Table/MessageTransit.Azure.Table.csproj": "7f6f239d46684121459fda9f633e80730989a364e60cbf6e23ce0ff598610f97",
-    "src/Persistence/MessageTransit.DapperIntegration/MessageTransit.DapperIntegration.csproj": "5e626cb323adfb830b5bb930d5319990d5e4d728113f043f86d7977dd3e7e090",
+    "src/Persistence/MessageTransit.DapperIntegration/MessageTransit.DapperIntegration.csproj": "be3d8a1e106b85b6a6284148377e445afd876ccf707b40370981ae912cf717e8",
     "src/Persistence/MessageTransit.DynamoDbIntegration/MessageTransit.DynamoDbIntegration.csproj": "e8c5b78c9184b1e50b13d325d77e1a8f15f437e0070cfb1783089db3b54302fe",
     "src/Persistence/MessageTransit.EntityFrameworkCoreIntegration/MessageTransit.EntityFrameworkCoreIntegration.csproj": "fa76034cb68820b77f062f43346527bf1d001af9e88097702ab36267c80dc961",
     "src/Persistence/MessageTransit.MartenIntegration/MessageTransit.MartenIntegration.csproj": "27c42a6d3884d85af73f724e4f6c37d3ec833da6087e0743b37f61cd63638bed",
@@ -91,7 +91,7 @@
     "src/Transports/MessageTransit.KafkaIntegration/MessageTransit.KafkaIntegration.csproj": "73ad90fd6d00702ec7c6c2c96c3fd27f2004cfe4b4115cb94dac1fbb68e72fed",
     "src/Transports/MessageTransit.RabbitMqTransport/MessageTransit.RabbitMqTransport.csproj": "9b6b7cd313c76512636e644bd0b11e2914e8e8a04b199d25382c6d619ef78a6e",
     "src/Transports/MessageTransit.SqlTransport.PostgreSql/MessageTransit.SqlTransport.PostgreSql.csproj": "c43856df09a5df8f810b800190598143702193e5df9b1ad1521aeb7a9d96ea77",
-    "src/Transports/MessageTransit.SqlTransport.SqlServer/MessageTransit.SqlTransport.SqlServer.csproj": "957ee2e89bc18f2b31b5a8329509a358d44eb9a7557a9aa52b653cbf1962f92f",
+    "src/Transports/MessageTransit.SqlTransport.SqlServer/MessageTransit.SqlTransport.SqlServer.csproj": "f06a2bcd7098e73f4e8609474ded72e6b0abb3ef37f74662a2ccd394c5fde48a",
     "src/Transports/MessageTransit.WebJobs.EventHubsIntegration/MessageTransit.WebJobs.EventHubsIntegration.csproj": "fb753835431470b4c39b237fcbc7d40976c62e2749c13a1b5df5b4f45fd65e2b",
     "src/Transports/MessageTransit.WebJobs.ServiceBusIntegration/MessageTransit.WebJobs.ServiceBusIntegration.csproj": "eaf5f3ad28d598416e60a63b402b276cd2a44a1ace97eb90aaf1383911dc1c92",
     "tests/Directory.Build.props": "274c3b32da1267db2fb90868123a4093430a8a1b82aa92a70f5186c5710ce1f2",
@@ -102,7 +102,7 @@
     "tests/MessageTransit.Azure.Cosmos.IntegrationTests/MessageTransit.Azure.Cosmos.IntegrationTests.csproj": "6522a3951abbbb95eca3245f1d4f6d3324c467adf839ae9549c808d1395dc2a8",
     "tests/MessageTransit.Azure.ServiceBus.Core.Tests/MessageTransit.Azure.ServiceBus.Core.Tests.csproj": "18d106c60ab4d42a53fe320e679fbea89d07b3f34596111402b882b2038db59f",
     "tests/MessageTransit.Azure.Table.IntegrationTests/MessageTransit.Azure.Table.IntegrationTests.csproj": "56601b06dcc7ba6164b3355039556c280d10d7eefbf3b6a4db3542b543e628be",
-    "tests/MessageTransit.Benchmark/MessageTransit.Benchmark.csproj": "16aaa66850c0762952febde70cb28248f2b5448493e14ef258fbd13e5c2ccf5e",
+    "tests/MessageTransit.Benchmark/MessageTransit.Benchmark.csproj": "a20deee4361edfa90e3e3baa0855388d8b17df72c6a5cfb2107429e9d9ac967f",
     "tests/MessageTransit.BenchmarkConsole/MessageTransit.BenchmarkConsole.csproj": "26fa4b813307127705bb316f69fbc876df1ad89f18014af2b969abfc59ba3c88",
     "tests/MessageTransit.DapperIntegration.Tests/MessageTransit.DapperIntegration.Tests.csproj": "a8fb31301554464aa8720b30aa20740de7ff12c22e622a39b07843257708a3a6",
     "tests/MessageTransit.DynamoDbIntegration.Tests/MessageTransit.DynamoDbIntegration.Tests.csproj": "c3205d90d92cb124473ca2beccc63890b6290572649af2fc1f5342b82c92d64f",
@@ -113,14 +113,14 @@
     "tests/MessageTransit.KafkaIntegration.IntegrationTests/MessageTransit.KafkaIntegration.IntegrationTests.csproj": "dedabbe451cbf606234cdebff9087c75f35cdbc828d5e7500c36365f8ba7c5a8",
     "tests/MessageTransit.MartenIntegration.Tests/MessageTransit.MartenIntegration.Tests.csproj": "b97cdd49d44c6baccba42bfacab7b267c96fce208fc8b5e98150cd2217fa6d38",
     "tests/MessageTransit.MongoDbIntegration.IntegrationTests/MessageTransit.MongoDbIntegration.IntegrationTests.csproj": "45e650946c4e8d5aae74e1c88dfcfa34948615d3104f9e157f5d320c1669fce0",
-    "tests/MessageTransit.NHibernateIntegration.Tests/MessageTransit.NHibernateIntegration.Tests.csproj": "176bf78ee0a80c8a897465bf0a24893112e44919d1bbf26ebd4de654236b21fe",
+    "tests/MessageTransit.NHibernateIntegration.Tests/MessageTransit.NHibernateIntegration.Tests.csproj": "984b4ad9e9eab1a77771cab9f88b82ccba86dd3b43d6f252e7ea77c6efee0e70",
     "tests/MessageTransit.QuartzIntegration.Tests/MessageTransit.QuartzIntegration.Tests.csproj": "45fb6ecb8a2ded3eeb56e9a25085264f6028ae148c8ca4a9f4ecc646a39f5985",
     "tests/MessageTransit.RabbitMqTransport.IntegrationTests/MessageTransit.RabbitMqTransport.IntegrationTests.csproj": "e838b12bfea3117c3d6e1d4af980b695b713aab96fe91e76b103ff05f010ed33",
     "tests/MessageTransit.RedisIntegration.IntegrationTests/MessageTransit.RedisIntegration.IntegrationTests.csproj": "0ad0eec99b2892fb79ffc2dfb92e9d2233eafd1d5e8c2dfafa9798a55cb9bbf2",
-    "tests/MessageTransit.SignalR.Tests/MessageTransit.SignalR.Tests.csproj": "f51dc28962184dbc7f4ffc9a59444460600291004e7d7ecec0bc96527486ac33",
+    "tests/MessageTransit.SignalR.Tests/MessageTransit.SignalR.Tests.csproj": "dcf468c354c16eb29ccd977a7e9329cc6e3d97abefbaf717565c8382697069c8",
     "tests/MessageTransit.SqlTransport.IntegrationTests/MessageTransit.SqlTransport.IntegrationTests.csproj": "3f00a49989a85b2be19491acd5898ab10d395242e7fcaabc01d52dd5ff956b74",
-    "tests/MessageTransit.Testing.Containers/MessageTransit.Testing.Containers.csproj": "d6041ca68324db85d8e57f64728ad8689d61cd123327962421970059607dcd57",
-    "tests/MessageTransit.Tests/MessageTransit.Tests.csproj": "3f8f958a354ad59cc9882bb34898750db24e3958719f2ae8bca059b31126fa9f"
+    "tests/MessageTransit.Testing.Containers/MessageTransit.Testing.Containers.csproj": "3ac0ffa73c7d1bcb3853e19df2bc2f3baefb1d8612eba1648bddfd0c95973139",
+    "tests/MessageTransit.Tests/MessageTransit.Tests.csproj": "30845cd0a53c3ec4545d38976942e8d411c80dd7f277294c2625e6b36d26d016"
   },
   "summary": {
     "tracked_projects": 59,
@@ -367,7 +367,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
-            "Version": "10.0.11"
+            "Version": "10.0.13"
           }
         },
         {
@@ -675,6 +675,13 @@
           "attributes": {
             "Include": "System.Data.SQLite.Core",
             "Version": "1.0.119"
+          }
+        },
+        {
+          "element": "PackageVersion",
+          "attributes": {
+            "Include": "System.Security.Cryptography.Pkcs",
+            "Version": "10.0.13"
           }
         },
         {
@@ -1289,6 +1296,12 @@
           "attributes": {
             "Include": "Microsoft.Data.SqlClient"
           }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "System.Security.Cryptography.Pkcs"
+          }
         }
       ],
       "conditions": []
@@ -1817,6 +1830,12 @@
           "element": "PackageReference",
           "attributes": {
             "Include": "Microsoft.Data.SqlClient"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "System.Security.Cryptography.Pkcs"
           }
         },
         {
@@ -2542,6 +2561,12 @@
           "element": "PackageReference",
           "attributes": {
             "Include": "Microsoft.Data.SqlClient"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "System.Security.Cryptography.Pkcs"
           }
         },
         {
@@ -3322,6 +3347,12 @@
         {
           "element": "PackageReference",
           "attributes": {
+            "Include": "System.Security.Cryptography.Pkcs"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
             "Include": "System.Data.SqlClient"
           }
         },
@@ -3799,6 +3830,12 @@
         {
           "element": "PackageReference",
           "attributes": {
+            "Include": "System.Security.Cryptography.Pkcs"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
             "Include": "Npgsql"
           }
         },
@@ -3863,6 +3900,12 @@
           "element": "PackageReference",
           "attributes": {
             "Include": "Microsoft.Data.SqlClient"
+          }
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "System.Security.Cryptography.Pkcs"
           }
         },
         {
@@ -7065,6 +7108,22 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
+            },
+            {
+              "id": "System.Security.Cryptography.Pkcs",
+              "origin": "src/Persistence/MessageTransit.DapperIntegration/MessageTransit.DapperIntegration.csproj",
+              "kind": "direct",
+              "version": "10.0.13",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "System.Security.Cryptography.Pkcs",
+                  "metadata": {
+                    "Version": "10.0.13"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
             }
           ],
           "framework_references": [
@@ -10226,6 +10285,22 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
+            },
+            {
+              "id": "System.Security.Cryptography.Pkcs",
+              "origin": "src/Transports/MessageTransit.SqlTransport.SqlServer/MessageTransit.SqlTransport.SqlServer.csproj",
+              "kind": "direct",
+              "version": "10.0.13",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "System.Security.Cryptography.Pkcs",
+                  "metadata": {
+                    "Version": "10.0.13"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
             }
           ],
           "framework_references": [
@@ -12900,6 +12975,22 @@
                   "id": "OpenTelemetry.Exporter.OpenTelemetryProtocol",
                   "metadata": {
                     "Version": "1.9.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "System.Security.Cryptography.Pkcs",
+              "origin": "tests/MessageTransit.Benchmark/MessageTransit.Benchmark.csproj",
+              "kind": "direct",
+              "version": "10.0.13",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "System.Security.Cryptography.Pkcs",
+                  "metadata": {
+                    "Version": "10.0.13"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -15883,6 +15974,22 @@
                   "origin": "Directory.Packages.props"
                 }
               ]
+            },
+            {
+              "id": "System.Security.Cryptography.Pkcs",
+              "origin": "tests/MessageTransit.NHibernateIntegration.Tests/MessageTransit.NHibernateIntegration.Tests.csproj",
+              "kind": "direct",
+              "version": "10.0.13",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "System.Security.Cryptography.Pkcs",
+                  "metadata": {
+                    "Version": "10.0.13"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
             }
           ],
           "framework_references": [
@@ -16885,13 +16992,13 @@
               "id": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
               "origin": "tests/MessageTransit.SignalR.Tests/MessageTransit.SignalR.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.13",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.13"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -17541,6 +17648,22 @@
               ]
             },
             {
+              "id": "System.Security.Cryptography.Pkcs",
+              "origin": "tests/MessageTransit.Testing.Containers/MessageTransit.Testing.Containers.csproj",
+              "kind": "direct",
+              "version": "10.0.13",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "System.Security.Cryptography.Pkcs",
+                  "metadata": {
+                    "Version": "10.0.13"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
               "id": "Testcontainers.Azurite",
               "origin": "tests/MessageTransit.Testing.Containers/MessageTransit.Testing.Containers.csproj",
               "kind": "direct",
@@ -18084,6 +18207,22 @@
                   "id": "OpenTelemetry.Extensions.Hosting",
                   "metadata": {
                     "Version": "1.12.0"
+                  },
+                  "origin": "Directory.Packages.props"
+                }
+              ]
+            },
+            {
+              "id": "System.Security.Cryptography.Pkcs",
+              "origin": "tests/MessageTransit.Tests/MessageTransit.Tests.csproj",
+              "kind": "direct",
+              "version": "10.0.13",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "System.Security.Cryptography.Pkcs",
+                  "metadata": {
+                    "Version": "10.0.13"
                   },
                   "origin": "Directory.Packages.props"
                 }
