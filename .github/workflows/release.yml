@@ -3,17 +3,21 @@ on:
   push:
     branches:
       - master
+  # each pull request into master publishes a preview of the stable version its merge would release
+  pull_request:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       channel:
-        description: Preview by default; stable explicitly promotes a preview or creates a stable release.
+        description: Stable by default, like a merge to master; preview publishes a numbered preview series.
         type: choice
         options:
-          - preview
           - stable
-        default: preview
+          - preview
+        default: stable
       bump:
-        description: auto continues a preview series or uses Conventional Commits after a stable release.
+        description: auto uses Conventional Commits since the latest release.
         type: choice
         options:
           - auto
@@ -70,11 +74,13 @@ jobs:
         id: version
         env:
           BUMP: ${{ inputs.bump || 'auto' }}
-          CHANNEL: ${{ inputs.channel || 'preview' }}
+          CHANNEL: ${{ inputs.channel || 'stable' }}
           EXPLICIT_VERSION: ${{ inputs.version }}
+          PREVIEW_NUMBER: ${{ github.event_name == 'pull_request' && github.run_number || '' }}
         run: |
           args=(--bump "$BUMP" --channel "$CHANNEL")
           if [ -n "$EXPLICIT_VERSION" ]; then args+=(--version "$EXPLICIT_VERSION"); fi
+          if [ -n "$PREVIEW_NUMBER" ]; then args+=(--preview-number "$PREVIEW_NUMBER"); fi
           python3 scripts/release_version.py "${args[@]}"
 
       - name: Install .NET 10 SDK
@@ -157,10 +163,11 @@ jobs:
             exit 1
           fi
 
+  # Pull requests already run the build and integration workflows on their own.
   full-ci:
     name: Complete source CI
     needs: candidate
-    if: needs.candidate.outputs.release == 'true'
+    if: needs.candidate.outputs.release == 'true' && github.event_name != 'pull_request'
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ needs.candidate.outputs.commit }}
@@ -168,10 +175,53 @@ jobs:
   integration:
     name: Integration suites
     needs: candidate
-    if: needs.candidate.outputs.release == 'true'
+    if: needs.candidate.outputs.release == 'true' && github.event_name != 'pull_request'
     uses: ./.github/workflows/integration.yml
     with:
       ref: ${{ needs.candidate.outputs.commit }}
+
+  # Previews go to the repository's GitHub Packages feed; NuGet.org versions are permanent and reserved for merges.
+  preview:
+    name: Publish pull request preview
+    needs: candidate
+    if: needs.candidate.outputs.release == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: preview-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out release tooling
+        uses: actions/checkout@v5
+
+      - name: Download the inspected candidate
+        uses: actions/download-artifact@v4
+        with:
+          name: release-candidate
+          path: artifacts
+
+      - name: Verify candidate files
+        run: python3 scripts/release_publish.py verify --manifest artifacts/candidate.json
+
+      - name: Install .NET 10 SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Push the approved packages to GitHub Packages
+        env:
+          GH_PACKAGES_TOKEN: ${{ github.token }}
+          FEED: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+          VERSION: ${{ needs.candidate.outputs.version }}
+        run: |
+          python3 -c 'import json; print("\n".join(entry["file"] for entry in json.load(open("artifacts/candidate.json"))["packages"]))' |
+            while read -r file; do
+              dotnet nuget push "artifacts/packages/$file" --source "$FEED" --api-key "$GH_PACKAGES_TOKEN"
+            done
+          echo "Published preview \`$VERSION\` to [GitHub Packages](https://github.com/$GITHUB_REPOSITORY/packages)." >> "$GITHUB_STEP_SUMMARY"
 
   publish:
     name: Publish to NuGet.org

@@ -69,6 +69,17 @@ class VersionTests(unittest.TestCase):
         mod = load()
         self.assertEqual(mod.choose_version(['v8.5.10', '1.0.0-preview.9', '1.0.0-preview.10'], ['fix: repair']), ('1.0.0-preview.11', True))
 
+    def test_pull_request_previews_the_stable_version_of_its_merge(self):
+        mod = load()
+        stable, release = mod.choose_version([], ['fix: initial'], channel='stable')
+        self.assertEqual((stable, release), ('1.0.0', True))
+        self.assertEqual(mod.pull_request_preview(stable, 42), '1.0.0-preview.42')
+        stable, _ = mod.choose_version(['1.0.0'], ['feat: new'], channel='stable')
+        self.assertEqual(mod.pull_request_preview(stable, 43), '1.1.0-preview.43')
+        for version, number in (('1.0.0-preview.1', 1), ('1.0.0', 0)):
+            with self.subTest(version=version, number=number), self.assertRaises(ValueError):
+                mod.pull_request_preview(version, number)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,18 +1,29 @@
 # Releasing MessageTransit
 
-The [release workflow](../.github/workflows/release.yml) builds and inspects candidate packages from `master`. Publishing requires successful build, unit and integration checks for the candidate commit, followed by approval in the protected `nuget-org` environment. Development merges target `develop`; a separate pull request promotes release-ready changes to `master`. Ordinary branch and pull request builds do not publish packages.
+The [release workflow](../.github/workflows/release.yml) builds and inspects candidate packages from `master`. Publishing requires successful build, unit and integration checks for the candidate commit, followed by approval in the protected `nuget-org` environment. Development merges target `develop`; a separate pull request promotes release-ready changes to `master`. Every merge to `master` publishes a new stable version, and every push to a pull request into `master` publishes a preview of that version to GitHub Packages. Other branch and pull request builds do not publish packages.
 
 ## Versions
 
-All packages in a release share one [semantic version](https://semver.org/). The first public candidate is **`1.0.0-preview.1`**. Preview is the default release channel; a stable release requires an explicit selection. Builds without an explicit version produce `1.0.0-dev` packages for local use.
+All packages in a release share one [semantic version](https://semver.org/). Versions are calculated, never edited by hand. Stable is the default release channel, so the first merge to `master` publishes **`1.0.0`**. Builds without an explicit version produce `1.0.0-dev` packages for local use.
 
 The release calculator uses the fork's `messagetransit-v<version>` tags, including versions reserved by unfinished publications. Upstream `v*` tags do not affect fork versions. Conventional Commits merged since the latest stable release set the minimum base version: a breaking change (`!` or a `BREAKING CHANGE:` footer) requires a major increment, `feat:` a minor one, and anything else a patch. With the default `auto` bump, a preview series advances its preview number while its base version covers those changes, and otherwise starts a new series at the required base version. Selecting `stable` promotes the series to its base version. An explicit `bump` starts a new base version. The optional `version` input selects an exact higher version and must match the chosen channel. The newest `Release-As:` footer selects a base version on either channel, for example `Release-As: 2.0.0` produces `2.0.0-preview.1` on the preview channel; a footer that is not higher than the latest release is ignored with a warning. Run the calculator locally to inspect the next candidate:
 
 ```sh
-python3 scripts/release_version.py --channel preview
+python3 scripts/release_version.py
 ```
 
-Selecting the stable channel or supplying an explicit version is a release decision, and still requires all validation and publication approvals. NuGet package versions are permanent: an uploaded version cannot be replaced. A reserved version belongs to one approved candidate even if publication fails partway through.
+A manual run can still select the preview channel to publish a numbered `X.Y.Z-preview.N` series to NuGet.org. Supplying an explicit version or bump is a release decision, and still requires all validation and publication approvals. NuGet package versions are permanent: an uploaded version cannot be replaced. A reserved version belongs to one approved candidate even if publication fails partway through.
+
+## Pull request previews
+
+Each push to a pull request into `master` builds, packs and inspects the packages, including the clean package consumers, and publishes them as `X.Y.Z-preview.N`. `X.Y.Z` is the stable version that merging the pull request would publish, and `N` is the release workflow's run number, so later previews sort higher. Previews are published to the repository's [GitHub Packages feed](https://github.com/JacobChwastek/MessageTransit/packages) without an approval step, not to NuGet.org, where every version is permanent. They do not reserve a release tag or create a GitHub release. Pull requests from forks build and inspect their candidate but do not publish it. The build and integration workflows run on the pull request separately.
+
+To install a preview, add the feed with a GitHub token that has the `read:packages` scope:
+
+```sh
+dotnet nuget add source https://nuget.pkg.github.com/JacobChwastek/index.json --name messagetransit-previews \
+  --username <github-user> --password <token> --store-password-in-clear-text
+```
 
 ## Package set and checks
 
@@ -45,7 +56,7 @@ Before approving a release:
 
 ## Candidate review and publication
 
-1. Merge the intended changes into `master` through a pull request, or run a manual dry run to inspect a candidate first.
+1. Merge the intended changes into `master` through a pull request. Its previews and a manual dry run let you inspect a candidate first.
 2. The workflow calculates a version, builds and packs the libraries, inspects the packages and runs the package consumers. The full source build and integration workflows must pass for the same commit.
 3. Review the retained `release-candidate` artifact and workflow summaries. The artifact contains the packages, inspection report, `approved.txt` and `candidate.json`. The candidate manifest binds the version and source commit to the approved package filenames, archive hashes and payload hashes.
 4. Approve the `nuget-org` deployment for that exact candidate. The publisher checks the files again and reserves the version with an annotated tag before uploading the first package.
