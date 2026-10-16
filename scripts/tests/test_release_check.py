@@ -38,11 +38,12 @@ class PackageChecks(unittest.TestCase):
         self.addCleanup(self.directory.cleanup)
         self.path = Path(self.directory.name) / "MessageTransit.1.0.0-dev.1.nupkg"
 
-    def package(self, dependencies="", asset="lib/net10.0/MessageTransit.dll", contents=None):
+    def package(self, dependencies="", asset="lib/net10.0/MessageTransit.dll", contents=None,
+                repository=f'url="{check.PROJECT_URL}" commit="abc"'):
         xml = f'''<package><metadata><id>MessageTransit</id><version>1.0.0-dev.1</version>
 <authors>Jacob Chwastek</authors><license type="expression">Apache-2.0</license>
 <projectUrl>{check.PROJECT_URL}</projectUrl><readme>NuGet.README.md</readme>
-<repository url="{check.REPOSITORY_URL}" commit="abc"/>{dependencies}</metadata></package>'''
+<repository type="git" {repository}/>{dependencies}</metadata></package>'''
         with zipfile.ZipFile(self.path, "w") as archive:
             archive.writestr("MessageTransit.nuspec", xml)
             for name in check.REQUIRED_FILES:
@@ -51,6 +52,22 @@ class PackageChecks(unittest.TestCase):
         failures = []
         result = check.inspect_package(self.path, "1.0.0-dev.1", "abc", ["MessageTransit", "MessageTransit.Abstractions"], failures)
         return result, failures
+
+    def test_repository_url_with_or_without_git_suffix_passes(self):
+        for url in (check.PROJECT_URL, check.PROJECT_URL + ".git"):
+            with self.subTest(url=url):
+                _, failures = self.package(repository=f'url="{url}" commit="abc"')
+                self.assertFalse(any("repository is" in failure for failure in failures), failures)
+
+    def test_other_repository_or_commit_is_rejected(self):
+        for repository in ('url="https://github.com/MassTransit/MassTransit.git" commit="abc"',
+                           'url="https://github.com/JacobChwastek/MessageTransit.git/" commit="abc"',
+                           'url="https://github.com/JacobChwastek/MessageTransit-Other" commit="abc"',
+                           f'url="{check.PROJECT_URL}" commit="def"',
+                           f'url="{check.PROJECT_URL}"'):
+            with self.subTest(repository=repository):
+                _, failures = self.package(repository=repository)
+                self.assertTrue(any("repository is" in failure for failure in failures), failures)
 
     def test_missing_transitive_dependency_is_rejected(self):
         _, failures = self.package()
