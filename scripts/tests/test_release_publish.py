@@ -255,5 +255,97 @@ class BackendTests(unittest.TestCase):
                 mod.validate_recovery_run(bad, 'JacobChwastek/MessageTransit', mod.verify_candidate(path))
 
 
+
+class PreviewBackendTests(unittest.TestCase):
+    setUp = PublicationTests.setUp
+
+    def preview(self, version='1.0.0-preview.7'):
+        mod = load()
+        names = [f'{name}.{version}.nupkg' for name in ('MessageTransit', 'MessageTransit.Abstractions')]
+        for name in names:
+            (self.root / 'packages' / name).write_bytes(package(b'preview build'))
+        for stale in self.names:
+            (self.root / 'packages' / stale).unlink()
+        (self.root / 'approved.txt').write_text('\n'.join(names) + '\n')
+        path = self.root / 'candidate.json'
+        mod.prepare_candidate(version, COMMIT_A, self.root / 'packages', self.root / 'approved.txt', path, self.root / 'report.md')
+        backend = mod.PreviewBackend('JacobChwastek/MessageTransit', 'token-not-for-output', 'github-actions', 'github-previews',
+                                     wait_seconds=0, poll_seconds=0)
+        feed, pushes, requests = {}, [], []
+        backend.fail_on = None
+        base = 'https://nuget.pkg.github.com/JacobChwastek/download/'
+
+        def get(url):
+            requests.append(url)
+            if url == backend.index_url:
+                return json.dumps({'resources': [{'@id': base, '@type': 'PackageBaseAddress/3.0.0'}]}).encode()
+            if url not in feed:
+                raise mod.urllib.error.HTTPError(url, 404, 'Not Found', None, None)
+            return feed[url]
+
+        def run(*args, check=True):
+            pushed = Path(args[3])
+            pushes.append(pushed.name)
+            self.assertEqual(args[args.index('--source') + 1], 'github-previews')
+            if pushed.name == backend.fail_on:
+                return SimpleNamespace(returncode=1, stdout='Response status code 500', stderr='')
+            package_id = pushed.name.removesuffix(f'.{version}.nupkg').lower()
+            feed[f'{base}{package_id}/{version}/{package_id}.{version}.nupkg'] = pushed.read_bytes()
+            return SimpleNamespace(returncode=0, stdout='', stderr='')
+
+        backend.get, backend.run = get, run
+        return mod, path, names, backend, feed, pushes
+
+    def test_retry_after_partial_preview_upload_skips_verified_packages_and_pushes_the_rest(self):
+        mod, path, names, backend, feed, pushes = self.preview()
+        backend.fail_on = names[1]
+        with self.assertRaises(RuntimeError) as caught:
+            mod.publish_candidate(path, backend)
+        self.assertNotIn('token-not-for-output', str(caught.exception))
+        self.assertEqual(pushes, [names[0], names[1]])
+        self.assertEqual(len(feed), 1)
+        backend.fail_on = None
+        pushes.clear()
+        mod.publish_candidate(path, backend)
+        self.assertEqual(pushes, [names[1]])
+        self.assertEqual(len(feed), 2)
+
+    def test_preview_with_different_contents_on_the_feed_is_rejected(self):
+        mod, path, names, backend, feed, pushes = self.preview()
+        mod.publish_candidate(path, backend)
+        for url in feed:
+            feed[url] = package(b'another build')
+        pushes.clear()
+        with self.assertRaisesRegex(ValueError, 'conflicts'):
+            mod.publish_candidate(path, backend)
+        self.assertEqual(pushes, [])
+
+    def test_preview_backend_authenticates_and_rejects_stable_versions(self):
+        mod = load()
+        backend = mod.PreviewBackend('JacobChwastek/MessageTransit', 'token', 'github-actions', 'github-previews')
+        sent = []
+
+        class Response(io.BytesIO):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+        def urlopen(request, timeout):
+            sent.append(request.get_header('Authorization'))
+            return Response(b'{}')
+
+        original = mod.urllib.request.urlopen
+        mod.urllib.request.urlopen = urlopen
+        try:
+            backend.get(backend.index_url)
+        finally:
+            mod.urllib.request.urlopen = original
+        self.assertEqual(sent, ['Basic ' + mod.base64.b64encode(b'github-actions:token').decode()])
+        with self.assertRaisesRegex(ValueError, 'preview'):
+            backend.reserve({'version': '1.0.0'})
+
+
 if __name__ == '__main__':
     unittest.main()

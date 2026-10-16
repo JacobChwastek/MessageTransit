@@ -211,16 +211,23 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Push the approved packages to GitHub Packages
+      # NuGet reads the feed's index.json before uploading, and GitHub Packages requires credentials for it.
+      - name: Authenticate the GitHub Packages source
         env:
           GH_PACKAGES_TOKEN: ${{ github.token }}
           FEED: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        run: |
+          dotnet nuget add source "$FEED" --name github-previews --username "$GITHUB_ACTOR" \
+            --password "$GH_PACKAGES_TOKEN" --store-password-in-clear-text
+
+      # A rerun keeps the run number and so the version; packages already uploaded from this candidate are verified and skipped.
+      - name: Push the approved packages to GitHub Packages
+        env:
+          GH_PACKAGES_TOKEN: ${{ github.token }}
           VERSION: ${{ needs.candidate.outputs.version }}
         run: |
-          python3 -c 'import json; print("\n".join(entry["file"] for entry in json.load(open("artifacts/candidate.json"))["packages"]))' |
-            while read -r file; do
-              dotnet nuget push "artifacts/packages/$file" --source "$FEED" --api-key "$GH_PACKAGES_TOKEN"
-            done
+          python3 scripts/release_publish.py preview --manifest artifacts/candidate.json --repository "$GITHUB_REPOSITORY" \
+            --source github-previews --user "$GITHUB_ACTOR" --api-key-env GH_PACKAGES_TOKEN
           echo "Published preview \`$VERSION\` to [GitHub Packages](https://github.com/$GITHUB_REPOSITORY/packages)." >> "$GITHUB_STEP_SUMMARY"
 
   publish:
