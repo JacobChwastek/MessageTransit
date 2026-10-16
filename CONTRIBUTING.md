@@ -1,6 +1,6 @@
 # Contributing to MessageTransit
 
-MessageTransit accepts pull requests from forks of [JacobChwastek/MessageTransit](https://github.com/JacobChwastek/MessageTransit). GitHub Issues and Discussions are currently disabled; see [SUPPORT.md](SUPPORT.md) for contact availability. Reviews are best effort, and there is no guaranteed response time.
+MessageTransit accepts pull requests from forks of [JacobChwastek/MessageTransit](https://github.com/JacobChwastek/MessageTransit). Report bugs through GitHub Issues as [SUPPORT.md](SUPPORT.md) describes; Discussions are disabled. Reviews are best effort, and there is no guaranteed response time.
 
 Do not describe a suspected vulnerability in a pull request or any other public place. Follow the [security policy](SECURITY.md) instead.
 

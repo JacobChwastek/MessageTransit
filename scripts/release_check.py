@@ -45,7 +45,7 @@ BUILD_ERROR = re.compile(r"\berror [A-Z]+[0-9]+\b")
 AUDIT_ERROR = re.compile(r"\berror NU190[0-9]\b")
 AUDIT_CODE = re.compile(r"\bNU190[0-9]\b")
 # only these files may set the shared NuGet audit properties
-AUDIT_SETTINGS_FILES = {"Directory.Build.props", "scripts/release_symbols/Directory.Build.props"}
+AUDIT_SETTINGS_FILES = {"NuGetAudit.props"}
 AUDIT_PROPERTIES = {"NuGetAudit", "NuGetAuditMode", "NuGetAuditLevel"}
 UPSTREAM_NAMES = [name.encode(encoding) for name in ("masstransit", "MassTransit", "MASSTRANSIT", "massTransit") for encoding in ("utf-8", "utf-16-le")]
 
@@ -276,11 +276,20 @@ def audit_policy(failures, today=None):
     """Accept advisories only through NuGetAuditSuppress items with a reason and a current review date, and keep
     projects from weakening the shared audit settings. Returns the suppressions with whether each is accepted."""
     today = today or datetime.date.today()
-    tracked = subprocess.run(["git", "ls-files", "*.props", "*.targets", "*.csproj"], cwd=ROOT, check=True,
-                             text=True, stdout=subprocess.PIPE).stdout.split()
+    try:
+        tracked = subprocess.run(["git", "ls-files", "*.props", "*.targets", "*.csproj"], cwd=ROOT, check=True,
+                                 text=True, stdout=subprocess.PIPE).stdout.split()
+    except (OSError, subprocess.CalledProcessError) as error:
+        failures.append(f"NuGet audit policy: cannot list project files with git: {error}")
+        return []
     suppressions = []
     for name in tracked:
-        for element in ET.parse(ROOT / name).iter():
+        try:
+            elements = list(ET.parse(ROOT / name).iter())
+        except (ET.ParseError, OSError) as error:
+            failures.append(f"{name}: cannot check the NuGet audit policy: {error}")
+            continue
+        for element in elements:
             tag = local_name(element)
             values = [(tag, element.text or "")] + list(element.attrib.items())
             for key, value in values:
@@ -288,7 +297,7 @@ def audit_policy(failures, today=None):
                     failures.append(f"{name}: {key} hides NuGet audit warnings; accept an advisory with NuGetAuditSuppress instead")
             if name not in AUDIT_SETTINGS_FILES:
                 if tag in AUDIT_PROPERTIES:
-                    failures.append(f"{name}: sets {tag}; NuGet audit settings belong in Directory.Build.props")
+                    failures.append(f"{name}: sets {tag}; NuGet audit settings belong in NuGetAudit.props")
                 elif tag == "WarningsAsErrors" and "$(WarningsAsErrors)" not in (element.text or ""):
                     failures.append(f"{name}: replaces WarningsAsErrors instead of extending $(WarningsAsErrors)")
             if tag != "NuGetAuditSuppress" or "Include" not in element.attrib:
