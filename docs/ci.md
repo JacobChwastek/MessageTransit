@@ -10,7 +10,7 @@ The build and integration workflows divide the source suites; the release workfl
 | --- | --- | --- |
 | [build.yml](../.github/workflows/build.yml) | Build on Linux and Windows, `*.Tests` projects, and the suites that still use workflow service containers (Dapper, Marten, DynamoDB) | Every push and every pull request touching build inputs, and each release |
 | [integration.yml](../.github/workflows/integration.yml) | Every `tests/*.IntegrationTests` project except Cosmos DB, plus the Redis suite against Valkey, one matrix leg each | Pull requests into `master`, nightly on the default branch, and each release |
-| [release.yml](../.github/workflows/release.yml) | The full build and integration workflows, inspected packages, and isolated package consumers; publishing waits for approval | Every push to `master`; a manual run is a dry run unless it publishes from `master` |
+| [release.yml](../.github/workflows/release.yml) | The full build and integration workflows, inspected packages, and isolated package consumers; publishing waits for approval | Every push to `master`, and pull requests into `master`, which publish previews to GitHub Packages; a manual run is a dry run unless it publishes from `master` |
 
 `integration.yml` discovers its suites from the `*.IntegrationTests` directories, so a new container-based suite needs no workflow change. Its `Integration` job passes only when every leg passes and is the check to require on `master`. Ordinary branch and pull request runs cancel superseded runs. Release calls use their own concurrency groups so unrelated validation cannot cancel the candidate's checks.
 
@@ -76,7 +76,7 @@ Do not hide audit warnings with `NoWarn` or `WarningsNotAsErrors`, and do not ch
 
 ## Releases
 
-Only the release workflow publishes packages, and only from `master` after a maintainer approves the inspected candidates. Each push to `master` calculates a preview version. Stable publication requires an explicit channel selection. Recovery reuses a retained candidate artifact and checks its original commit; it cannot substitute newly built files under a reserved version. The [release process](releasing.md) describes the setup, the checks, and the steps.
+Only the release workflow publishes packages. NuGet.org publication happens only from `master` after a maintainer approves the inspected candidates. Each push to `master` calculates the next stable version. Each push to a pull request into `master` publishes a preview of that version to GitHub Packages, never to NuGet.org. Recovery reuses a retained candidate artifact and checks its original commit; it cannot substitute newly built files under a reserved version. The [release process](releasing.md) describes the setup, the checks, and the steps.
 
 ## Manual transport validation
 

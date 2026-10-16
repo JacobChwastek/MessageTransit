@@ -8,7 +8,7 @@ This is an independently maintained fork of [MassTransit v8.5.10](https://github
 
 Runtime libraries require **.NET 10**. Build source with a **.NET 10 SDK** compatible with the repository's `global.json`. `MessageTransit.Analyzers` targets **.NET Standard 2.0** as compiler tooling; runtime libraries still require .NET 10.
 
-The following 32 package IDs correspond to retained source projects; not every ID is published. Releases are previews numbered `X.Y.Z-preview.N`, beginning with `1.0.0-preview.1`, and none is designated as supported; a stable release requires an explicit release decision. Each [GitHub release](https://github.com/JacobChwastek/MessageTransit/releases) lists the packages it published, the checks and package-consumer scenarios that passed, and the packages held back. Reference every MessageTransit package at the same version.
+The following 32 package IDs correspond to retained source projects; not every ID is published. Releases are stable versions, beginning with `1.0.0`. Each [GitHub release](https://github.com/JacobChwastek/MessageTransit/releases) lists the packages it published, the checks and package-consumer scenarios that passed, and the packages held back. Reference every MessageTransit package at the same version.
 
 ## Package family
 

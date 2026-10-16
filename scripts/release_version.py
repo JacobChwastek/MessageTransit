@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Select fork release versions; preview is the default and stable promotion is explicit."""
+"""Select fork release versions: master publishes stable versions and pull requests into master publish previews of them."""
 
 import argparse
 import os
@@ -106,6 +106,14 @@ def choose_version(versions, messages, channel='preview', bump='auto', explicit=
     return format_version(core, 'preview', preview + 1), True
 
 
+def pull_request_preview(stable, number):
+    """A pull request build previews the stable version its merge would publish, numbered by the workflow run."""
+    major, minor, patch, preview = parse_version(stable)
+    if preview is not None or number < 1:
+        raise ValueError('A pull request preview needs a stable base version and a positive build number')
+    return format_version((major, minor, patch), 'preview', number)
+
+
 def git(*arguments):
     return subprocess.check_output(['git', *arguments], cwd=ROOT, text=True).strip()
 
@@ -117,15 +125,20 @@ def messages_since(version):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--channel', choices=('preview', 'stable'), default='preview')
+    parser.add_argument('--channel', choices=('preview', 'stable'), default='stable')
     parser.add_argument('--bump', choices=('auto', 'patch', 'minor', 'major'), default='auto')
     parser.add_argument('--version', help='Explicit version matching the selected channel')
+    parser.add_argument('--preview-number', type=int, help='Pull request build number; previews the stable version the merge would publish')
     args = parser.parse_args()
+    if args.preview_number is not None and (args.channel != 'stable' or args.version):
+        raise ValueError('A pull request preview is calculated from the stable channel without an explicit version')
     tags = git('tag', '--merged', 'HEAD', '--list', f'{TAG_PREFIX}*').split()
     versions = [tag.removeprefix(TAG_PREFIX) for tag in tags]
     stable = latest_stable(versions)
     version, release = choose_version(versions, messages_since(latest_version(versions)), args.channel, args.bump, args.version,
                                       messages_since(stable) if stable else None)
+    if release and args.preview_number is not None:
+        version = pull_request_preview(version, args.preview_number)
     commit = git('rev-parse', 'HEAD')
     print(f'{version} ({"candidate" if release else "nothing to release"})')
     if 'GITHUB_OUTPUT' in os.environ:
