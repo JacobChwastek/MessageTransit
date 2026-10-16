@@ -18,6 +18,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" />
+    <!-- Microsoft.Data.SqlClient accepts System.Security.Cryptography.Pkcs 9.0.11, which has a high severity advisory -->
+    <PackageReference Include="System.Security.Cryptography.Pkcs" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
