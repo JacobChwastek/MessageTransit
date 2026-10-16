@@ -34,13 +34,28 @@ class WorkflowTests(unittest.TestCase):
                 self.assertEqual(checkouts, workflow.count('ref: ${{ inputs.ref || github.sha }}'))
                 self.assertIn("inputs.ref && github.run_id || 'branch'", workflow)
 
-    def test_recovery_downloads_original_run_artifact_and_preview_is_default(self):
+    def test_recovery_downloads_original_run_artifact_and_stable_is_default(self):
         release = (ROOT / '.github/workflows/release.yml').read_text()
-        self.assertIn('default: preview', release)
+        self.assertIn('default: stable', release)
+        self.assertIn("CHANNEL: ${{ inputs.channel || 'stable' }}", release)
         self.assertIn('run-id: ${{ inputs.candidate_run }}', release)
         self.assertIn('name: release-candidate\n', release)
         self.assertIn('scripts/release_publish.py verify', release)
         self.assertIn('scripts/release_publish.py prepare', release)
+
+    def test_pull_requests_publish_previews_only_to_github_packages(self):
+        release = (ROOT / '.github/workflows/release.yml').read_text()
+        self.assertIn('  pull_request:\n    branches:\n      - master\n', release)
+        self.assertIn("github.event_name == 'pull_request' && github.run_number || ''", release)
+        preview = release[release.index('\n  preview:\n'):release.index('\n  publish:\n')]
+        self.assertIn('github.event.pull_request.head.repo.full_name == github.repository', preview)
+        self.assertIn('https://nuget.pkg.github.com/', preview)
+        self.assertIn('packages: write', preview)
+        self.assertNotIn('id-token', preview)
+        self.assertNotIn('environment:', preview)
+        self.assertNotIn('nuget.org', preview.lower().replace('publish to nuget.org', ''))
+        publish = release[release.index('\n  publish:\n'):]
+        self.assertIn("github.ref == 'refs/heads/master'", publish)
 
 
 class NuGetAuditTests(unittest.TestCase):

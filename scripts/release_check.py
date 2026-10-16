@@ -496,7 +496,7 @@ def main():
     version = commands.add_parser("version", help="Calculate the next release version from tags and Conventional Commits")
     version.add_argument("--bump", choices=("auto", "patch", "minor", "major"), default="auto",
                          help="Override the bump derived from commit messages")
-    version.add_argument("--channel", choices=("preview", "stable"), default="preview")
+    version.add_argument("--channel", choices=("preview", "stable"), default="stable")
     version.add_argument("--version", help="Explicit version matching the selected channel")
     version.set_defaults(handler=resolve_version)
 

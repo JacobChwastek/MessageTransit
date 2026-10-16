@@ -18,11 +18,11 @@ spec.loader.exec_module(check)
 
 
 class VersionAliasChecks(unittest.TestCase):
-    def test_default_alias_uses_shared_preview_calculator(self):
+    def test_default_alias_uses_shared_stable_calculator(self):
         with patch.object(sys, "argv", ["release_check.py", "version"]), patch.object(check.subprocess, "run") as run:
             check.main()
         run.assert_called_once_with([sys.executable, str(check.ROOT / "scripts/release_version.py"),
-                                     "--channel", "preview", "--bump", "auto"], check=True)
+                                     "--channel", "stable", "--bump", "auto"], check=True)
 
     def test_alias_forwards_explicit_channel_version_and_bump(self):
         with patch.object(sys, "argv", ["release_check.py", "version", "--channel", "stable", "--bump", "minor",
