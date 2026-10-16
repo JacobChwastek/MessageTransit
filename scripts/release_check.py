@@ -24,7 +24,8 @@ SMOKE_SOURCES = ROOT / "scripts" / "release_smoke"
 SYMBOLS_TOOL = ROOT / "scripts" / "release_symbols" / "bin" / "Release" / "net10.0" / "ReleaseSymbols.dll"
 
 PROJECT_URL = "https://github.com/JacobChwastek/MessageTransit"
-REPOSITORY_URL = PROJECT_URL + ".git"
+# SourceLink records the clone URL, which may or may not end in .git; both name the same repository.
+REPOSITORY_URLS = (PROJECT_URL, PROJECT_URL + ".git")
 REQUIRED_AUTHOR = "Jacob Chwastek"
 LICENSES = {"Apache-2.0", "Apache-2.0 AND MIT"}
 REQUIRED_FILES = ("LICENSE", "NOTICE", "COPYRIGHT", "NuGet.README.md")
@@ -149,7 +150,7 @@ def inspect_package(path, version, commit, publish, failures):
         if text("readme") != "NuGet.README.md":
             problems.append(f"readme is '{text('readme')}'")
         repository = child(metadata, "repository")
-        if repository is None or repository.get("url") != REPOSITORY_URL or repository.get("commit") != commit:
+        if repository is None or repository.get("url") not in REPOSITORY_URLS or repository.get("commit") != commit:
             problems.append(f"repository is {None if repository is None else repository.attrib}")
 
         for required in REQUIRED_FILES + (("THIRD-PARTY-NOTICES",) if "MIT" in text("license") else ()):
