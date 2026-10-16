@@ -50,7 +50,7 @@
     ".github/workflows/build.yml": "e32f96ccd18ea65060f5c74a0d75e3b1297ab43de9b9438cc106702ecfcb0010",
     ".github/workflows/integration.yml": "7fdbc2def2fc7ed0cfdc00479a523d0fc60cd453b6d0009c02bc68b9acc21a77",
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
-    ".github/workflows/release.yml": "c84a8f502d425b0473ef28303b69b7e2274daedfbd1e06443c9950205abe3fa6",
+    ".github/workflows/release.yml": "b6ada9ddaa8e6c792357eb78c589656f6551633263cc36eb24fe7bbaca03e7c1",
     "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
     "Directory.Packages.props": "8e7fb89cc0e2f03c1706c0e36569b27f8710e236cf66f711dd033a8c980b2566",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
