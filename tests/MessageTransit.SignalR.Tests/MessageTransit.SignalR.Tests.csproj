@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" />
-    <!-- The SignalR protocol depends on MessagePack 2.5.302; 2.5.307 is the patched 2.x release -->
+    <!-- The SignalR protocol depends on MessagePack 2.5.303; 2.5.307 is the patched 2.x release -->
     <PackageReference Include="MessagePack" VersionOverride="2.5.307" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="NUnit" />
