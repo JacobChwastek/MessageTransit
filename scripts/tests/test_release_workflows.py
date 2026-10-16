@@ -85,6 +85,10 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('packages: write', preview)
         self.assertNotIn('id-token', preview)
         self.assertNotIn('environment:', preview)
+        self.assertLess(preview.index('dotnet nuget add source "$FEED" --name github-previews'), preview.index('release_publish.py preview'))
+        self.assertIn('--password "$GH_PACKAGES_TOKEN"', preview)
+        self.assertIn('--source github-previews', preview)
+        self.assertNotIn('dotnet nuget push', preview)
         self.assertNotIn('nuget.org', preview.lower().replace('publish to nuget.org', ''))
         publish = release[release.index('\n  publish:\n'):]
         self.assertIn("github.ref == 'refs/heads/master'", publish)

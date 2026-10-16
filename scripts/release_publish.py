@@ -2,6 +2,7 @@
 """Bind inspected packages to a reserved version and safely resume partial publication."""
 
 import argparse
+import base64
 import hashlib
 import io
 import json
@@ -139,6 +140,9 @@ def publish_candidate(path, backend):
 
 
 class Backend:
+    source = 'https://api.nuget.org/v3/index.json'
+    feed_name = 'NuGet.org'
+
     def __init__(self, repository, api_key, nuget_user=None, run_url=None, wait_seconds=1200, poll_seconds=30):
         if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repository):
             raise ValueError('Invalid GitHub repository')
@@ -190,13 +194,13 @@ class Backend:
 
     def push_package(self, path):
         """Return False when the feed already has this version; the caller must then verify the remote payload."""
-        result = self.run('dotnet', 'nuget', 'push', str(path), '--api-key', self.api_key, '--source', 'https://api.nuget.org/v3/index.json', check=False)
+        result = self.run('dotnet', 'nuget', 'push', str(path), '--api-key', self.api_key, '--source', self.source, check=False)
         if result.returncode:
             # Avoid exposing the command line or API key through CalledProcessError.
             if re.search(r'\b409\b', f'{result.stdout or ""}{result.stderr or ""}'):
                 print(f'Package already exists on the feed: {path.name}')
                 return False
-            raise RuntimeError(f'Package upload failed for {path.name}; resume the original candidate artifact after checking NuGet status')
+            raise RuntimeError(f'Package upload failed for {path.name}; resume the original candidate artifact after checking {self.feed_name} status')
         print(f'Submitted package: {path.name}')
         return True
 
@@ -207,7 +211,7 @@ class Backend:
             if existing is not None:
                 return existing
             if time.monotonic() >= deadline:
-                raise RuntimeError(f"{entry['file']} exists on NuGet.org but is not downloadable yet; resume the original candidate artifact later")
+                raise RuntimeError(f"{entry['file']} exists on {self.feed_name} but is not downloadable yet; resume the original candidate artifact later")
             time.sleep(self.poll_seconds)
 
     def finalize(self, manifest, manifest_path):
@@ -227,6 +231,50 @@ class Backend:
             self.run('gh', 'release', 'upload', tag, *assets, '--repo', self.repository, '--clobber')
             self.run('gh', 'release', 'edit', tag, '--repo', self.repository, '--notes-file', notes.name, '--draft=false', f"--prerelease={str('-preview.' in manifest['version']).lower()}")
         print(f'Recorded release {tag}')
+
+
+class PreviewBackend(Backend):
+    """Publish pull request previews to the repository owner's GitHub Packages feed; previews reserve no tag and record no release."""
+    feed_name = 'GitHub Packages'
+
+    def __init__(self, repository, api_key, user, source, wait_seconds=600, poll_seconds=15):
+        super().__init__(repository, api_key, wait_seconds=wait_seconds, poll_seconds=poll_seconds)
+        if not user:
+            raise ValueError('GitHub Packages requires a user name for the feed credentials')
+        self.user = user
+        # the push uses this configured source name, which carries the feed credentials
+        self.source = source
+        self.index_url = f"https://nuget.pkg.github.com/{repository.split('/')[0]}/index.json"
+        self.base_address = None
+
+    def get(self, url):
+        token = base64.b64encode(f'{self.user}:{self.api_key}'.encode()).decode()
+        request = urllib.request.Request(url, headers={'Authorization': f'Basic {token}'})
+        with urllib.request.urlopen(request, timeout=60) as response:
+            return response.read()
+
+    def reserve(self, manifest):
+        if '-preview.' not in manifest['version']:
+            raise ValueError('Only preview versions are published to GitHub Packages')
+
+    def fetch_package(self, entry, version):
+        if self.base_address is None:
+            resources = json.loads(self.get(self.index_url)).get('resources', [])
+            address = next((resource.get('@id') for resource in resources if str(resource.get('@type', '')).startswith('PackageBaseAddress/3.0.0')), None)
+            if not address:
+                raise ValueError('The GitHub Packages service index has no package download address')
+            self.base_address = address.rstrip('/') + '/'
+        package_id = entry['id'].lower()
+        version = version.lower()
+        try:
+            return self.get(f'{self.base_address}{package_id}/{version}/{package_id}.{version}.nupkg')
+        except urllib.error.HTTPError as error:
+            if error.code == 404:
+                return None
+            raise
+
+    def finalize(self, manifest, manifest_path):
+        print(f"Published preview {manifest['version']} to {self.feed_name}")
 
 
 def main():
@@ -249,6 +297,12 @@ def main():
     publish.add_argument('--repository', required=True)
     publish.add_argument('--api-key-env', default='NUGET_API_KEY')
     publish.add_argument('--nuget-user', help='NuGet.org account recorded as the publisher')
+    preview = commands.add_parser('preview', help='Publish a pull request preview to GitHub Packages, skipping packages already uploaded from this candidate')
+    preview.add_argument('--manifest', required=True, type=Path)
+    preview.add_argument('--repository', required=True)
+    preview.add_argument('--source', required=True, help='Configured NuGet source name that holds the feed credentials')
+    preview.add_argument('--user', required=True, help='User name for the feed credentials')
+    preview.add_argument('--api-key-env', default='GH_PACKAGES_TOKEN')
     args = parser.parse_args()
     if args.command == 'prepare':
         manifest = prepare_candidate(args.version, args.commit, args.packages, args.approved, args.output, args.report)
@@ -262,6 +316,12 @@ def main():
         if args.github_output:
             with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
                 output.write(f"version={manifest['version']}\ncommit={manifest['commit']}\nrelease=true\n")
+    elif args.command == 'preview':
+        key = os.environ.get(args.api_key_env)
+        if not key:
+            raise ValueError('GitHub Packages token is missing')
+        publish_candidate(args.manifest, PreviewBackend(args.repository, key, args.user, args.source))
+        return
     else:
         key = os.environ.get(args.api_key_env)
         if not key:
