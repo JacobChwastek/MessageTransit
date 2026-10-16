@@ -1,12 +1,30 @@
 import datetime
+import fnmatch
 import importlib.util
+import json
 from pathlib import Path
+import subprocess
 import unittest
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("release_check", ROOT / "scripts/release_check.py")
 check = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(check)
+
+
+def workflow_paths(workflow, event):
+    """Read the paths filter of one trigger event without a YAML parser."""
+    lines = workflow.splitlines()
+    paths, in_paths = [], False
+    for line in lines[lines.index(f'  {event}:') + 1:]:
+        if not line.startswith('    '):
+            break
+        if not line.startswith('     '):
+            in_paths = line.strip() == 'paths:'
+        elif in_paths and line.strip().startswith('- '):
+            paths.append(line.strip()[2:].strip("'"))
+    return paths
 
 
 class WorkflowTests(unittest.TestCase):
@@ -23,6 +41,20 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('python3 -B -m unittest discover -s scripts/tests', build)
         self.assertEqual(build.count("      - 'scripts/**'"), 2)
         self.assertEqual(build.count("      - 'release/**'"), 2)
+
+    def test_build_checks_the_dependency_inventory(self):
+        build = (ROOT / '.github/workflows/build.yml').read_text()
+        self.assertIn('run: python3 scripts/dependency_inventory.py --check', build)
+        self.assertLess(build.index('name: Run release regressions'), build.index('name: Check the dependency inventory'))
+
+    def test_inventory_inputs_trigger_build_checks(self):
+        build = (ROOT / '.github/workflows/build.yml').read_text()
+        inputs = json.loads((ROOT / 'docs/architecture/dependency-inventory.json').read_text())['input_sha256']
+        for event in ('push', 'pull_request'):
+            with self.subTest(event=event):
+                paths = workflow_paths(build, event)
+                self.assertIn('docs/architecture/dependency-inventory.json', paths)
+                self.assertEqual([], [name for name in inputs if not any(fnmatch.fnmatch(name, path) for path in paths)])
 
     def test_reusable_checks_take_explicit_candidate_commit(self):
         for name in ('build', 'integration'):
@@ -45,16 +77,27 @@ class WorkflowTests(unittest.TestCase):
 
 class NuGetAuditTests(unittest.TestCase):
     def test_every_project_fails_restore_on_high_and_critical_advisories(self):
-        for name in ('Directory.Build.props', 'scripts/release_symbols/Directory.Build.props'):
+        props = ET.parse(ROOT / 'NuGetAudit.props').getroot()
+        for name, value in (('NuGetAudit', 'true'), ('NuGetAuditMode', 'all'), ('NuGetAuditLevel', 'low'),
+                            ('WarningsAsErrors', '$(WarningsAsErrors);NU1903;NU1904')):
+            with self.subTest(property=name):
+                self.assertEqual(value, props.findtext(f'PropertyGroup/{name}'))
+        self.assertEqual({'NuGetAudit.props'}, check.AUDIT_SETTINGS_FILES)
+        # the two top-level props import the audit settings; every nested one must import a parent props
+        audit_imports = {'Directory.Build.props': 'NuGetAudit.props', 'scripts/release_symbols/Directory.Build.props': '../../NuGetAudit.props'}
+        tracked = subprocess.run(['git', 'ls-files', '*Directory.Build.props'], cwd=ROOT, check=True, text=True,
+                                 stdout=subprocess.PIPE).stdout.split()
+        self.assertLessEqual(set(audit_imports), set(tracked))
+        for name in tracked:
             with self.subTest(name=name):
-                props = (ROOT / name).read_text()
-                self.assertIn('<NuGetAudit>true</NuGetAudit>', props)
-                self.assertIn('<NuGetAuditMode>all</NuGetAuditMode>', props)
-                self.assertIn('<NuGetAuditLevel>low</NuGetAuditLevel>', props)
-                self.assertIn('<WarningsAsErrors>$(WarningsAsErrors);NU1903;NU1904</WarningsAsErrors>', props)
-        for name in ('src/Directory.Build.props', 'tests/Directory.Build.props'):
-            with self.subTest(name=name):
-                self.assertIn('<Import Project="..\\Directory.Build.props"/>', (ROOT / name).read_text())
+                props = ROOT / name
+                imports = [element.get('Project').replace('\\', '/') for element in ET.parse(props).getroot().iter('Import')]
+                if name in audit_imports:
+                    self.assertIn(audit_imports[name], imports)
+                else:
+                    parents = [(props.parent / path).resolve() for path in imports]
+                    self.assertTrue(any(parent.name == 'Directory.Build.props' and parent.is_file() and parent != props.resolve()
+                                        and props.parent.resolve().is_relative_to(parent.parent) for parent in parents), imports)
 
     def test_projects_follow_the_audit_policy(self):
         failures = []

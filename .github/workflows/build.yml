@@ -6,7 +6,9 @@ on:
       - 'tests/**'
       - 'MessageTransit.slnx'
       - 'Directory.Build.props'
+      - 'NuGetAudit.props'
       - 'Directory.Packages.props'
+      - 'signing.props'
       - 'global.json'
       - '.gitignore'
       - 'SECURITY.md'
@@ -22,6 +24,7 @@ on:
       - 'scripts/**'
       - 'release/**'
       - 'docs/ci.md'
+      - 'docs/architecture/dependency-inventory.json'
     branches:
       - '**'
   pull_request:
@@ -30,7 +33,9 @@ on:
       - 'tests/**'
       - 'MessageTransit.slnx'
       - 'Directory.Build.props'
+      - 'NuGetAudit.props'
       - 'Directory.Packages.props'
+      - 'signing.props'
       - 'global.json'
       - '.gitignore'
       - 'SECURITY.md'
@@ -46,6 +51,7 @@ on:
       - 'scripts/**'
       - 'release/**'
       - 'docs/ci.md'
+      - 'docs/architecture/dependency-inventory.json'
   workflow_dispatch:
   workflow_call:
     inputs:
@@ -77,6 +83,8 @@ jobs:
           dotnet-version: '10.0.x'
       - name: Run release regressions
         run: python3 -B -m unittest discover -s scripts/tests
+      - name: Check the dependency inventory
+        run: python3 scripts/dependency_inventory.py --check
 
   coverage:
     name: CI coverage and exclusions

@@ -47,15 +47,16 @@
     "errors": []
   },
   "input_sha256": {
-    ".github/workflows/build.yml": "63f8bb979cdc997f351af299c6f9fd6b3729571792659c4a25468006bafaa37e",
+    ".github/workflows/build.yml": "e32f96ccd18ea65060f5c74a0d75e3b1297ab43de9b9438cc106702ecfcb0010",
     ".github/workflows/integration.yml": "7fdbc2def2fc7ed0cfdc00479a523d0fc60cd453b6d0009c02bc68b9acc21a77",
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "0f2e384535bf9ada1a3344c9f510d4581d146ac5ece88b648f912cd00b041e2b",
-    "Directory.Build.props": "5f13accb203dc5de2dd7469244c16e26da713e6d6bf2fe5a7000317322d67b81",
+    "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
     "Directory.Packages.props": "8e7fb89cc0e2f03c1706c0e36569b27f8710e236cf66f711dd033a8c980b2566",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
+    "NuGetAudit.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
-    "scripts/release_symbols/Directory.Build.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
+    "scripts/release_symbols/Directory.Build.props": "14a30aa21a576f0add4336c34ca88569090533bf2ebcbda17bbe38100be0ca4a",
     "scripts/release_symbols/Directory.Packages.props": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
     "scripts/release_symbols/ReleaseSymbols.csproj": "727d0721f11212e08035cc59275b0226c0092f3ea92492d621c3d25879ef974f",
     "signing.props": "895b9ce7062f9db9404bfb3b53fe0a48109d169ad92e03e34c5e4e656183dba8",
@@ -148,6 +149,12 @@
         {
           "element": "LangVersion",
           "value": "12"
+        },
+        {
+          "element": "Import",
+          "attributes": {
+            "Project": "NuGetAudit.props"
+          }
         }
       ],
       "conditions": [
@@ -750,8 +757,19 @@
       ],
       "conditions": []
     },
-    "scripts/release_symbols/Directory.Build.props": {
+    "NuGetAudit.props": {
       "declarations": [],
+      "conditions": []
+    },
+    "scripts/release_symbols/Directory.Build.props": {
+      "declarations": [
+        {
+          "element": "Import",
+          "attributes": {
+            "Project": "../../NuGetAudit.props"
+          }
+        }
+      ],
       "conditions": []
     },
     "scripts/release_symbols/Directory.Packages.props": {
