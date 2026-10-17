@@ -57,7 +57,6 @@ public class LocatingAnExistingSaga : InMemoryTestFixture
     public LocatingAnExistingSaga()
     {
         var redis = ConnectionMultiplexer.Connect(TestRedis.Configuration);
-        redis.PreserveAsyncOrder = false;
 
         _sagaRepository = new Lazy<ISagaRepository<SimpleSaga>>(() => RedisSagaRepository<SimpleSaga>.Create(_ => redis, () => redis.GetDatabase()));
     }
@@ -116,7 +115,6 @@ public class LocatingAnExistingSagaWithoutOptimism : InMemoryTestFixture
     public LocatingAnExistingSagaWithoutOptimism()
     {
         var redis = ConnectionMultiplexer.Connect(TestRedis.Configuration);
-        redis.PreserveAsyncOrder = false;
 
         _sagaRepository = new Lazy<ISagaRepository<SimpleSaga>>(() => RedisSagaRepository<SimpleSaga>.Create(_ => redis, () => redis.GetDatabase(), false));
     }
@@ -175,7 +173,6 @@ public class LocatingAnExistingSagaWithKeyPrefix : InMemoryTestFixture
     public LocatingAnExistingSagaWithKeyPrefix()
     {
         var redis = ConnectionMultiplexer.Connect(TestRedis.Configuration);
-        redis.PreserveAsyncOrder = false;
 
         _sagaRepository = new Lazy<ISagaRepository<SimpleSaga>>(() =>
             RedisSagaRepository<SimpleSaga>.Create(_ => redis, () => redis.GetDatabase(), keyPrefix: "test"));
