@@ -1,56 +1,59 @@
-namespace MessageTransit.QuartzIntegration
+namespace MessageTransit.QuartzIntegration;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Quartz;
+
+
+/// <summary>
+/// Moves the time of a Quartz scheduler forward, so that tests can fire scheduled messages without waiting. The scheduler must be
+/// built with an <see cref="AdjustableTimeProvider" />, for example <c>q.UseTimeProvider(new AdjustableTimeProvider())</c>.
+/// </summary>
+public class QuartzTimeAdjustment : IDisposable
 {
-    using System;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.DependencyInjection;
-    using Quartz;
+    readonly ISchedulerFactory _schedulerFactory;
+    AdjustableTimeProvider? _timeProvider;
+    long _advancedTicks;
 
-
-    public class QuartzTimeAdjustment :
-        IDisposable
+    public QuartzTimeAdjustment(ISchedulerFactory schedulerFactory)
     {
-        readonly ISchedulerFactory _schedulerFactory;
-        TimeSpan _timeOffset = TimeSpan.Zero;
+        _schedulerFactory = schedulerFactory;
+    }
 
-        public QuartzTimeAdjustment(ISchedulerFactory schedulerFactory)
+    public QuartzTimeAdjustment(IServiceProvider provider)
+    {
+        _schedulerFactory = provider.GetRequiredService<ISchedulerFactory>();
+    }
+
+    /// <summary>
+    /// Moves the scheduler's clock back by the total amount this adjustment advanced it.
+    /// </summary>
+    public void Dispose()
+    {
+        var advanced = Interlocked.Exchange(ref _advancedTicks, 0);
+        if (advanced != 0)
+            _timeProvider?.Advance(TimeSpan.FromTicks(-advanced));
+    }
+
+    public async Task AdvanceTime(TimeSpan duration)
+    {
+        var scheduler = await _schedulerFactory.GetScheduler().ConfigureAwait(false);
+
+        if (scheduler.TimeProvider is not AdjustableTimeProvider timeProvider)
         {
-            _schedulerFactory = schedulerFactory;
-            SystemTime.UtcNow = GetUtcNow;
-            SystemTime.Now = GetNow;
+            throw new InvalidOperationException($"The Quartz scheduler '{scheduler.SchedulerName}' does not use an {nameof(AdjustableTimeProvider)}. "
+                + $"Build the scheduler with UseTimeProvider(new {nameof(AdjustableTimeProvider)}()) to adjust its time.");
         }
 
-        public QuartzTimeAdjustment(IServiceProvider provider)
-        {
-            _schedulerFactory = provider.GetRequiredService<ISchedulerFactory>();
-            SystemTime.UtcNow = GetUtcNow;
-            SystemTime.Now = GetNow;
-        }
+        _timeProvider = timeProvider;
 
-        public void Dispose()
-        {
-            SystemTime.UtcNow = () => DateTimeOffset.UtcNow;
-            SystemTime.Now = () => DateTimeOffset.Now;
-        }
+        await scheduler.Standby().ConfigureAwait(false);
 
-        public async Task AdvanceTime(TimeSpan duration)
-        {
-            var scheduler = await _schedulerFactory.GetScheduler().ConfigureAwait(false);
+        timeProvider.Advance(duration);
+        Interlocked.Add(ref _advancedTicks, duration.Ticks);
 
-            await scheduler.Standby().ConfigureAwait(false);
-
-            _timeOffset += duration;
-
-            await scheduler.Start().ConfigureAwait(false);
-        }
-
-        DateTimeOffset GetUtcNow()
-        {
-            return DateTimeOffset.UtcNow + _timeOffset;
-        }
-
-        DateTimeOffset GetNow()
-        {
-            return DateTimeOffset.Now + _timeOffset;
-        }
+        await scheduler.Start().ConfigureAwait(false);
     }
 }

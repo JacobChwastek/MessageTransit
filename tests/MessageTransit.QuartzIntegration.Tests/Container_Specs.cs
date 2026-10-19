@@ -1,161 +1,157 @@
-namespace MessageTransit.QuartzIntegration.Tests
+﻿namespace MessageTransit.QuartzIntegration.Tests;
+
+using System;
+using System.Threading.Tasks;
+using MessageTransit.Tests;
+using MessageTransit.Tests.Scenario;
+using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework;
+using Quartz;
+using Scheduling;
+using Testing;
+
+
+[TestFixture(typeof(Json))]
+[TestFixture(typeof(RawJson))]
+[TestFixture(typeof(NewtonsoftJson))]
+[TestFixture(typeof(NewtonsoftRawJson))]
+public class Using_quartz_with_serializer<T>
+    where T : new()
 {
-    using System;
-    using System.Threading.Tasks;
-    using MessageTransit.Tests;
-    using MessageTransit.Tests.Scenario;
-    using Microsoft.Extensions.DependencyInjection;
-    using NUnit.Framework;
-    using Quartz;
-    using Scheduling;
-    using Testing;
-
-
-    [TestFixture(typeof(Json))]
-    [TestFixture(typeof(RawJson))]
-    [TestFixture(typeof(NewtonsoftJson))]
-    [TestFixture(typeof(NewtonsoftRawJson))]
-    public class Using_quartz_with_serializer<T>
-        where T : new()
+    [Test]
+    public async Task Should_work_properly()
     {
-        [Test]
-        public async Task Should_work_properly()
-        {
-            await using var provider = new ServiceCollection()
-                .AddQuartz(_ => {
-                })
-                .AddMessageTransitTestHarness(x =>
+        await using var provider = new ServiceCollection()
+            .AddQuartz(q => q.UseTimeProvider(new AdjustableTimeProvider()))
+            .AddMessageTransitTestHarness(x =>
+            {
+                x.SetTestTimeouts(testInactivityTimeout: TimeSpan.FromSeconds(3));
+
+                x.AddPublishMessageScheduler();
+
+                x.AddQuartzConsumers();
+
+                x.AddConsumer<FirstMessageConsumer>();
+                x.AddConsumer<SecondMessageConsumer>();
+
+                x.UsingInMemory((context, cfg) =>
                 {
-                    x.SetTestTimeouts(testInactivityTimeout: TimeSpan.FromSeconds(3));
+                    cfg.UsePublishMessageScheduler();
 
-                    x.AddPublishMessageScheduler();
+                    _configuration?.ConfigureBus(context, cfg);
 
-                    x.AddQuartzConsumers();
+                    cfg.ConfigureEndpoints(context);
+                });
+            })
+            .BuildServiceProvider(true);
 
-                    x.AddConsumer<FirstMessageConsumer>();
-                    x.AddConsumer<SecondMessageConsumer>();
+        using var adjustment = new QuartzTimeAdjustment(provider);
 
-                    x.UsingInMemory((context, cfg) =>
-                    {
-                        cfg.UsePublishMessageScheduler();
+        var harness = await provider.StartTestHarness();
 
-                        _configuration?.ConfigureBus(context, cfg);
+        await harness.Bus.Publish<FirstMessage>(new { });
 
-                        cfg.ConfigureEndpoints(context);
-                    });
-                })
-                .BuildServiceProvider(true);
-
-            using var adjustment = new QuartzTimeAdjustment(provider);
-
-            var harness = await provider.StartTestHarness();
-
-            await harness.Bus.Publish<FirstMessage>(new { });
-
-            await Assert.MultipleAsync(async () =>
-            {
-                Assert.That(await harness.GetConsumerHarness<FirstMessageConsumer>().Consumed.Any<FirstMessage>(), Is.True);
-
-                Assert.That(await harness.Consumed.Any<ScheduleMessage>(), Is.True);
-            });
-
-            await adjustment.AdvanceTime(TimeSpan.FromSeconds(10));
-
-            Assert.That(await harness.GetConsumerHarness<SecondMessageConsumer>().Consumed.Any<SecondMessage>(), Is.True);
-        }
-
-        [Test]
-        public async Task Should_work_properly_with_message_headers()
+        await Assert.MultipleAsync(async () =>
         {
-            await using var provider = new ServiceCollection()
-                .AddQuartz(_ =>
+            Assert.That(await harness.GetConsumerHarness<FirstMessageConsumer>().Consumed.Any<FirstMessage>(), Is.True);
+
+            Assert.That(await harness.Consumed.Any<ScheduleMessage>(), Is.True);
+        });
+
+        await adjustment.AdvanceTime(TimeSpan.FromSeconds(10));
+
+        Assert.That(await harness.GetConsumerHarness<SecondMessageConsumer>().Consumed.Any<SecondMessage>(), Is.True);
+    }
+
+    [Test]
+    public async Task Should_work_properly_with_message_headers()
+    {
+        await using var provider = new ServiceCollection()
+            .AddQuartz(q => q.UseTimeProvider(new AdjustableTimeProvider()))
+            .AddMessageTransitTestHarness(x =>
+            {
+                x.SetTestTimeouts(testInactivityTimeout: TimeSpan.FromSeconds(3));
+
+                x.AddPublishMessageScheduler();
+
+                x.AddQuartzConsumers();
+
+                x.AddConsumer<FirstMessageConsumer>();
+                x.AddConsumer<SecondMessageConsumer>();
+
+                x.UsingInMemory((context, cfg) =>
                 {
-                })
-                .AddMessageTransitTestHarness(x =>
-                {
-                    x.SetTestTimeouts(testInactivityTimeout: TimeSpan.FromSeconds(3));
+                    cfg.UsePublishMessageScheduler();
 
-                    x.AddPublishMessageScheduler();
+                    _configuration?.ConfigureBus(context, cfg);
 
-                    x.AddQuartzConsumers();
+                    cfg.ConfigureEndpoints(context);
+                });
+            })
+            .BuildServiceProvider(true);
 
-                    x.AddConsumer<FirstMessageConsumer>();
-                    x.AddConsumer<SecondMessageConsumer>();
+        using var adjustment = new QuartzTimeAdjustment(provider);
 
-                    x.UsingInMemory((context, cfg) =>
-                    {
-                        cfg.UsePublishMessageScheduler();
+        var harness = await provider.StartTestHarness();
 
-                        _configuration?.ConfigureBus(context, cfg);
+        await harness.Bus.Publish<FirstMessage>(new { }, x => x.Headers.Set("SimpleHeader", "SimpleValue"));
 
-                        cfg.ConfigureEndpoints(context);
-                    });
-                })
-                .BuildServiceProvider(true);
-
-            using var adjustment = new QuartzTimeAdjustment(provider);
-
-            var harness = await provider.StartTestHarness();
-
-            await harness.Bus.Publish<FirstMessage>(new { }, x => x.Headers.Set("SimpleHeader", "SimpleValue"));
-
-            await Assert.MultipleAsync(async () =>
-            {
-                Assert.That(await harness.GetConsumerHarness<FirstMessageConsumer>().Consumed.Any<FirstMessage>(), Is.True);
-
-                Assert.That(await harness.Consumed.Any<ScheduleMessage>(), Is.True);
-            });
-
-            await adjustment.AdvanceTime(TimeSpan.FromSeconds(10));
-
-            Assert.That(await harness.GetConsumerHarness<SecondMessageConsumer>().Consumed.Any<SecondMessage>(), Is.True);
-
-            ConsumeContext<SecondMessage> context =
-                (await harness.GetConsumerHarness<SecondMessageConsumer>().Consumed.SelectAsync<SecondMessage>().First()).Context;
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(context.Headers.TryGetHeader("SimpleHeader", out var header), Is.True);
-
-                Assert.That(header, Is.EqualTo("SimpleValue"));
-            });
-        }
-
-        readonly ITestBusConfiguration _configuration;
-
-        public Using_quartz_with_serializer()
+        await Assert.MultipleAsync(async () =>
         {
-            _configuration = new T() as ITestBusConfiguration;
-        }
+            Assert.That(await harness.GetConsumerHarness<FirstMessageConsumer>().Consumed.Any<FirstMessage>(), Is.True);
 
+            Assert.That(await harness.Consumed.Any<ScheduleMessage>(), Is.True);
+        });
 
-        public class FirstMessageConsumer :
-            IConsumer<FirstMessage>
+        await adjustment.AdvanceTime(TimeSpan.FromSeconds(10));
+
+        Assert.That(await harness.GetConsumerHarness<SecondMessageConsumer>().Consumed.Any<SecondMessage>(), Is.True);
+
+        ConsumeContext<SecondMessage> context =
+            (await harness.GetConsumerHarness<SecondMessageConsumer>().Consumed.SelectAsync<SecondMessage>().First()).Context;
+
+        Assert.Multiple(() =>
         {
-            public async Task Consume(ConsumeContext<FirstMessage> context)
-            {
-                await context.SchedulePublish(TimeSpan.FromSeconds(10), new SecondMessage());
-            }
-        }
+            Assert.That(context.Headers.TryGetHeader("SimpleHeader", out var header), Is.True);
+
+            Assert.That(header, Is.EqualTo("SimpleValue"));
+        });
+    }
+
+    readonly ITestBusConfiguration _configuration;
+
+    public Using_quartz_with_serializer()
+    {
+        _configuration = new T() as ITestBusConfiguration;
+    }
 
 
-        public class SecondMessageConsumer :
-            IConsumer<SecondMessage>
+    public class FirstMessageConsumer :
+        IConsumer<FirstMessage>
+    {
+        public async Task Consume(ConsumeContext<FirstMessage> context)
         {
-            public Task Consume(ConsumeContext<SecondMessage> context)
-            {
-                return Task.CompletedTask;
-            }
+            await context.SchedulePublish(TimeSpan.FromSeconds(10), new SecondMessage());
         }
+    }
 
 
-        public class FirstMessage
+    public class SecondMessageConsumer :
+        IConsumer<SecondMessage>
+    {
+        public Task Consume(ConsumeContext<SecondMessage> context)
         {
+            return Task.CompletedTask;
         }
+    }
 
 
-        public class SecondMessage
-        {
-        }
+    public class FirstMessage
+    {
+    }
+
+
+    public class SecondMessage
+    {
     }
 }
