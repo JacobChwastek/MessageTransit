@@ -4,10 +4,10 @@
   "evaluation": {
     "method": "dotnet msbuild -getProperty/-getItem, evaluation only, no targets",
     "sdk_versions": [
-      "10.0.112"
+      "10.0.400"
     ],
     "msbuild_versions": [
-      "18.0.11"
+      "18.9.6"
     ],
     "contexts": [
       {
@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "b6ada9ddaa8e6c792357eb78c589656f6551633263cc36eb24fe7bbaca03e7c1",
     "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
-    "Directory.Packages.props": "69f8ee017c3f9526ca01fb4c6abd6f0480818d89a81d17bc5b2ea29bda9ea346",
+    "Directory.Packages.props": "0fa87d824aee8563a3674ab5a1cc9e082ae25069ee57e0e4f4bd2f28ce374757",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "NuGetAudit.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
@@ -84,7 +84,7 @@
     "src/Persistence/MessageTransit.NHibernateIntegration/MessageTransit.NHibernateIntegration.csproj": "22352c32b9f00328330c7b710362e842b4f1fa8ff3a16f922b762df09667d8a8",
     "src/Persistence/MessageTransit.RedisIntegration/MessageTransit.RedisIntegration.csproj": "26b828630804871a1d6993a8b5ea862ed4143b8ab353d52d79172726905f9ffe",
     "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj": "c4e0507b057ecb002d14abc6ff321339fa0c8f55d1cd0a9a1fc9ce020ef204e2",
-    "src/Scheduling/MessageTransit.QuartzIntegration/MessageTransit.QuartzIntegration.csproj": "1012ce32414ba6f72fd3eed245332ad82e7aca666f9ea4fc99347af3aed6625a",
+    "src/Scheduling/MessageTransit.QuartzIntegration/MessageTransit.QuartzIntegration.csproj": "137ae8df893769bd879f60e5fdeaacb61f4257500cfb5b9b1f6d68442564b199",
     "src/Transports/MessageTransit.ActiveMqTransport/MessageTransit.ActiveMqTransport.csproj": "831bcc39210c6822c6f2362636c695780bb38bedd3a0f33418fcf29bfbdb5a1d",
     "src/Transports/MessageTransit.AmazonSqsTransport/MessageTransit.AmazonSqsTransport.csproj": "f3ea24f2054d71718a0dc8cb123aa01bd6c5b074482095bd8d2c3231c7dbfa6c",
     "src/Transports/MessageTransit.Azure.ServiceBus.Core/MessageTransit.Azure.ServiceBus.Core.csproj": "920d9665f802bf8678321cf4e2c66ce626d296f44f420e6cd599d33b1c8f07c0",
@@ -115,7 +115,7 @@
     "tests/MessageTransit.MartenIntegration.Tests/MessageTransit.MartenIntegration.Tests.csproj": "b97cdd49d44c6baccba42bfacab7b267c96fce208fc8b5e98150cd2217fa6d38",
     "tests/MessageTransit.MongoDbIntegration.IntegrationTests/MessageTransit.MongoDbIntegration.IntegrationTests.csproj": "45e650946c4e8d5aae74e1c88dfcfa34948615d3104f9e157f5d320c1669fce0",
     "tests/MessageTransit.NHibernateIntegration.Tests/MessageTransit.NHibernateIntegration.Tests.csproj": "984b4ad9e9eab1a77771cab9f88b82ccba86dd3b43d6f252e7ea77c6efee0e70",
-    "tests/MessageTransit.QuartzIntegration.Tests/MessageTransit.QuartzIntegration.Tests.csproj": "45fb6ecb8a2ded3eeb56e9a25085264f6028ae148c8ca4a9f4ecc646a39f5985",
+    "tests/MessageTransit.QuartzIntegration.Tests/MessageTransit.QuartzIntegration.Tests.csproj": "0ccda43cf820419a567f9a01f58a74e8f8537bb9d5dc4c1e4f69a02155806eee",
     "tests/MessageTransit.RabbitMqTransport.IntegrationTests/MessageTransit.RabbitMqTransport.IntegrationTests.csproj": "e838b12bfea3117c3d6e1d4af980b695b713aab96fe91e76b103ff05f010ed33",
     "tests/MessageTransit.RedisIntegration.IntegrationTests/MessageTransit.RedisIntegration.IntegrationTests.csproj": "0ad0eec99b2892fb79ffc2dfb92e9d2233eafd1d5e8c2dfafa9798a55cb9bbf2",
     "tests/MessageTransit.SignalR.Tests/MessageTransit.SignalR.Tests.csproj": "dcf468c354c16eb29ccd977a7e9329cc6e3d97abefbaf717565c8382697069c8",
@@ -415,6 +415,13 @@
         {
           "element": "PackageVersion",
           "attributes": {
+            "Include": "Microsoft.Data.Sqlite",
+            "Version": "10.0.11"
+          }
+        },
+        {
+          "element": "PackageVersion",
+          "attributes": {
             "Include": "Microsoft.EntityFrameworkCore.Design",
             "Version": "10.0.11"
           },
@@ -625,14 +632,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Quartz",
-            "Version": "3.18.1"
-          }
-        },
-        {
-          "element": "PackageVersion",
-          "attributes": {
-            "Include": "Quartz.Extensions.Hosting",
-            "Version": "3.18.1"
+            "Version": "4.5.1"
           }
         },
         {
@@ -1576,12 +1576,6 @@
           "element": "PackageReference",
           "attributes": {
             "Include": "Quartz"
-          }
-        },
-        {
-          "element": "PackageReference",
-          "attributes": {
-            "Include": "Quartz.Extensions.Hosting"
           }
         },
         {
@@ -3412,6 +3406,12 @@
         {
           "element": "TargetFramework",
           "value": "net10.0"
+        },
+        {
+          "element": "PackageReference",
+          "attributes": {
+            "Include": "Microsoft.Data.Sqlite"
+          }
         },
         {
           "element": "PackageReference",
@@ -8665,29 +8665,13 @@
               "id": "Quartz",
               "origin": "src/Scheduling/MessageTransit.QuartzIntegration/MessageTransit.QuartzIntegration.csproj",
               "kind": "direct",
-              "version": "3.18.1",
+              "version": "4.5.1",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Quartz",
                   "metadata": {
-                    "Version": "3.18.1"
-                  },
-                  "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Quartz.Extensions.Hosting",
-              "origin": "src/Scheduling/MessageTransit.QuartzIntegration/MessageTransit.QuartzIntegration.csproj",
-              "kind": "direct",
-              "version": "3.18.1",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Quartz.Extensions.Hosting",
-                  "metadata": {
-                    "Version": "3.18.1"
+                    "Version": "4.5.1"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -16181,6 +16165,22 @@
                     "Version": "2.4.1"
                   },
                   "origin": "sdk:NuGet.targets"
+                }
+              ]
+            },
+            {
+              "id": "Microsoft.Data.Sqlite",
+              "origin": "tests/MessageTransit.QuartzIntegration.Tests/MessageTransit.QuartzIntegration.Tests.csproj",
+              "kind": "direct",
+              "version": "10.0.11",
+              "version_source": "evaluated PackageVersion",
+              "central_versions": [
+                {
+                  "id": "Microsoft.Data.Sqlite",
+                  "metadata": {
+                    "Version": "10.0.11"
+                  },
+                  "origin": "Directory.Packages.props"
                 }
               ]
             },
