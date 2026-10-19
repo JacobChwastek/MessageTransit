@@ -37,6 +37,7 @@
     <PackageVersion Include="Microsoft.Azure.WebJobs.Extensions.ServiceBus" Version="5.17.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.11.0" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="6.1.6" />
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="10.0.11" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -70,8 +71,7 @@
     <PackageVersion Include="OpenTelemetry.Exporter.Jaeger" Version="1.5.1" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
-    <PackageVersion Include="Quartz" Version="3.18.1" />
-    <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.18.1" />
+    <PackageVersion Include="Quartz" Version="4.5.1" />
     <PackageVersion Include="QuikGraph" Version="2.5.0" />
     <PackageVersion Include="QuikGraph.Graphviz" Version="2.5.0" />
     <PackageVersion Include="RabbitMQ.Client" Version="7.2.1" />
