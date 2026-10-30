@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "b6ada9ddaa8e6c792357eb78c589656f6551633263cc36eb24fe7bbaca03e7c1",
     "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
-    "Directory.Packages.props": "d1c4193462d34de47ff089fc7b31d35caabf47357564559d79e291f792140757",
+    "Directory.Packages.props": "37eb956689f937f1d16bdd16d5d369ca61947fda9a4edf49c1738b239cc48037",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "NuGetAudit.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
@@ -283,7 +283,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Dapper",
-            "Version": "2.1.79"
+            "Version": "2.1.89"
           }
         },
         {
@@ -304,14 +304,14 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Hangfire.AspNetCore",
-            "Version": "1.8.23"
+            "Version": "1.8.25"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Hangfire.Core",
-            "Version": "1.8.23"
+            "Version": "1.8.25"
           }
         },
         {
@@ -339,7 +339,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Marten",
-            "Version": "9.48.0"
+            "Version": "9.55.0"
           }
         },
         {
@@ -552,7 +552,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "NHibernate",
-            "Version": "5.6.1"
+            "Version": "5.7.0"
           }
         },
         {
@@ -632,7 +632,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Quartz",
-            "Version": "4.5.1"
+            "Version": "4.6.2"
           }
         },
         {
@@ -6685,13 +6685,13 @@
               "id": "Dapper",
               "origin": "src/Persistence/MessageTransit.DapperIntegration/MessageTransit.DapperIntegration.csproj",
               "kind": "direct",
-              "version": "2.1.79",
+              "version": "2.1.89",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Dapper",
                   "metadata": {
-                    "Version": "2.1.79"
+                    "Version": "2.1.89"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -7249,13 +7249,13 @@
               "id": "Marten",
               "origin": "src/Persistence/MessageTransit.MartenIntegration/MessageTransit.MartenIntegration.csproj",
               "kind": "direct",
-              "version": "9.48.0",
+              "version": "9.55.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Marten",
                   "metadata": {
-                    "Version": "9.48.0"
+                    "Version": "9.55.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -7581,13 +7581,13 @@
               "id": "NHibernate",
               "origin": "src/Persistence/MessageTransit.NHibernateIntegration/MessageTransit.NHibernateIntegration.csproj",
               "kind": "direct",
-              "version": "5.6.1",
+              "version": "5.7.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "NHibernate",
                   "metadata": {
-                    "Version": "5.6.1"
+                    "Version": "5.7.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -7897,13 +7897,13 @@
               "id": "Hangfire.Core",
               "origin": "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj",
               "kind": "direct",
-              "version": "1.8.23",
+              "version": "1.8.25",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Hangfire.Core",
                   "metadata": {
-                    "Version": "1.8.23"
+                    "Version": "1.8.25"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -8071,13 +8071,13 @@
               "id": "Quartz",
               "origin": "src/Scheduling/MessageTransit.QuartzIntegration/MessageTransit.QuartzIntegration.csproj",
               "kind": "direct",
-              "version": "4.5.1",
+              "version": "4.6.2",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Quartz",
                   "metadata": {
-                    "Version": "4.5.1"
+                    "Version": "4.6.2"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -9253,13 +9253,13 @@
               "id": "Dapper",
               "origin": "src/Transports/MessageTransit.SqlTransport.PostgreSql/MessageTransit.SqlTransport.PostgreSql.csproj",
               "kind": "direct",
-              "version": "2.1.79",
+              "version": "2.1.89",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Dapper",
                   "metadata": {
-                    "Version": "2.1.79"
+                    "Version": "2.1.89"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -9430,13 +9430,13 @@
               "id": "Dapper",
               "origin": "src/Transports/MessageTransit.SqlTransport.SqlServer/MessageTransit.SqlTransport.SqlServer.csproj",
               "kind": "direct",
-              "version": "2.1.79",
+              "version": "2.1.89",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Dapper",
                   "metadata": {
-                    "Version": "2.1.79"
+                    "Version": "2.1.89"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -13246,13 +13246,13 @@
               "id": "Hangfire.AspNetCore",
               "origin": "tests/MessageTransit.HangfireIntegration.Tests/MessageTransit.HangfireIntegration.Tests.csproj",
               "kind": "direct",
-              "version": "1.8.23",
+              "version": "1.8.25",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Hangfire.AspNetCore",
                   "metadata": {
-                    "Version": "1.8.23"
+                    "Version": "1.8.25"
                   },
                   "origin": "Directory.Packages.props"
                 }
