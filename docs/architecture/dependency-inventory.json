@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "b6ada9ddaa8e6c792357eb78c589656f6551633263cc36eb24fe7bbaca03e7c1",
     "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
-    "Directory.Packages.props": "0fa87d824aee8563a3674ab5a1cc9e082ae25069ee57e0e4f4bd2f28ce374757",
+    "Directory.Packages.props": "7c4c4df8eb5dd8ebad8770a5d34e10be2381ee360194eb3821da28c60cb56cb3",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "NuGetAudit.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
@@ -531,7 +531,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "MongoDB.Driver",
-            "Version": "3.9.0"
+            "Version": "3.13.0"
           }
         },
         {
@@ -667,7 +667,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "StackExchange.Redis",
-            "Version": "3.4.5"
+            "Version": "3.4.20"
           }
         },
         {
@@ -7893,13 +7893,13 @@
               "id": "MongoDB.Driver",
               "origin": "src/Persistence/MessageTransit.MongoDbIntegration/MessageTransit.MongoDbIntegration.csproj",
               "kind": "direct",
-              "version": "3.9.0",
+              "version": "3.13.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "MongoDB.Driver",
                   "metadata": {
-                    "Version": "3.9.0"
+                    "Version": "3.13.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -8279,13 +8279,13 @@
               "id": "StackExchange.Redis",
               "origin": "src/Persistence/MessageTransit.RedisIntegration/MessageTransit.RedisIntegration.csproj",
               "kind": "direct",
-              "version": "3.4.5",
+              "version": "3.4.20",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "StackExchange.Redis",
                   "metadata": {
-                    "Version": "3.4.5"
+                    "Version": "3.4.20"
                   },
                   "origin": "Directory.Packages.props"
                 }
