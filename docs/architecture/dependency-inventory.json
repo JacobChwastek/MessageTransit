@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "b6ada9ddaa8e6c792357eb78c589656f6551633263cc36eb24fe7bbaca03e7c1",
     "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
-    "Directory.Packages.props": "0fa87d824aee8563a3674ab5a1cc9e082ae25069ee57e0e4f4bd2f28ce374757",
+    "Directory.Packages.props": "d1c4193462d34de47ff089fc7b31d35caabf47357564559d79e291f792140757",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "NuGetAudit.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
@@ -374,7 +374,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
-            "Version": "10.0.13"
+            "Version": "10.0.14"
           }
         },
         {
@@ -409,21 +409,21 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Data.SqlClient",
-            "Version": "6.1.6"
+            "Version": "6.1.8"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Data.Sqlite",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.EntityFrameworkCore.Design",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           },
           "metadata": [
             {
@@ -440,84 +440,84 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.EntityFrameworkCore.Relational",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.EntityFrameworkCore.SqlServer",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.Caching.Memory",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.DependencyInjection",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.DependencyInjection.Abstractions",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.Diagnostics",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.Diagnostics.HealthChecks",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.Diagnostics.Testing",
-            "Version": "10.9.0"
+            "Version": "10.11.0"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.Hosting.Abstractions",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.Logging",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.Logging.Abstractions",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Extensions.Options",
-            "Version": "10.0.11"
+            "Version": "10.0.14"
           }
         },
         {
@@ -688,7 +688,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "System.Security.Cryptography.Pkcs",
-            "Version": "10.0.13"
+            "Version": "10.0.14"
           }
         },
         {
@@ -745,13 +745,6 @@
           "attributes": {
             "Include": "GitHubActionsTestLogger",
             "Version": "2.4.1"
-          }
-        },
-        {
-          "element": "GlobalPackageReference",
-          "attributes": {
-            "Include": "Microsoft.SourceLink.GitHub",
-            "Version": "8.0.0"
           }
         }
       ],
@@ -4282,26 +4275,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -4321,13 +4294,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -4487,26 +4453,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NETStandard.Library",
               "metadata": {
                 "IsImplicitlyDefined": "true",
@@ -4527,13 +4473,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -4665,26 +4604,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -4704,13 +4623,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -4868,26 +4780,6 @@
                   "origin": "Directory.Packages.props"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -4907,13 +4799,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -5049,26 +4934,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "Newtonsoft.Json",
               "origin": "src/MessageTransit.Newtonsoft/MessageTransit.Newtonsoft.csproj",
               "kind": "direct",
@@ -5118,13 +4983,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -5273,26 +5131,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -5316,13 +5154,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -5448,26 +5279,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "QuikGraph",
               "origin": "src/MessageTransit.StateMachineVisualizer/MessageTransit.StateMachineVisualizer.csproj",
               "kind": "direct",
@@ -5517,13 +5328,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -5659,35 +5463,15 @@
               "id": "Microsoft.Extensions.DependencyInjection",
               "origin": "src/MessageTransit.TestFramework/MessageTransit.TestFramework.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.DependencyInjection",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -5747,13 +5531,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -5937,13 +5714,13 @@
               "id": "Microsoft.Extensions.DependencyInjection.Abstractions",
               "origin": "src/MessageTransit/MessageTransit.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.DependencyInjection.Abstractions",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -5953,13 +5730,13 @@
               "id": "Microsoft.Extensions.Diagnostics.HealthChecks",
               "origin": "src/MessageTransit/MessageTransit.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.Diagnostics.HealthChecks",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -5969,13 +5746,13 @@
               "id": "Microsoft.Extensions.Hosting.Abstractions",
               "origin": "src/MessageTransit/MessageTransit.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.Hosting.Abstractions",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -5985,13 +5762,13 @@
               "id": "Microsoft.Extensions.Logging.Abstractions",
               "origin": "src/MessageTransit/MessageTransit.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.Logging.Abstractions",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -6001,35 +5778,15 @@
               "id": "Microsoft.Extensions.Options",
               "origin": "src/MessageTransit/MessageTransit.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.Options",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             }
@@ -6051,13 +5808,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -6286,26 +6036,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -6325,13 +6055,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -6489,26 +6212,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "Newtonsoft.Json",
               "origin": "src/Persistence/MessageTransit.Azure.Cosmos/MessageTransit.Azure.Cosmos.csproj",
               "kind": "direct",
@@ -6542,13 +6245,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -6704,26 +6400,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -6743,13 +6419,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -6889,26 +6558,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -6928,13 +6577,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -7095,35 +6737,15 @@
               "id": "Microsoft.Data.SqlClient",
               "origin": "src/Persistence/MessageTransit.DapperIntegration/MessageTransit.DapperIntegration.csproj",
               "kind": "direct",
-              "version": "6.1.6",
+              "version": "6.1.8",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Data.SqlClient",
                   "metadata": {
-                    "Version": "6.1.6"
+                    "Version": "6.1.8"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -7131,13 +6753,13 @@
               "id": "System.Security.Cryptography.Pkcs",
               "origin": "src/Persistence/MessageTransit.DapperIntegration/MessageTransit.DapperIntegration.csproj",
               "kind": "direct",
-              "version": "10.0.13",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "System.Security.Cryptography.Pkcs",
                   "metadata": {
-                    "Version": "10.0.13"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -7161,13 +6783,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -7307,26 +6922,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -7346,13 +6941,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -7481,13 +7069,13 @@
               "id": "Microsoft.EntityFrameworkCore.Relational",
               "origin": "src/Persistence/MessageTransit.EntityFrameworkCoreIntegration/MessageTransit.EntityFrameworkCoreIntegration.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.EntityFrameworkCore.Relational",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -7497,35 +7085,15 @@
               "id": "Microsoft.Extensions.Caching.Memory",
               "origin": "src/Persistence/MessageTransit.EntityFrameworkCoreIntegration/MessageTransit.EntityFrameworkCoreIntegration.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.Caching.Memory",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             }
@@ -7547,13 +7115,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -7699,26 +7260,6 @@
                   "origin": "Directory.Packages.props"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -7738,13 +7279,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -7870,26 +7404,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "MongoDB.Driver",
               "origin": "src/Persistence/MessageTransit.MongoDbIntegration/MessageTransit.MongoDbIntegration.csproj",
               "kind": "direct",
@@ -7923,13 +7437,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -8071,26 +7578,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NHibernate",
               "origin": "src/Persistence/MessageTransit.NHibernateIntegration/MessageTransit.NHibernateIntegration.csproj",
               "kind": "direct",
@@ -8124,13 +7611,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -8256,26 +7736,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "StackExchange.Redis",
               "origin": "src/Persistence/MessageTransit.RedisIntegration/MessageTransit.RedisIntegration.csproj",
               "kind": "direct",
@@ -8309,13 +7769,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -8457,26 +7910,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "Newtonsoft.Json",
               "origin": "src/Scheduling/MessageTransit.HangfireIntegration/MessageTransit.HangfireIntegration.csproj",
               "kind": "direct",
@@ -8510,13 +7943,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -8642,26 +8068,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "Quartz",
               "origin": "src/Scheduling/MessageTransit.QuartzIntegration/MessageTransit.QuartzIntegration.csproj",
               "kind": "direct",
@@ -8695,13 +8101,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -8872,26 +8271,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -8911,13 +8290,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -9076,26 +8448,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -9115,13 +8467,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -9280,26 +8625,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -9319,13 +8644,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -9486,26 +8804,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -9525,13 +8823,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -9671,26 +8962,6 @@
                   "origin": "sdk:NuGet.targets"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -9710,13 +8981,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -9845,26 +9109,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "RabbitMQ.Client",
               "origin": "src/Transports/MessageTransit.RabbitMqTransport/MessageTransit.RabbitMqTransport.csproj",
               "kind": "direct",
@@ -9898,13 +9142,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -10049,26 +9286,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "Npgsql",
               "origin": "src/Transports/MessageTransit.SqlTransport.PostgreSql/MessageTransit.SqlTransport.PostgreSql.csproj",
               "kind": "direct",
@@ -10102,13 +9319,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -10256,35 +9466,15 @@
               "id": "Microsoft.Data.SqlClient",
               "origin": "src/Transports/MessageTransit.SqlTransport.SqlServer/MessageTransit.SqlTransport.SqlServer.csproj",
               "kind": "direct",
-              "version": "6.1.6",
+              "version": "6.1.8",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Data.SqlClient",
                   "metadata": {
-                    "Version": "6.1.6"
+                    "Version": "6.1.8"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -10292,13 +9482,13 @@
               "id": "System.Security.Cryptography.Pkcs",
               "origin": "src/Transports/MessageTransit.SqlTransport.SqlServer/MessageTransit.SqlTransport.SqlServer.csproj",
               "kind": "direct",
-              "version": "10.0.13",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "System.Security.Cryptography.Pkcs",
                   "metadata": {
-                    "Version": "10.0.13"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -10322,13 +9512,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -10484,26 +9667,6 @@
                   "origin": "Directory.Packages.props"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -10523,13 +9686,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -10703,26 +9859,6 @@
                   "origin": "Directory.Packages.props"
                 }
               ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
             }
           ],
           "framework_references": [
@@ -10742,13 +9878,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -10886,26 +10015,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.Abstractions.Tests/MessageTransit.Abstractions.Tests.csproj",
               "kind": "direct",
@@ -10977,13 +10086,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -11167,26 +10269,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "Newtonsoft.Json",
               "origin": "tests/MessageTransit.ActiveMqTransport.IntegrationTests/MessageTransit.ActiveMqTransport.IntegrationTests.csproj",
               "kind": "direct",
@@ -11322,13 +10404,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -11512,26 +10587,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "Newtonsoft.Json",
               "origin": "tests/MessageTransit.AmazonSqsTransport.IntegrationTests/MessageTransit.AmazonSqsTransport.IntegrationTests.csproj",
               "kind": "direct",
@@ -11651,13 +10706,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -11817,26 +10865,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.Analyzers.Tests/MessageTransit.Analyzers.Tests.csproj",
               "kind": "direct",
@@ -11908,13 +10936,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -12069,13 +11090,13 @@
               "id": "Microsoft.Extensions.DependencyInjection",
               "origin": "tests/MessageTransit.Azure.Cosmos.IntegrationTests/MessageTransit.Azure.Cosmos.IntegrationTests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.DependencyInjection",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -12094,26 +11115,6 @@
                     "Version": "18.5.1"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -12189,13 +11190,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -12371,26 +11365,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.Azure.ServiceBus.Core.Tests/MessageTransit.Azure.ServiceBus.Core.Tests.csproj",
               "kind": "direct",
@@ -12462,13 +11436,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -12628,26 +11595,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.Azure.Table.IntegrationTests/MessageTransit.Azure.Table.IntegrationTests.csproj",
               "kind": "direct",
@@ -12719,13 +11666,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -12902,13 +11842,13 @@
               "id": "Microsoft.Data.SqlClient",
               "origin": "tests/MessageTransit.Benchmark/MessageTransit.Benchmark.csproj",
               "kind": "direct",
-              "version": "6.1.6",
+              "version": "6.1.8",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Data.SqlClient",
                   "metadata": {
-                    "Version": "6.1.6"
+                    "Version": "6.1.8"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -12918,13 +11858,13 @@
               "id": "Microsoft.EntityFrameworkCore.SqlServer",
               "origin": "tests/MessageTransit.Benchmark/MessageTransit.Benchmark.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.EntityFrameworkCore.SqlServer",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -12934,35 +11874,15 @@
               "id": "Microsoft.Extensions.DependencyInjection",
               "origin": "tests/MessageTransit.Benchmark/MessageTransit.Benchmark.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.DependencyInjection",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -12986,13 +11906,13 @@
               "id": "System.Security.Cryptography.Pkcs",
               "origin": "tests/MessageTransit.Benchmark/MessageTransit.Benchmark.csproj",
               "kind": "direct",
-              "version": "10.0.13",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "System.Security.Cryptography.Pkcs",
                   "metadata": {
-                    "Version": "10.0.13"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -13016,13 +11936,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -13191,35 +12104,15 @@
               "id": "Microsoft.Extensions.DependencyInjection",
               "origin": "tests/MessageTransit.BenchmarkConsole/MessageTransit.BenchmarkConsole.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.DependencyInjection",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             }
@@ -13241,13 +12134,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -13391,26 +12277,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit.Analyzers",
               "metadata": {
                 "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
@@ -13466,13 +12332,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -13624,26 +12483,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.DynamoDbIntegration.Tests/MessageTransit.DynamoDbIntegration.Tests.csproj",
               "kind": "direct",
@@ -13715,13 +12554,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -13888,7 +12720,7 @@
               },
               "origin": "tests/MessageTransit.EntityFrameworkCoreIntegration.IntegrationTests/MessageTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
@@ -13896,7 +12728,7 @@
                   "metadata": {
                     "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                     "PrivateAssets": "all",
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -13906,13 +12738,13 @@
               "id": "Microsoft.EntityFrameworkCore.SqlServer",
               "origin": "tests/MessageTransit.EntityFrameworkCoreIntegration.IntegrationTests/MessageTransit.EntityFrameworkCoreIntegration.IntegrationTests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.EntityFrameworkCore.SqlServer",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -13931,26 +12763,6 @@
                     "Version": "18.5.1"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -14058,13 +12870,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -14216,26 +13021,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.EventHubIntegration.IntegrationTests/MessageTransit.EventHubIntegration.IntegrationTests.csproj",
               "kind": "direct",
@@ -14307,13 +13092,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -14513,26 +13291,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.HangfireIntegration.Tests/MessageTransit.HangfireIntegration.Tests.csproj",
               "kind": "direct",
@@ -14604,13 +13362,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -14747,13 +13498,13 @@
               "id": "Microsoft.Extensions.DependencyInjection",
               "origin": "tests/MessageTransit.Interop.NServiceBus.Tests/MessageTransit.Interop.NServiceBus.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.DependencyInjection",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -14772,26 +13523,6 @@
                     "Version": "18.5.1"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -14863,13 +13594,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -15037,26 +13761,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.KafkaIntegration.IntegrationTests/MessageTransit.KafkaIntegration.IntegrationTests.csproj",
               "kind": "direct",
@@ -15128,13 +13832,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -15273,13 +13970,13 @@
               "id": "Microsoft.Extensions.DependencyInjection",
               "origin": "tests/MessageTransit.MartenIntegration.Tests/MessageTransit.MartenIntegration.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.DependencyInjection",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -15289,13 +13986,13 @@
               "id": "Microsoft.Extensions.Logging",
               "origin": "tests/MessageTransit.MartenIntegration.Tests/MessageTransit.MartenIntegration.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.Logging",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -15314,26 +14011,6 @@
                     "Version": "18.5.1"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -15409,13 +14086,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -15583,26 +14253,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.MongoDbIntegration.IntegrationTests/MessageTransit.MongoDbIntegration.IntegrationTests.csproj",
               "kind": "direct",
@@ -15674,13 +14324,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -15843,13 +14486,13 @@
               "id": "Microsoft.Data.SqlClient",
               "origin": "tests/MessageTransit.NHibernateIntegration.Tests/MessageTransit.NHibernateIntegration.Tests.csproj",
               "kind": "direct",
-              "version": "6.1.6",
+              "version": "6.1.8",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Data.SqlClient",
                   "metadata": {
-                    "Version": "6.1.6"
+                    "Version": "6.1.8"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -15868,26 +14511,6 @@
                     "Version": "18.5.1"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -15981,13 +14604,13 @@
               "id": "System.Security.Cryptography.Pkcs",
               "origin": "tests/MessageTransit.NHibernateIntegration.Tests/MessageTransit.NHibernateIntegration.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.13",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "System.Security.Cryptography.Pkcs",
                   "metadata": {
-                    "Version": "10.0.13"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -16011,13 +14634,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -16172,13 +14788,13 @@
               "id": "Microsoft.Data.Sqlite",
               "origin": "tests/MessageTransit.QuartzIntegration.Tests/MessageTransit.QuartzIntegration.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Data.Sqlite",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -16197,26 +14813,6 @@
                     "Version": "18.5.1"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -16292,13 +14888,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -16466,26 +15055,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.RabbitMqTransport.IntegrationTests/MessageTransit.RabbitMqTransport.IntegrationTests.csproj",
               "kind": "direct",
@@ -16589,13 +15158,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -16755,26 +15317,6 @@
               ]
             },
             {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
-                }
-              ]
-            },
-            {
               "id": "NUnit",
               "origin": "tests/MessageTransit.RedisIntegration.IntegrationTests/MessageTransit.RedisIntegration.IntegrationTests.csproj",
               "kind": "direct",
@@ -16846,13 +15388,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -17010,13 +15545,13 @@
               "id": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
               "origin": "tests/MessageTransit.SignalR.Tests/MessageTransit.SignalR.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.13",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
                   "metadata": {
-                    "Version": "10.0.13"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -17035,26 +15570,6 @@
                     "Version": "18.5.1"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -17130,13 +15645,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -17311,7 +15819,7 @@
               },
               "origin": "tests/MessageTransit.SqlTransport.IntegrationTests/MessageTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
@@ -17319,7 +15827,7 @@
                   "metadata": {
                     "IncludeAssets": "runtime; build; native; contentfiles; analyzers; buildtransitive",
                     "PrivateAssets": "all",
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -17329,13 +15837,13 @@
               "id": "Microsoft.EntityFrameworkCore.SqlServer",
               "origin": "tests/MessageTransit.SqlTransport.IntegrationTests/MessageTransit.SqlTransport.IntegrationTests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.EntityFrameworkCore.SqlServer",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -17354,26 +15862,6 @@
                     "Version": "18.5.1"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -17481,13 +15969,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -17601,35 +16082,15 @@
               "id": "Microsoft.Data.SqlClient",
               "origin": "tests/MessageTransit.Testing.Containers/MessageTransit.Testing.Containers.csproj",
               "kind": "direct",
-              "version": "6.1.6",
+              "version": "6.1.8",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Data.SqlClient",
                   "metadata": {
-                    "Version": "6.1.6"
+                    "Version": "6.1.8"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -17669,13 +16130,13 @@
               "id": "System.Security.Cryptography.Pkcs",
               "origin": "tests/MessageTransit.Testing.Containers/MessageTransit.Testing.Containers.csproj",
               "kind": "direct",
-              "version": "10.0.13",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "System.Security.Cryptography.Pkcs",
                   "metadata": {
-                    "Version": "10.0.13"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -17811,13 +16272,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
@@ -18048,13 +16502,13 @@
               "id": "Microsoft.Data.SqlClient",
               "origin": "tests/MessageTransit.Tests/MessageTransit.Tests.csproj",
               "kind": "direct",
-              "version": "6.1.6",
+              "version": "6.1.8",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Data.SqlClient",
                   "metadata": {
-                    "Version": "6.1.6"
+                    "Version": "6.1.8"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -18064,13 +16518,13 @@
               "id": "Microsoft.Extensions.Caching.Memory",
               "origin": "tests/MessageTransit.Tests/MessageTransit.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.Caching.Memory",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -18080,13 +16534,13 @@
               "id": "Microsoft.Extensions.Diagnostics",
               "origin": "tests/MessageTransit.Tests/MessageTransit.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.11",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.Diagnostics",
                   "metadata": {
-                    "Version": "10.0.11"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -18096,13 +16550,13 @@
               "id": "Microsoft.Extensions.Diagnostics.Testing",
               "origin": "tests/MessageTransit.Tests/MessageTransit.Tests.csproj",
               "kind": "direct",
-              "version": "10.9.0",
+              "version": "10.11.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Extensions.Diagnostics.Testing",
                   "metadata": {
-                    "Version": "10.9.0"
+                    "Version": "10.11.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -18121,26 +16575,6 @@
                     "Version": "18.5.1"
                   },
                   "origin": "Directory.Packages.props"
-                }
-              ]
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "IncludeAssets": "Runtime;Build;Native;contentFiles;Analyzers",
-                "PrivateAssets": "All"
-              },
-              "origin": "sdk:NuGet.targets",
-              "kind": "global",
-              "version": "8.0.0",
-              "version_source": "evaluated PackageVersion",
-              "central_versions": [
-                {
-                  "id": "Microsoft.SourceLink.GitHub",
-                  "metadata": {
-                    "Version": "8.0.0"
-                  },
-                  "origin": "sdk:NuGet.targets"
                 }
               ]
             },
@@ -18234,13 +16668,13 @@
               "id": "System.Security.Cryptography.Pkcs",
               "origin": "tests/MessageTransit.Tests/MessageTransit.Tests.csproj",
               "kind": "direct",
-              "version": "10.0.13",
+              "version": "10.0.14",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "System.Security.Cryptography.Pkcs",
                   "metadata": {
-                    "Version": "10.0.13"
+                    "Version": "10.0.14"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -18264,13 +16698,6 @@
               "id": "GitHubActionsTestLogger",
               "metadata": {
                 "Version": "2.4.1"
-              },
-              "origin": "Directory.Packages.props"
-            },
-            {
-              "id": "Microsoft.SourceLink.GitHub",
-              "metadata": {
-                "Version": "8.0.0"
               },
               "origin": "Directory.Packages.props"
             }
