@@ -68,6 +68,13 @@ The [migration guide](../migration/entity-framework-core.md) maps EF6 behavior t
 
 EF Core also provides transactional inbox/outbox storage, as shown by the [reliable-messaging context](../../tests/MessageTransit.EntityFrameworkCoreIntegration.IntegrationTests/ReliableMessaging/ReliableDbContext.cs). Those tables are separate from saga/audit storage and had no counterpart in the removed EF6 adapter.
 
+## Held versions
+
+Two dependencies stay below their latest major version on purpose:
+
+- `MediatR` stays on the 12.x line, the last one licensed under Apache-2.0. Only the benchmarks use it.
+- `Microsoft.CodeAnalysis.CSharp.Workspaces` stays at 4.11.0. The analyzer must not reference a newer Roslyn than the compiler in the oldest supported SDK: `global.json` allows SDK 10.0.100, which ships Roslyn 5.0. Raising it means choosing a new minimum SDK and testing the packaged analyzer and code fixes on that SDK.
+
 ## Refresh and verification
 
 From the repository root, with Python 3.9+, Git and a .NET SDK supporting MSBuild property/item queries:
