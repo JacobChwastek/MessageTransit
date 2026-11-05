@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "b6ada9ddaa8e6c792357eb78c589656f6551633263cc36eb24fe7bbaca03e7c1",
     "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
-    "Directory.Packages.props": "97bfff739e615e3f9663fe2f2735d26d57c55bf68681a6e8961212d6c69bda78",
+    "Directory.Packages.props": "91712da25ba811486a7a9e5171ef97c076839bb1dce517015f7fd7c9e7307853",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "NuGetAudit.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
@@ -220,7 +220,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Azure.Data.Tables",
-            "Version": "12.11.0"
+            "Version": "12.13.0"
           }
         },
         {
@@ -241,14 +241,14 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Azure.Messaging.ServiceBus",
-            "Version": "7.20.1"
+            "Version": "7.21.0"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Azure.Storage.Blobs",
-            "Version": "12.28.0"
+            "Version": "12.30.1"
           }
         },
         {
@@ -381,21 +381,21 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Azure.Cosmos",
-            "Version": "3.61.0"
+            "Version": "3.63.3"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Azure.WebJobs.Extensions.EventHubs",
-            "Version": "6.5.3"
+            "Version": "6.5.5"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Microsoft.Azure.WebJobs.Extensions.ServiceBus",
-            "Version": "5.17.0"
+            "Version": "5.18.0"
           }
         },
         {
@@ -6199,13 +6199,13 @@
               "id": "Microsoft.Azure.Cosmos",
               "origin": "src/Persistence/MessageTransit.Azure.Cosmos/MessageTransit.Azure.Cosmos.csproj",
               "kind": "direct",
-              "version": "3.61.0",
+              "version": "3.63.3",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Azure.Cosmos",
                   "metadata": {
-                    "Version": "3.61.0"
+                    "Version": "3.63.3"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -6369,13 +6369,13 @@
               "id": "Azure.Storage.Blobs",
               "origin": "src/Persistence/MessageTransit.Azure.Storage/MessageTransit.Azure.Storage.csproj",
               "kind": "direct",
-              "version": "12.28.0",
+              "version": "12.30.1",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Azure.Storage.Blobs",
                   "metadata": {
-                    "Version": "12.28.0"
+                    "Version": "12.30.1"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -6527,13 +6527,13 @@
               "id": "Azure.Data.Tables",
               "origin": "src/Persistence/MessageTransit.Azure.Table/MessageTransit.Azure.Table.csproj",
               "kind": "direct",
-              "version": "12.11.0",
+              "version": "12.13.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Azure.Data.Tables",
                   "metadata": {
-                    "Version": "12.11.0"
+                    "Version": "12.13.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -8594,13 +8594,13 @@
               "id": "Azure.Messaging.ServiceBus",
               "origin": "src/Transports/MessageTransit.Azure.ServiceBus.Core/MessageTransit.Azure.ServiceBus.Core.csproj",
               "kind": "direct",
-              "version": "7.20.1",
+              "version": "7.21.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Azure.Messaging.ServiceBus",
                   "metadata": {
-                    "Version": "7.20.1"
+                    "Version": "7.21.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -8773,13 +8773,13 @@
               "id": "Azure.Storage.Blobs",
               "origin": "src/Transports/MessageTransit.EventHubIntegration/MessageTransit.EventHubIntegration.csproj",
               "kind": "direct",
-              "version": "12.28.0",
+              "version": "12.30.1",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Azure.Storage.Blobs",
                   "metadata": {
-                    "Version": "12.28.0"
+                    "Version": "12.30.1"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -9656,13 +9656,13 @@
               "id": "Microsoft.Azure.WebJobs.Extensions.EventHubs",
               "origin": "src/Transports/MessageTransit.WebJobs.EventHubsIntegration/MessageTransit.WebJobs.EventHubsIntegration.csproj",
               "kind": "direct",
-              "version": "6.5.3",
+              "version": "6.5.5",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Azure.WebJobs.Extensions.EventHubs",
                   "metadata": {
-                    "Version": "6.5.3"
+                    "Version": "6.5.5"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -9848,13 +9848,13 @@
               "id": "Microsoft.Azure.WebJobs.Extensions.ServiceBus",
               "origin": "src/Transports/MessageTransit.WebJobs.ServiceBusIntegration/MessageTransit.WebJobs.ServiceBusIntegration.csproj",
               "kind": "direct",
-              "version": "5.17.0",
+              "version": "5.18.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Microsoft.Azure.WebJobs.Extensions.ServiceBus",
                   "metadata": {
-                    "Version": "5.17.0"
+                    "Version": "5.18.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
