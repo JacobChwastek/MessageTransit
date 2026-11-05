@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "b6ada9ddaa8e6c792357eb78c589656f6551633263cc36eb24fe7bbaca03e7c1",
     "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
-    "Directory.Packages.props": "8c01021244e62b61ce90171587918fafa2d24f16a681305d42e04fba84a89bd9",
+    "Directory.Packages.props": "6d56099a14a9bc8cec67d243677c44238a6dd065440ef447460cc9e9c1ef8d06",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "NuGetAudit.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
@@ -262,14 +262,14 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Confluent.Kafka",
-            "Version": "2.14.2"
+            "Version": "2.16.0"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "Confluent.SchemaRegistry.Serdes.Avro",
-            "Version": "2.14.2"
+            "Version": "2.16.0"
           }
         },
         {
@@ -8931,13 +8931,13 @@
               "id": "Confluent.Kafka",
               "origin": "src/Transports/MessageTransit.KafkaIntegration/MessageTransit.KafkaIntegration.csproj",
               "kind": "direct",
-              "version": "2.14.2",
+              "version": "2.16.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Confluent.Kafka",
                   "metadata": {
-                    "Version": "2.14.2"
+                    "Version": "2.16.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -13712,13 +13712,13 @@
               "id": "Confluent.SchemaRegistry.Serdes.Avro",
               "origin": "tests/MessageTransit.KafkaIntegration.IntegrationTests/MessageTransit.KafkaIntegration.IntegrationTests.csproj",
               "kind": "direct",
-              "version": "2.14.2",
+              "version": "2.16.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Confluent.SchemaRegistry.Serdes.Avro",
                   "metadata": {
-                    "Version": "2.14.2"
+                    "Version": "2.16.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
