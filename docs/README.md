@@ -9,6 +9,7 @@ Start with the repository [README](../README.md) for requirements, the package f
 - [Marten 9 upgrade](migration/marten.md): the Marten 9 changes that affect saga storage, including the default serializer.
 - [StackExchange.Redis 3 upgrade](migration/redis.md): the StackExchange.Redis 3 changes that affect Redis saga storage and the applications that use it.
 - [NUnit 5](migration/nunit-5.md): the NUnit 5 changes that affect test projects using `MessageTransit.TestFramework`.
+- [SqlClient 7](migration/sql-server.md): Microsoft.Data.SqlClient 7 for the SQL Server transport and Dapper packages, including Microsoft Entra authentication.
 
 ## Quartz scheduling
 
