@@ -43,12 +43,12 @@ public class Net10Async_Specs
     }
 
     [Test]
-    public void Should_forward_enumeration_cancellation()
+    public async Task Should_forward_enumeration_cancellation()
     {
         using var cancellation = new CancellationTokenSource();
         cancellation.Cancel();
 
-        var exception = Assert.ThrowsAsync<OperationCanceledException>(async () =>
+        var exception = await Assert.ThrowsAsync<OperationCanceledException>(async () =>
             await Messages(() => { }).Take(2).ToListAsync(cancellation.Token));
 
         Assert.That(exception.CancellationToken, Is.EqualTo(cancellation.Token));
@@ -62,7 +62,7 @@ public class Net10Async_Specs
         var wait = source.Task.OrCanceled(cancellation.Token);
         cancellation.Cancel();
 
-        var exception = Assert.ThrowsAsync<OperationCanceledException>(async () => await wait);
+        var exception = await Assert.ThrowsAsync<OperationCanceledException>(async () => await wait);
         Assert.Multiple(() =>
         {
             Assert.That(exception.CancellationToken, Is.EqualTo(cancellation.Token));
@@ -83,11 +83,11 @@ public class Net10Async_Specs
     }
 
     [Test]
-    public void Should_preserve_fault_identity_and_cached_task_results()
+    public async Task Should_preserve_fault_identity_and_cached_task_results()
     {
         var expected = new InvalidOperationException("expected");
         var fault = TaskUtil.Faulted<string>(expected);
-        var exception = Assert.ThrowsAsync<InvalidOperationException>(async () => await fault);
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () => await fault);
         var defaultTask = TaskUtil.Default<string>();
         var secondDefaultTask = TaskUtil.Default<string>();
         var canceledTask = TaskUtil.Cancelled<string>();

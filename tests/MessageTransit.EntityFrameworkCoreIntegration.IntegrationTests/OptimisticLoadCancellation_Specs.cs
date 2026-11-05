@@ -16,7 +16,7 @@ public class OptimisticLoadCancellation_Specs
 {
     [TestCase(false)]
     [TestCase(true)]
-    public void Should_forward_cancellation_to_the_database(bool customizeQuery)
+    public async Task Should_forward_cancellation_to_the_database(bool customizeQuery)
     {
         using var cancellation = new CancellationTokenSource();
         var interceptor = new CaptureConnectionCancellation();
@@ -29,7 +29,7 @@ public class OptimisticLoadCancellation_Specs
             ? new OptimisticLoadQueryExecutor<SagaState>(query => query)
             : new OptimisticLoadQueryExecutor<SagaState>();
 
-        Assert.ThrowsAsync<ConnectionObservedException>(async () => await executor.Load(context, NewId.NextGuid(), cancellation.Token));
+        await Assert.ThrowsAsync<ConnectionObservedException>(async () => await executor.Load(context, NewId.NextGuid(), cancellation.Token));
 
         Assert.That(interceptor.CancellationToken, Is.EqualTo(cancellation.Token));
     }

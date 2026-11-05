@@ -33,7 +33,7 @@ namespace MessageTransit.RabbitMqTransport.Tests
             Task<BusHandle> startTask = busControl.StartAsync(startTimeout.Token).OrCanceled(TestCancellationToken);
 
             var publishTimer = Stopwatch.StartNew();
-            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            await Assert.ThrowsAsync<OperationCanceledException>(async () =>
             {
                 using var publishTimeout = new CancellationTokenSource(TimeSpan.FromSeconds(10));
 
@@ -45,7 +45,7 @@ namespace MessageTransit.RabbitMqTransport.Tests
 
             Assert.That(publishElapsed, Is.LessThan(TimeSpan.FromSeconds(19)));
 
-            Assert.ThrowsAsync<RabbitMqConnectionException>(async () =>
+            await Assert.ThrowsAsync<RabbitMqConnectionException>(async () =>
             {
                 await startTask;
             });

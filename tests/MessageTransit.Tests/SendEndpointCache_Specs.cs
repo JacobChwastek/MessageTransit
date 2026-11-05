@@ -17,7 +17,7 @@
             await Task.WhenAll(Bus.GetSendEndpoint(new Uri("loopback://localhost/queue_a")),
                 Bus.GetSendEndpoint(new Uri("loopback://localhost/queue_b"))).ConfigureAwait(false);
 
-            Assert.DoesNotThrowAsync(async () =>
+            await Assert.DoesNotThrowAsync(async () =>
             {
                 await Task.WhenAll(Bus.GetSendEndpoint(new Uri("loopback://localhost/queue_a")),
                     Bus.GetSendEndpoint(new Uri("loopback://localhost/queue_b")));

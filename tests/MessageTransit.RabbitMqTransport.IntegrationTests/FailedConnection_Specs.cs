@@ -31,7 +31,7 @@
                 x.AutoStart = true;
             });
 
-            Assert.ThrowsAsync<RabbitMqConnectionException>(async () =>
+            await Assert.ThrowsAsync<RabbitMqConnectionException>(async () =>
             {
                 BusHandle handle;
                 using (var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(10)))

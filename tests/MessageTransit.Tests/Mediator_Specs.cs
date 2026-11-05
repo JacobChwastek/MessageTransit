@@ -163,7 +163,7 @@ namespace MessageTransit.Tests
             {
             });
 
-            Assert.ThrowsAsync<MessageNotConsumedException>(() => mediator.Publish(new PingMessage(), context => context.Mandatory = true));
+            await Assert.ThrowsAsync<MessageNotConsumedException>(() => mediator.Publish(new PingMessage(), context => context.Mandatory = true));
         }
     }
 
