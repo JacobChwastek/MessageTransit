@@ -372,6 +372,13 @@ def run_captured(arguments, cwd):
     return result.returncode, result.stdout
 
 
+# consumers that are NUnit test projects: run with dotnet test, and each test's outcome is checked
+TEST_CONSUMERS = {"TestFramework"}
+TEST_FRAMEWORK_TESTS = {
+    "Should_consume_a_published_message": ("Passed", "packaged test harness test passed"),
+    "Should_fail_when_an_awaited_async_assertion_fails": ("Failed", "failing awaited async assertion failed the run"),
+}
+TEST_OUTCOME = re.compile(r"^\s*(Passed|Failed|Skipped)\s+(\w+)\b", re.M)
 CORE_CHECKS = {
     "consumer consumed SubmitOrder", "saga created for the order", "consumer published OrderAccepted",
     "application URN unchanged", "framework URN uses MessageTransit", "message payload round trip", "saga reached Accepted state",
@@ -393,6 +400,9 @@ def consumer_recipes(publish):
          {"Microsoft.EntityFrameworkCore.Sqlite": central["Microsoft.EntityFrameworkCore.Relational"]},
          ["Persistence.cs", "PersistenceTypes.cs"], "",
          {"EF Core SQLite saga round trip", "EF Core application assigned correlation key"}),
+        ("TestFramework", ["MessageTransit.TestFramework"],
+         {package: central[package] for package in ("NUnit", "NUnit3TestAdapter", "Microsoft.NET.Test.Sdk")},
+         ["TestFrameworkConsumer.cs"], "", {check for _, check in TEST_FRAMEWORK_TESTS.values()}),
     ]
 
 
@@ -414,10 +424,10 @@ def smoke_test(packages_directory, version, publish, failures, accepted=()):
             references = {package: version for package in packages} | external
             items = "\n".join(f'    <PackageReference Include="{escape(package)}" Version="{escape(value)}" />'
                               for package, value in references.items())
+            output_type = "" if name in TEST_CONSUMERS else "    <OutputType>Exe</OutputType>\n"
             (consumer / "ReleaseSmoke.csproj").write_text(f"""<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>{TARGET_FRAMEWORK}</TargetFramework>
+{output_type}    <TargetFramework>{TARGET_FRAMEWORK}</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <DefineConstants>{constants}</DefineConstants>
@@ -462,11 +472,21 @@ def smoke_test(packages_directory, version, publish, failures, accepted=()):
                 smoke["analyzer"] = bool(re.search(r"AnalyzerProbe\.cs\(\d+,\d+\): warning MTA0001\b", output))
                 if not smoke["analyzer"]:
                     failures.append("smoke co-install: packaged analyzer did not diagnose the AnalyzerProbe source")
-            code, output = run_captured(["dotnet", "run", "-c", "Release", "--no-build"], consumer)
-            checks = [line.split("\t", 1) for line in output.splitlines() if "\t" in line]
+            if name in TEST_CONSUMERS:
+                code, output = run_captured(["dotnet", "test", "-c", "Release", "--no-build", "--nologo",
+                                             "--logger", "console;verbosity=normal"], consumer)
+                outcomes = {test: outcome for outcome, test in TEST_OUTCOME.findall(output)}
+                # the deliberately failing test must fail the run as well as its own outcome
+                checks = [["pass" if outcomes.get(test) == outcome and (outcome != "Failed" or code != 0) else "fail", check]
+                          for test, (outcome, check) in TEST_FRAMEWORK_TESTS.items()]
+            else:
+                code, output = run_captured(["dotnet", "run", "-c", "Release", "--no-build"], consumer)
+                checks = [line.split("\t", 1) for line in output.splitlines() if "\t" in line]
             result["checks"] = checks
             smoke["scenario"].extend((status, f"{name}: {check}") for status, check in checks)
-            if code != 0 or len(checks) != len(expected) or {check for _, check in checks} != expected or any(status != "pass" for status, _ in checks):
+            # a test consumer's run fails by design; its outcomes are in the checks
+            run_failed = code != 0 and name not in TEST_CONSUMERS
+            if run_failed or len(checks) != len(expected) or {check for _, check in checks} != expected or any(status != "pass" for status, _ in checks):
                 failures.append(f"smoke {name}: scenario did not pass all expected assertions\n" + output[-4000:])
         smoke["built"] = all(consumer["built"] for consumer in smoke["consumers"])
     return smoke
