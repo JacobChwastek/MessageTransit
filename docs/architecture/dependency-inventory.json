@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "b6ada9ddaa8e6c792357eb78c589656f6551633263cc36eb24fe7bbaca03e7c1",
     "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
-    "Directory.Packages.props": "6d56099a14a9bc8cec67d243677c44238a6dd065440ef447460cc9e9c1ef8d06",
+    "Directory.Packages.props": "97bfff739e615e3f9663fe2f2735d26d57c55bf68681a6e8961212d6c69bda78",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "NuGetAudit.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
@@ -192,28 +192,28 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "AWSSDK.DynamoDBv2",
-            "Version": "4.0.17.7"
+            "Version": "4.0.110"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "AWSSDK.SimpleNotificationService",
-            "Version": "4.0.2.26"
+            "Version": "4.0.100.23"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "AWSSDK.S3",
-            "Version": "4.0.20.4"
+            "Version": "4.0.104.9"
           }
         },
         {
           "element": "PackageVersion",
           "attributes": {
             "Include": "AWSSDK.SQS",
-            "Version": "4.0.2.24"
+            "Version": "4.0.100.23"
           }
         },
         {
@@ -6005,13 +6005,13 @@
               "id": "AWSSDK.S3",
               "origin": "src/Persistence/MessageTransit.AmazonS3/MessageTransit.AmazonS3.csproj",
               "kind": "direct",
-              "version": "4.0.20.4",
+              "version": "4.0.104.9",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "AWSSDK.S3",
                   "metadata": {
-                    "Version": "4.0.20.4"
+                    "Version": "4.0.104.9"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -6891,13 +6891,13 @@
               "id": "AWSSDK.DynamoDBv2",
               "origin": "src/Persistence/MessageTransit.DynamoDbIntegration/MessageTransit.DynamoDbIntegration.csproj",
               "kind": "direct",
-              "version": "4.0.17.7",
+              "version": "4.0.110",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "AWSSDK.DynamoDBv2",
                   "metadata": {
-                    "Version": "4.0.17.7"
+                    "Version": "4.0.110"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -8401,13 +8401,13 @@
               "id": "AWSSDK.SimpleNotificationService",
               "origin": "src/Transports/MessageTransit.AmazonSqsTransport/MessageTransit.AmazonSqsTransport.csproj",
               "kind": "direct",
-              "version": "4.0.2.26",
+              "version": "4.0.100.23",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "AWSSDK.SimpleNotificationService",
                   "metadata": {
-                    "Version": "4.0.2.26"
+                    "Version": "4.0.100.23"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -8417,13 +8417,13 @@
               "id": "AWSSDK.SQS",
               "origin": "src/Transports/MessageTransit.AmazonSqsTransport/MessageTransit.AmazonSqsTransport.csproj",
               "kind": "direct",
-              "version": "4.0.2.24",
+              "version": "4.0.100.23",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "AWSSDK.SQS",
                   "metadata": {
-                    "Version": "4.0.2.24"
+                    "Version": "4.0.100.23"
                   },
                   "origin": "Directory.Packages.props"
                 }
