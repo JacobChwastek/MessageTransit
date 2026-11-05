@@ -52,7 +52,7 @@
     ".github/workflows/nightly-transports.yml": "d451c26b5ec74772a68f04b69ac8e275ddcaa62c5d55180d9f31abb656a67b20",
     ".github/workflows/release.yml": "b6ada9ddaa8e6c792357eb78c589656f6551633263cc36eb24fe7bbaca03e7c1",
     "Directory.Build.props": "ddbd6d3542c4217a2fa15634e6b10eebea77aa5c90eb0289cbe9f4183de67d89",
-    "Directory.Packages.props": "9da9c8ad48e5e388290ab8eb4018a34bb4d39fa332715be80e98e9bb85649646",
+    "Directory.Packages.props": "8c01021244e62b61ce90171587918fafa2d24f16a681305d42e04fba84a89bd9",
     "MessageTransit.slnx": "b8857a4ad0d5e9a7cf906d66d16a4477f7e7a8daeaeac69047ab6318773e269f",
     "NuGetAudit.props": "e2746340f2403a1c9545af6de95b5edb610ed044328003c7cf8f290e466b17ee",
     "global.json": "20c93ca7812d0a9825eef71217156f95ab2f4fe5aadfeb22ebc1c24b630018d3",
@@ -178,7 +178,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "Apache.NMS.ActiveMQ",
-            "Version": "2.2.0"
+            "Version": "2.3.0"
           }
         },
         {
@@ -653,7 +653,7 @@
           "element": "PackageVersion",
           "attributes": {
             "Include": "RabbitMQ.Client",
-            "Version": "7.2.1"
+            "Version": "7.2.2"
           }
         },
         {
@@ -8224,13 +8224,13 @@
               "id": "Apache.NMS.ActiveMQ",
               "origin": "src/Transports/MessageTransit.ActiveMqTransport/MessageTransit.ActiveMqTransport.csproj",
               "kind": "direct",
-              "version": "2.2.0",
+              "version": "2.3.0",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "Apache.NMS.ActiveMQ",
                   "metadata": {
-                    "Version": "2.2.0"
+                    "Version": "2.3.0"
                   },
                   "origin": "Directory.Packages.props"
                 }
@@ -9112,13 +9112,13 @@
               "id": "RabbitMQ.Client",
               "origin": "src/Transports/MessageTransit.RabbitMqTransport/MessageTransit.RabbitMqTransport.csproj",
               "kind": "direct",
-              "version": "7.2.1",
+              "version": "7.2.2",
               "version_source": "evaluated PackageVersion",
               "central_versions": [
                 {
                   "id": "RabbitMQ.Client",
                   "metadata": {
-                    "Version": "7.2.1"
+                    "Version": "7.2.2"
                   },
                   "origin": "Directory.Packages.props"
                 }

@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Apache.NMS.ActiveMQ" Version="2.2.0" />
+    <PackageVersion Include="Apache.NMS.ActiveMQ" Version="2.3.0" />
     <PackageVersion Include="Apache.NMS.AMQP" Version="2.4.0" />
     <PackageVersion Include="AWSSDK.DynamoDBv2" Version="4.0.17.7" />
     <PackageVersion Include="AWSSDK.SimpleNotificationService" Version="4.0.2.26" />
@@ -74,7 +74,7 @@
     <PackageVersion Include="Quartz" Version="4.6.2" />
     <PackageVersion Include="QuikGraph" Version="2.5.0" />
     <PackageVersion Include="QuikGraph.Graphviz" Version="2.5.0" />
-    <PackageVersion Include="RabbitMQ.Client" Version="7.2.1" />
+    <PackageVersion Include="RabbitMQ.Client" Version="7.2.2" />
     <PackageVersion Include="SharpZipLib" Version="1.4.2" />
     <PackageVersion Include="StackExchange.Redis" Version="3.4.20" />
     <PackageVersion Include="System.Data.SqlClient" Version="4.9.0" />
