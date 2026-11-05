@@ -37,6 +37,7 @@ Candidate validation includes:
 - a clean .NET 10 consumer that checks the complete package set can be installed together;
 - a NuGet audit of every consumer's resolved package graph, which fails on high or critical advisories and when advisory data is unavailable; consumers accept only the repository's suppressed advisories whose review date has not passed, and the report lists each with its reason and review date;
 - minimally referenced consumers that exercise core messaging, both alternative serializers, EF Core persistence, and RabbitMQ against a broker started with Docker, so direct references do not hide missing transitive dependencies;
+- an NUnit test project that references only the packaged `MessageTransit.TestFramework`, runs a passing in-memory harness test, and checks that a deliberately failing awaited async assertion fails the test run;
 - the full source build and test matrix described in the [CI coverage guide](ci.md), including both Linux and Windows build/unit lanes and the provisioned service suites.
 
 Package-only consumers and tests built with project references provide complementary evidence. The inspection report identifies the scenarios actually executed. A successful build of an integration is not evidence that its runtime scenario passed.

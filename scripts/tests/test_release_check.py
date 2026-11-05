@@ -96,6 +96,10 @@ class PackageChecks(unittest.TestCase):
         self.assertFalse(approved.exists())
 
 
+TEST_FRAMEWORK_RUN = ("  Passed Should_consume_a_published_message [1 s]\n"
+                      "  Failed Should_fail_when_an_awaited_async_assertion_fails [1 ms]\n")
+
+
 class ConsumerChecks(unittest.TestCase):
     def test_unexpected_inspection_error_removes_stale_approval(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -126,8 +130,11 @@ class ConsumerChecks(unittest.TestCase):
         recipes = check.consumer_recipes(check.load_manifest()[0])
         responses = []
         for name, packages, external, sources, constants, expected in recipes:
-            responses += [(0, "AnalyzerProbe.cs(11,9): warning MTA0001: missing await"),
-                          (0, "\n".join("pass\t" + assertion for assertion in sorted(expected)))]
+            responses.append((0, "AnalyzerProbe.cs(11,9): warning MTA0001: missing await"))
+            if name in check.TEST_CONSUMERS:
+                responses.append((1, TEST_FRAMEWORK_RUN))
+            else:
+                responses.append((0, "\n".join("pass\t" + assertion for assertion in sorted(expected))))
         failures = []
         with patch.object(check, "run_captured", side_effect=responses):
             smoke = check.smoke_test(Path("/tmp"), "1.0.0-dev.1", check.load_manifest()[0], failures)
@@ -199,6 +206,46 @@ class ConsumerChecks(unittest.TestCase):
         for props in generated:
             item = ET.fromstring(props).find("ItemGroup/NuGetAuditSuppress")
             self.assertEqual("https://github.com/advisories/GHSA-0000", item.get("Include"))
+
+    def test_test_framework_consumer_runs_its_tests(self):
+        commands = []
+        def run(arguments, cwd):
+            commands.append(arguments)
+            if (Path(cwd) / "TestFrameworkConsumer.cs").exists():
+                return (0, "built") if arguments[1] == "build" else (1, TEST_FRAMEWORK_RUN)
+            return 1, "stop"
+        failures = []
+        with patch.object(check, "run_captured", side_effect=run):
+            smoke = check.smoke_test(Path("/tmp"), "1.0.0-dev.1", check.load_manifest()[0], failures)
+        consumer = next(item for item in smoke["consumers"] if item["name"] == "TestFramework")
+        self.assertEqual([["pass", "packaged test harness test passed"], ["pass", "failing awaited async assertion failed the run"]],
+                         consumer["checks"])
+        self.assertIn(["dotnet", "test", "-c", "Release", "--no-build", "--nologo", "--logger", "console;verbosity=normal"], commands)
+        self.assertFalse(any(failure.startswith("smoke TestFramework") for failure in failures), failures)
+
+    def test_test_framework_consumer_fails_when_the_failing_test_passes(self):
+        run_output = "  Passed Should_consume_a_published_message [1 s]\n  Passed Should_fail_when_an_awaited_async_assertion_fails [1 ms]\n"
+        def run(arguments, cwd):
+            if (Path(cwd) / "TestFrameworkConsumer.cs").exists():
+                return (0, "built") if arguments[1] == "build" else (0, run_output)
+            return 1, "stop"
+        failures = []
+        with patch.object(check, "run_captured", side_effect=run):
+            check.smoke_test(Path("/tmp"), "1.0.0-dev.1", check.load_manifest()[0], failures)
+        self.assertTrue(any(failure.startswith("smoke TestFramework: scenario did not pass") for failure in failures), failures)
+
+    def test_test_framework_consumer_is_a_test_project(self):
+        projects = []
+        def run(arguments, cwd):
+            if (Path(cwd) / "TestFrameworkConsumer.cs").exists():
+                projects.append((Path(cwd) / "ReleaseSmoke.csproj").read_text())
+            return 1, "stop"
+        with patch.object(check, "run_captured", side_effect=run):
+            check.smoke_test(Path("/tmp"), "1.0.0-dev.1", check.load_manifest()[0], [])
+        self.assertEqual(1, len(projects))
+        self.assertNotIn("<OutputType>Exe</OutputType>", projects[0])
+        for package in ("MessageTransit.TestFramework", "NUnit", "NUnit3TestAdapter", "Microsoft.NET.Test.Sdk"):
+            self.assertIn(f'Include="{package}"', projects[0])
 
     def test_diagnostics_preserve_consumer_build_errors(self):
         args = SimpleNamespace(version="1.0.0-dev.1", commit="abc")
