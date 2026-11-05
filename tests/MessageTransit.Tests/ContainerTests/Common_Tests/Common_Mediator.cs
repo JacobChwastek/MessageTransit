@@ -390,7 +390,7 @@ namespace MessageTransit.Tests.ContainerTests.Common_Tests
 
             await context.SendContext.Task.OrTimeout(TimeSpan.FromSeconds(1));
 
-            Assert.ThrowsAsync<TimeoutException>(async () => await context.ConsumeContextEasyB.Task.OrTimeout(100));
+            await Assert.ThrowsAsync<TimeoutException>(async () => await context.ConsumeContextEasyB.Task.OrTimeout(100));
         }
 
         protected override IServiceCollection ConfigureServices(IServiceCollection collection)

@@ -27,7 +27,7 @@
 
         static async Task AssertNoMessageAsync(TestClient client, int milliseconds = 1000)
         {
-            Assert.ThrowsAsync<TimeoutException>(async () => await client.ReadAsync().OrTimeout(milliseconds));
+            await Assert.ThrowsAsync<TimeoutException>(async () => await client.ReadAsync().OrTimeout(milliseconds));
         }
 
         [Test]

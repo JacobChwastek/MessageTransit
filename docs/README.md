@@ -8,6 +8,7 @@ Start with the repository [README](../README.md) for requirements, the package f
 - [EF Core migration](migration/entity-framework-core.md): replacing the removed EF6 saga repository and audit store with EF Core.
 - [Marten 9 upgrade](migration/marten.md): the Marten 9 changes that affect saga storage, including the default serializer.
 - [StackExchange.Redis 3 upgrade](migration/redis.md): the StackExchange.Redis 3 changes that affect Redis saga storage and the applications that use it.
+- [NUnit 5](migration/nunit-5.md): the NUnit 5 changes that affect test projects using `MessageTransit.TestFramework`.
 
 ## Quartz scheduling
 

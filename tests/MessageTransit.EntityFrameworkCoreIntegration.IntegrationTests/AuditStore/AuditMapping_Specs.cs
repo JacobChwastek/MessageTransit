@@ -44,7 +44,7 @@ public class AuditMapping_Specs
     }
 
     [Test]
-    public void Should_reject_a_store_whose_cached_audit_model_maps_another_table_before_database_access()
+    public async Task Should_reject_a_store_whose_cached_audit_model_maps_another_table_before_database_access()
     {
         using var services = CreateInternalServices();
         var options = new DbContextOptionsBuilder()
@@ -57,7 +57,7 @@ public class AuditMapping_Specs
 
         IMessageAuditStore store = new EntityFrameworkAuditStore(options, "second_audit", "second_schema");
 
-        var exception = Assert.ThrowsAsync<InvalidOperationException>(async () => await store.StoreMessage(new AuditedMessage(), new MessageAuditMetadata()));
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () => await store.StoreMessage(new AuditedMessage(), new MessageAuditMetadata()));
         Assert.That(exception.Message, Does.Contain("first_audit").And.Contain("second_schema.second_audit"));
     }
 

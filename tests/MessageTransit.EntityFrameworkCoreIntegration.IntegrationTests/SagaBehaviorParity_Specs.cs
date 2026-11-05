@@ -306,7 +306,7 @@ public class SagaBehaviorParity_Specs<TParameters> : EntityFrameworkTestFixture<
         second.Count = 9;
         second.Version++;
 
-        Assert.ThrowsAsync<DbUpdateConcurrencyException>(async () => await secondContext.SaveChangesAsync(TestCancellationToken));
+        await Assert.ThrowsAsync<DbUpdateConcurrencyException>(async () => await secondContext.SaveChangesAsync(TestCancellationToken));
         var persisted = await Load(id);
         Assert.Multiple(() =>
         {

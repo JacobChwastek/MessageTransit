@@ -100,7 +100,7 @@ namespace MessageTransit.TestFramework.Futures.Tests
 
             var client = scope.ServiceProvider.GetRequiredService<IRequestClient<CalculatePrice>>();
 
-            var exception = Assert.ThrowsAsync<RequestFaultException>(async () => await client.GetResponse<PriceCalculation>(new
+            var exception = await Assert.ThrowsAsync<RequestFaultException>(async () => await client.GetResponse<PriceCalculation>(new
             {
                 OrderLineId = orderLineId,
                 Sku = "missing"

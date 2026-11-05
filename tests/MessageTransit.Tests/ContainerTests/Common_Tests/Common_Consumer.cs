@@ -335,7 +335,7 @@
 
             await context.SendContext.Task.OrCanceled(InMemoryTestHarness.InactivityToken);
 
-            Assert.ThrowsAsync<TimeoutException>(async () => await context.ConsumeContextEasyB.Task.OrTimeout(s: 2));
+            await Assert.ThrowsAsync<TimeoutException>(async () => await context.ConsumeContextEasyB.Task.OrTimeout(s: 2));
         }
 
         protected override IServiceCollection ConfigureServices(IServiceCollection collection)
