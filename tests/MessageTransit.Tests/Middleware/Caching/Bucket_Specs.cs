@@ -29,6 +29,8 @@
         [Test]
         public async Task Should_fill_them_even_fuller()
         {
+            ResumeOnCacheThreads();
+
             var settings = new TestCacheSettings(100, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(60));
 
             var cache = new GreenCache<SimpleValue>(settings);
@@ -63,6 +65,8 @@
         [Test]
         public async Task Should_fill_up_a_bunch_of_buckets()
         {
+            ResumeOnCacheThreads();
+
             var addedObserver = new NodeAddedCountObserver(100);
             var removedObserver = new NodeRemovedCountObserver<SimpleValue>(40);
 
@@ -95,6 +99,8 @@
         [Test]
         public async Task Should_fill_up_the_buckets()
         {
+            ResumeOnCacheThreads();
+
             var settings = new TestCacheSettings(100, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(60));
 
             var cache = new GreenCache<SimpleValue>(settings);
@@ -117,6 +123,8 @@
         [Test]
         public async Task Should_fill_up_the_buckets_over_time()
         {
+            ResumeOnCacheThreads();
+
             var settings = new TestCacheSettings(100, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(300));
 
             var cache = new GreenCache<SimpleValue>(settings);
@@ -141,6 +149,8 @@
         [Test]
         public async Task Should_fill_up_the_buckets_over_time_and_remove_old_entries()
         {
+            ResumeOnCacheThreads();
+
             var settings = new TestCacheSettings(100, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(300));
 
             var cache = new GreenCache<SimpleValue>(settings);
@@ -169,6 +179,8 @@
         [Test]
         public async Task Should_fill_up_the_buckets_with_smart_values_over_time_and_remove_old_entries()
         {
+            ResumeOnCacheThreads();
+
             var settings = new TestCacheSettings(100, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(300));
 
             var cache = new GreenCache<SmartValue>(settings);
@@ -193,6 +205,16 @@
             await removed.Completed;
 
             Assert.That(cache.Statistics.Count, Is.EqualTo(100));
+        }
+
+
+        /// <summary>
+        /// The expected counts are the cache's state when an add or removal completes an observer, so the test has to resume on the
+        /// cache's own thread. NUnit 5 runs async tests under a synchronization context that resumes them on another thread instead.
+        /// </summary>
+        static void ResumeOnCacheThreads()
+        {
+            SynchronizationContext.SetSynchronizationContext(null);
         }
 
 
